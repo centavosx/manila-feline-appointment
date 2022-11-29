@@ -8,7 +8,7 @@ import { Section } from '../components/sections'
 import { FormInput } from '../components/input'
 import { Formik } from 'formik'
 import { Button } from '../components/button'
-import { FormContainer } from '../components/Form'
+import { FormContainer } from '../components/form'
 import { useRouter } from 'next/router'
 
 const team: { name: string; position: string }[] = [
