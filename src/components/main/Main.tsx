@@ -22,6 +22,7 @@ export const Main = ({
         pageTitle={pageTitle}
         description="Set your appointment now"
       />
+
       <Flex
         flexDirection={'column'}
         sx={{ flex: 1 }}
