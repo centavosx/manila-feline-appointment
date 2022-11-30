@@ -1,14 +1,12 @@
 import Script from 'next/script'
-import { useId } from 'react'
 
 export const FaceBookComponent = () => {
-  const id2 = useId()
   return (
     <>
       <div id="fb-root"></div>
       <div id="fb-customer-chat" className="fb-customerchat"></div>
 
-      <Script id={id2} crossOrigin="anonymous" strategy="lazyOnload">
+      <Script id="facebook-chat" crossOrigin="anonymous" strategy="lazyOnload">
         {`
         var chatbox = document.getElementById('fb-customer-chat');
         chatbox.setAttribute("page_id", "108511637693025");
