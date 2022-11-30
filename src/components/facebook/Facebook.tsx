@@ -5,12 +5,11 @@ export const FaceBookComponent = () => {
     <MessengerChat
       pageId="108511637693025"
       language="en_US"
-      themeColor={'#000000'}
       bottomSpacing={300}
       loggedInGreeting="loggedInGreeting"
       loggedOutGreeting="loggedOutGreeting"
       greetingDialogDisplay={'show'}
-      debugMode={true}
+
     />
   )
 }
