@@ -1,7 +1,7 @@
 import { TextField, TextFieldProps } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
-export type Inputcolor = {
+export type InputColor = {
   inputcolor?: {
     backgroundColor?: string
     labelColor?: string
@@ -14,7 +14,7 @@ export type Inputcolor = {
   }
 }
 
-const TextInput = ({ sx, children, ...other }: TextFieldProps & Inputcolor) => {
+const TextInput = ({ sx, children, ...other }: TextFieldProps & InputColor) => {
   return <TextField sx={{ width: '100%', ...sx }} {...other} />
 }
 export const Input = styled(TextInput)(({ inputcolor }) => ({
