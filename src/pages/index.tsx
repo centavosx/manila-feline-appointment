@@ -10,9 +10,6 @@ import { Formik } from 'formik'
 import { Button } from '../components/button'
 import { FormContainer } from '../components/forms'
 import { useRouter } from 'next/router'
-import { FaceBookComponent } from 'components/facebook'
-
-import Script from 'next/script'
 
 const team: { name: string; position: string }[] = [
   {
@@ -387,9 +384,6 @@ Under the leadership of our highly skilled veterinary doctors, your pet is alway
           </Section>
         </Flex>
       </Main>
-      <footer>
-        <FaceBookComponent />
-      </footer>
     </>
   )
 }
