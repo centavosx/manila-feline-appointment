@@ -51,7 +51,7 @@ export const Main = ({
             </Anchor>
           </Flex>
           <WebView>
-            <Flex sx={{ gap: 2, padding: 15 }}>
+            <Flex sx={{ gap: 24, padding: 15 }}>
               <WebNavigation isLink={isLink} />
             </Flex>
           </WebView>

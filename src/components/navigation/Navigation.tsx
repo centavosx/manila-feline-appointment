@@ -54,7 +54,7 @@ const LinkRef = ({
   )
 }
 
-const navigations = ['About Us', 'Doctors', 'Services', 'Contact Us']
+const navigations = ['Home', 'Services', 'Doctors', 'Doctors', 'Contact Us']
 
 export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
   return (
