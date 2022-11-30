@@ -56,7 +56,7 @@ export const Main = ({
             </Flex>
           </WebView>
           <MobileView>
-            <MobileNavigation />
+            <MobileNavigation isLink={isLink} />
           </MobileView>
         </Header>
         {children}
