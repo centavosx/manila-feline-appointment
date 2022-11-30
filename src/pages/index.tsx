@@ -10,6 +10,7 @@ import { Formik } from 'formik'
 import { Button } from '../components/button'
 import { FormContainer } from '../components/forms'
 import { useRouter } from 'next/router'
+import { FaceBookComponent } from 'components/facebook'
 
 import Script from 'next/script'
 
@@ -387,32 +388,7 @@ Under the leadership of our highly skilled veterinary doctors, your pet is alway
         </Flex>
       </Main>
       <footer>
-        <div id="fb-root"></div>
-
-        <div id="fb-customer-chat" className="fb-customerchat"></div>
-
-        <Script id="fb" strategy="lazyOnload">
-          {`var chatbox = document.getElementById('fb-customer-chat');
-    chatbox.setAttribute("page_id", "108511637693025");
-    chatbox.setAttribute("attribution", "biz_inbox");
-    
-
-      window.fbAsyncInit = function() {
-        FB.init({
-          xfbml            : true,
-          version          : 'v15.0'
-        });
-      };
-
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    `}
-        </Script>
+        <FaceBookComponent />
       </footer>
     </>
   )
