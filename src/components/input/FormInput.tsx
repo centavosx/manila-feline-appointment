@@ -7,7 +7,7 @@ import {
 } from 'formik'
 import { SxStyleProp } from 'rebass'
 import { Input, InputColor } from './Input'
-import { FilledTextFieldProps, TextFieldProps } from '@mui/material'
+import { TextFieldProps } from '@mui/material'
 
 type ErrorProp = { error?: string; sx?: SxStyleProp }
 
