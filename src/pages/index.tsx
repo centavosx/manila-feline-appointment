@@ -8,8 +8,10 @@ import { Section } from '../components/sections'
 import { FormInput } from '../components/input'
 import { Formik } from 'formik'
 import { Button } from '../components/button'
-import { FormContainer } from '../components/form'
+import { FormContainer } from '../components/forms'
 import { useRouter } from 'next/router'
+
+import Script from 'next/script'
 
 const team: { name: string; position: string }[] = [
   {
@@ -41,31 +43,32 @@ const team: { name: string; position: string }[] = [
 export default function Home() {
   const { replace } = useRouter()
   return (
-    <Main>
-      <Flex flexDirection={'column'} alignItems="center">
-        <Image src="/assets/mingming.png" alt="ming" width={'100%'} />
-        <Section id="aboutus" backgroundColor={theme.mainColors.second}>
-          <Flex
-            sx={{
-              flexDirection: ['column-reverse', 'column-reverse', 'row'],
-              gap: 2,
-            }}
-          >
+    <>
+      <Main>
+        <Flex flexDirection={'column'} alignItems="center">
+          <Image src="/assets/mingming.png" alt="ming" width={'100%'} />
+          <Section id="aboutus" backgroundColor={theme.mainColors.second}>
             <Flex
-              flex={1}
-              alignSelf="center"
-              flexDirection={'column'}
-              sx={{ gap: [2] }}
+              sx={{
+                flexDirection: ['column-reverse', 'column-reverse', 'row'],
+                gap: 2,
+              }}
             >
-              <Text sx={{ fontSize: 40 }}>About us</Text>
-              <Text
-                sx={{
-                  fontSize: 16,
-                  flex: 1,
-                  whiteSpace: 'pre-wrap',
-                }}
+              <Flex
+                flex={1}
+                alignSelf="center"
+                flexDirection={'column'}
+                sx={{ gap: [2] }}
               >
-                {`Manila Feline Center is a cat-only veterinary clinic, the very FIRST ISFM Accredited Cat-Friendly Clinic here in the country, offering a unique, special place where you and your cats are listened to and treated with respect.   We strive to help keep your cat happy and healthy.   Established on __Feb 1st 2022 (date)  by  Ma. Josefina Rada De Guzman and Dr Jaymie Rose Hayo  aiming to provide the best possible medical, surgical and dental care for your cherished cats.
+                <Text sx={{ fontSize: 40 }}>About us</Text>
+                <Text
+                  sx={{
+                    fontSize: 16,
+                    flex: 1,
+                    whiteSpace: 'pre-wrap',
+                  }}
+                >
+                  {`Manila Feline Center is a cat-only veterinary clinic, the very FIRST ISFM Accredited Cat-Friendly Clinic here in the country, offering a unique, special place where you and your cats are listened to and treated with respect.   We strive to help keep your cat happy and healthy.   Established on __Feb 1st 2022 (date)  by  Ma. Josefina Rada De Guzman and Dr Jaymie Rose Hayo  aiming to provide the best possible medical, surgical and dental care for your cherished cats.
 
 Our veterinary services and facilities are designed to offer preventive care for healthy pets, early detection and treatment of disease as your pet ages, and complete medical, surgical, and dental care.  No matter whether your furry friend is your first pet or you’ve been a lifelong pet owner, we are here to give you exactly the assistance and information you need.  We are committed to providing the best possible veterinary care for all pets and pet owners, irrespective of their medical or material circumstances. Our experience and love for cats ensure that cats receive the best care possible. 
 
@@ -75,311 +78,342 @@ Currently serving the cats and cat owners in Quezon City, and we look forward to
 
 No matter which veterinarian your pet sees you can be assured you are getting the highest quality care here at Manila Feline Center.
 `}
-              </Text>
+                </Text>
+              </Flex>
+              <Flex
+                flex={1}
+                height={'100%'}
+                justifyContent="center"
+                alignSelf={'center'}
+              >
+                <Image src="/assets/mingmore.png" alt="ming" />
+              </Flex>
             </Flex>
-            <Flex
-              flex={1}
-              height={'100%'}
-              justifyContent="center"
-              alignSelf={'center'}
-            >
-              <Image src="/assets/mingmore.png" alt="ming" />
-            </Flex>
-          </Flex>
-        </Section>
-        <Section
-          id="mission"
-          title="Our mission"
-          backgroundColor={theme.mainColors.third}
-        >
-          We provide quality medical, surgical, and dental care to every feline
-          or cat in need. We are dedicated to treating every cat as if they were
-          our own and exceeding our client’s expectations.
-        </Section>
-        <Section
-          id="vision"
-          title="Our vision"
-          backgroundColor={theme.mainColors.fourth}
-        >
-          We envision creating a culture of lifelong healthier cats in the
-          community.
-        </Section>
-        <Section
-          id="commitment"
-          title="Our commitment"
-          backgroundColor={theme.mainColors.fifth}
-        >
-          <Text
-            sx={{
-              fontSize: 16,
-              flex: 1,
-              whiteSpace: 'pre-wrap',
-              color: 'black',
-              textAlign: 'center',
-            }}
+          </Section>
+          <Section
+            id="mission"
+            title="Our mission"
+            backgroundColor={theme.mainColors.third}
           >
-            {`We share your love of cats and are committed to providing expert-level feline medicine, dental, and surgery without sacrificing accessibility and compassion. 
+            We provide quality medical, surgical, and dental care to every
+            feline or cat in need. We are dedicated to treating every cat as if
+            they were our own and exceeding our client’s expectations.
+          </Section>
+          <Section
+            id="vision"
+            title="Our vision"
+            backgroundColor={theme.mainColors.fourth}
+          >
+            We envision creating a culture of lifelong healthier cats in the
+            community.
+          </Section>
+          <Section
+            id="commitment"
+            title="Our commitment"
+            backgroundColor={theme.mainColors.fifth}
+          >
+            <Text
+              sx={{
+                fontSize: 16,
+                flex: 1,
+                whiteSpace: 'pre-wrap',
+                color: 'black',
+                textAlign: 'center',
+              }}
+            >
+              {`We share your love of cats and are committed to providing expert-level feline medicine, dental, and surgery without sacrificing accessibility and compassion. 
 We adopt a progressive, holistic and comprehensive veterinary approach to patient ailments. 
 We maintain the highest standards and place an emphasis on constantly improving our medical, surgical, and diagnostic capabilities, to improve all outcomes.
 We are committed to honesty, transparency, and building up a relationship based on trust and respect. 
 `}
-          </Text>
-        </Section>
-        <Section
-          id="doctors"
-          title="Our Team"
-          backgroundColor={theme.mainColors.fourth}
-          contentProps={{ pl: [null, 80, 150], pr: [null, 80, 150] }}
-        >
-          <Text
-            sx={{
-              fontSize: 16,
-              flex: 1,
-              whiteSpace: 'pre-wrap',
-              color: 'black',
-              textAlign: 'center',
-            }}
+            </Text>
+          </Section>
+          <Section
+            id="doctors"
+            title="Our Team"
+            backgroundColor={theme.mainColors.fourth}
+            contentProps={{ pl: [null, 80, 150], pr: [null, 80, 150] }}
           >
-            {`Our team understands the unique bond that you have with your pet cat and our role in that relationship.  We feel honored to be entrusted with your cat's well-being, and work hard to provide services that will support that endeavor.
+            <Text
+              sx={{
+                fontSize: 16,
+                flex: 1,
+                whiteSpace: 'pre-wrap',
+                color: 'black',
+                textAlign: 'center',
+              }}
+            >
+              {`Our team understands the unique bond that you have with your pet cat and our role in that relationship.  We feel honored to be entrusted with your cat's well-being, and work hard to provide services that will support that endeavor.
 Here at Manila Feline Center, an expert staff of veterinarian doctors and a skilled team of technicians are here to do just that.  We are committed to providing quality medical and health care for your pets.
 Under the leadership of our highly skilled veterinary doctors, your pet is always in good hands. We're ready when your pet needs us.
 `}
-          </Text>
-          <BoxContainer>
-            {team.map((d, i) => (
-              <Box
-                sx={{
-                  borderColor: theme.mainColors.first,
-                  padding: 1,
-                  borderWidth: 1,
-                  textAlign: 'center',
-                }}
-                flexProps={{
-                  sx: { gap: 2 },
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                }}
-                key={i}
-              >
-                <Flex flexDirection={'column'} sx={{ gap: 1 }}>
-                  <Text
-                    sx={{
-                      color: theme.mainColors.first,
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {d.name}
-                  </Text>
-                  <Text
-                    sx={{
-                      color: theme.mainColors.first,
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {d.position}
-                  </Text>
-                </Flex>
-              </Box>
-            ))}
-          </BoxContainer>
-        </Section>
+            </Text>
+            <BoxContainer>
+              {team.map((d, i) => (
+                <Box
+                  sx={{
+                    borderColor: theme.mainColors.first,
+                    padding: 1,
+                    borderWidth: 1,
+                    textAlign: 'center',
+                  }}
+                  flexProps={{
+                    sx: { gap: 2 },
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                  }}
+                  key={i}
+                >
+                  <Flex flexDirection={'column'} sx={{ gap: 1 }}>
+                    <Text
+                      sx={{
+                        color: theme.mainColors.first,
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      {d.name}
+                    </Text>
+                    <Text
+                      sx={{
+                        color: theme.mainColors.first,
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      {d.position}
+                    </Text>
+                  </Flex>
+                </Box>
+              ))}
+            </BoxContainer>
+          </Section>
 
-        <Section
-          id="services"
-          title="Services"
-          backgroundColor={theme.mainColors.fifth}
-          contentProps={{ pl: [null, 80, 150], pr: [null, 80, 150] }}
-        >
-          We offer intensive veterinary care, with qualified personnel on-hand
-          to ensure that your pets are properly taken care of. Some of the
-          services we offer are preventive care, wellness, consultation,
-          nutritional counseling, laboratory, surgery, telemedicine, dental
-          care, hospitalization, after-hour emergency, and we also have pet
-          supplies.
-          <Button
-            type="submit"
-            backgroundcolor={theme.mainColors.eight}
-            activecolor={theme.mainColors.first}
-            hovercolor={theme.mainColors.second}
-            textcolor={theme.colors.verylight}
-            style={{ width: '200px' }}
-            onClick={() => replace('/set-an-appointment')}
+          <Section
+            id="services"
+            title="Services"
+            backgroundColor={theme.mainColors.fifth}
+            contentProps={{ pl: [null, 80, 150], pr: [null, 80, 150] }}
           >
-            SET AN APPOINTMENT
-          </Button>
-        </Section>
-        <Section
-          id="contactus"
-          padding={0}
-          backgroundColor={theme.mainColors.sixth}
-          contentProps={{
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            sx: {
-              position: 'relative',
-            },
-          }}
-        >
-          <Image
-            src="/assets/meow.png"
-            width="100%"
-            height={'100%'}
-            alt="background"
-            sx={{ position: 'absolute' }}
-          />
-          <Flex
-            alignSelf={'flex-end'}
-            sx={{
-              width: ['100%', '50%'],
-              zIndex: 1,
-              margin: 10,
-              height: '100%',
-            }}
-            flexDirection="column"
-            backgroundColor={theme.mainColors.sixth}
-          >
-            <Formik<{ test: string }>
-              initialValues={{ test: '' }}
-              onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2))
-
-                  setSubmitting(false)
-                }, 400)
-              }}
+            We offer intensive veterinary care, with qualified personnel on-hand
+            to ensure that your pets are properly taken care of. Some of the
+            services we offer are preventive care, wellness, consultation,
+            nutritional counseling, laboratory, surgery, telemedicine, dental
+            care, hospitalization, after-hour emergency, and we also have pet
+            supplies.
+            <Button
+              type="submit"
+              backgroundcolor={theme.mainColors.eight}
+              activecolor={theme.mainColors.first}
+              hovercolor={theme.mainColors.second}
+              textcolor={theme.colors.verylight}
+              style={{ width: '200px' }}
+              onClick={() => replace('/set-an-appointment')}
             >
-              <FormContainer
-                flexProps={{
-                  sx: { gap: 10 },
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  padding: 20,
+              SET AN APPOINTMENT
+            </Button>
+          </Section>
+          <Section
+            id="contactus"
+            padding={0}
+            backgroundColor={theme.mainColors.sixth}
+            contentProps={{
+              width: '100%',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              sx: {
+                position: 'relative',
+              },
+            }}
+          >
+            <Image
+              src="/assets/meow.png"
+              width="100%"
+              height={'100%'}
+              alt="background"
+              sx={{ position: 'absolute' }}
+            />
+            <Flex
+              alignSelf={'flex-end'}
+              sx={{
+                width: ['100%', '50%'],
+                zIndex: 1,
+                margin: 10,
+                height: '100%',
+              }}
+              flexDirection="column"
+              backgroundColor={theme.mainColors.sixth}
+            >
+              <Formik<{ test: string }>
+                initialValues={{ test: '' }}
+                onSubmit={(values, { setSubmitting }) => {
+                  setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2))
+
+                    setSubmitting(false)
+                  }, 400)
                 }}
-                label="Contact Us"
-                labelProps={{
-                  width: '100%',
-                  justifyContent: 'center',
-                }}
+              >
+                <FormContainer
+                  flexProps={{
+                    sx: { gap: 10 },
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: 20,
+                  }}
+                  label="Contact Us"
+                  labelProps={{
+                    width: '100%',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Flex
+                    sx={{
+                      gap: [10],
+                      flexDirection: ['column', 'row'],
+                      width: '100%',
+                    }}
+                  >
+                    <FormInput
+                      name="name"
+                      label={'Name'}
+                      variant="filled"
+                      inputcolor={{
+                        labelColor: 'gray',
+                        backgroundColor: theme.mainColors.fourth,
+                        color: 'black',
+                      }}
+                      sx={{ color: 'black', width: '100%' }}
+                      placeholder="Please type your password"
+                    />
+                    <FormInput
+                      name="email"
+                      label={'Email'}
+                      variant="filled"
+                      inputcolor={{
+                        labelColor: 'gray',
+                        backgroundColor: theme.mainColors.fourth,
+                        color: 'black',
+                      }}
+                      sx={{ color: 'black', width: '100%' }}
+                      placeholder="Please type your password"
+                    />
+                  </Flex>
+                  <FormInput
+                    name="subject"
+                    label={'Subject'}
+                    variant="filled"
+                    inputcolor={{
+                      labelColor: 'gray',
+                      backgroundColor: theme.mainColors.fourth,
+                      color: 'black',
+                    }}
+                    sx={{ color: 'black', width: '100%' }}
+                    placeholder="Please type your password"
+                  />
+                  <FormInput
+                    name="message"
+                    label={'Message'}
+                    variant="filled"
+                    multiline={true}
+                    inputcolor={{
+                      labelColor: 'gray',
+                      backgroundColor: theme.mainColors.fourth,
+                      color: 'black',
+                    }}
+                    minRows={12}
+                    maxRows={12}
+                    sx={{ color: 'black' }}
+                    placeholder="Please type your password"
+                  />
+                  <Flex width={'100%'} justifyContent={'end'}>
+                    <Button
+                      type="submit"
+                      backgroundcolor={theme.mainColors.eight}
+                      activecolor={theme.mainColors.first}
+                      hovercolor={theme.mainColors.second}
+                      textcolor={theme.colors.verylight}
+                      style={{ width: '100px' }}
+                    >
+                      Submit
+                    </Button>
+                  </Flex>
+                </FormContainer>
+              </Formik>
+              <Flex
+                backgroundColor={theme.mainColors.fourth}
+                padding={20}
+                flexDirection="row"
               >
                 <Flex
                   sx={{
-                    gap: [10],
-                    flexDirection: ['column', 'row'],
-                    width: '100%',
+                    flexDirection: 'column',
+                    textAlign: 'center',
+                    gap: 1,
+                    flex: 1,
                   }}
                 >
-                  <FormInput
-                    name="name"
-                    label={'Name'}
-                    variant="filled"
-                    inputColor={{
-                      labelColor: 'gray',
-                      backgroundColor: theme.mainColors.fourth,
-                      color: 'black',
-                    }}
-                    sx={{ color: 'black', width: '100%' }}
-                    placeholder="Please type your password"
-                  />
-                  <FormInput
-                    name="email"
-                    label={'Email'}
-                    variant="filled"
-                    inputColor={{
-                      labelColor: 'gray',
-                      backgroundColor: theme.mainColors.fourth,
-                      color: 'black',
-                    }}
-                    sx={{ color: 'black', width: '100%' }}
-                    placeholder="Please type your password"
-                  />
+                  <Text sx={{ color: 'black' }}>Call us now</Text>
+                  <Text sx={{ color: 'black' }}>(+639123456789)</Text>
                 </Flex>
-                <FormInput
-                  name="subject"
-                  label={'Subject'}
-                  variant="filled"
-                  inputColor={{
-                    labelColor: 'gray',
-                    backgroundColor: theme.mainColors.fourth,
-                    color: 'black',
+                <Flex
+                  sx={{
+                    flexDirection: 'column',
+                    textAlign: 'center',
+                    gap: 1,
+                    flex: 1,
                   }}
-                  sx={{ color: 'black', width: '100%' }}
-                  placeholder="Please type your password"
-                />
-                <FormInput
-                  name="message"
-                  label={'Message'}
-                  variant="filled"
-                  multiline={true}
-                  inputColor={{
-                    labelColor: 'gray',
-                    backgroundColor: theme.mainColors.fourth,
-                    color: 'black',
-                  }}
-                  minRows={12}
-                  maxRows={12}
-                  sx={{ color: 'black' }}
-                  placeholder="Please type your password"
-                />
-                <Flex width={'100%'} justifyContent={'end'}>
-                  <Button
-                    type="submit"
-                    backgroundcolor={theme.mainColors.eight}
-                    activecolor={theme.mainColors.first}
-                    hovercolor={theme.mainColors.second}
-                    textcolor={theme.colors.verylight}
-                    style={{ width: '100px' }}
-                  >
-                    Submit
-                  </Button>
+                >
+                  <Text sx={{ color: 'black' }}>
+                    Do you have any inquiries?
+                  </Text>
+                  <Text sx={{ color: 'black' }}>sample@sample.com</Text>
                 </Flex>
-              </FormContainer>
-            </Formik>
-            <Flex
-              backgroundColor={theme.mainColors.fourth}
-              padding={20}
-              flexDirection="row"
-            >
-              <Flex
-                sx={{
-                  flexDirection: 'column',
-                  textAlign: 'center',
-                  gap: 1,
-                  flex: 1,
-                }}
-              >
-                <Text sx={{ color: 'black' }}>Call us now</Text>
-                <Text sx={{ color: 'black' }}>(+639123456789)</Text>
-              </Flex>
-              <Flex
-                sx={{
-                  flexDirection: 'column',
-                  textAlign: 'center',
-                  gap: 1,
-                  flex: 1,
-                }}
-              >
-                <Text sx={{ color: 'black' }}>Do you have any inquiries?</Text>
-                <Text sx={{ color: 'black' }}>sample@sample.com</Text>
-              </Flex>
-              <Flex
-                sx={{
-                  flexDirection: 'column',
-                  textAlign: 'center',
-                  gap: 1,
-                  flex: 1,
-                }}
-              >
-                <Text sx={{ color: 'black' }}>Open hours</Text>
-                <Text sx={{ color: 'black' }}>8am to 8pm</Text>
+                <Flex
+                  sx={{
+                    flexDirection: 'column',
+                    textAlign: 'center',
+                    gap: 1,
+                    flex: 1,
+                  }}
+                >
+                  <Text sx={{ color: 'black' }}>Open hours</Text>
+                  <Text sx={{ color: 'black' }}>8am to 8pm</Text>
+                </Flex>
               </Flex>
             </Flex>
-          </Flex>
-        </Section>
-      </Flex>
-    </Main>
+          </Section>
+        </Flex>
+      </Main>
+      <footer>
+        <div id="fb-root"></div>
+
+        <div id="fb-customer-chat" className="fb-customerchat"></div>
+
+        <Script id="fb" strategy="lazyOnload">
+          {`var chatbox = document.getElementById('fb-customer-chat');
+    chatbox.setAttribute("page_id", "108511637693025");
+    chatbox.setAttribute("attribution", "biz_inbox");
+    
+
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v15.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    `}
+        </Script>
+      </footer>
+    </>
   )
 }

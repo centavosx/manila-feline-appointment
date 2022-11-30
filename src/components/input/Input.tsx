@@ -1,8 +1,8 @@
 import { TextField, TextFieldProps } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
-export type InputColor = {
-  inputColor?: {
+export type Inputcolor = {
+  inputcolor?: {
     backgroundColor?: string
     labelColor?: string
     color?: string
@@ -14,30 +14,30 @@ export type InputColor = {
   }
 }
 
-const TextInput = ({ sx, children, ...other }: TextFieldProps & InputColor) => {
+const TextInput = ({ sx, children, ...other }: TextFieldProps & Inputcolor) => {
   return <TextField sx={{ width: '100%', ...sx }} {...other} />
 }
-export const Input = styled(TextInput)(({ inputColor }) => ({
+export const Input = styled(TextInput)(({ inputcolor }) => ({
   borderRadius: 4,
-  backgroundColor: inputColor?.backgroundColor,
+  backgroundColor: inputcolor?.backgroundColor,
   '& label.Mui-focused': {
-    color: inputColor?.labelColor,
+    color: inputcolor?.labelColor,
   },
 
   '& .MuiOutlinedInput-root': {
-    color: inputColor?.color,
+    color: inputcolor?.color,
     padding: 1,
     '& fieldset': {
-      borderColor: inputColor?.labelColor,
+      borderColor: inputcolor?.labelColor,
     },
     '&:hover': {
-      color: inputColor?.hover?.color,
+      color: inputcolor?.hover?.color,
     },
     '&:hover fieldset': {
-      borderColor: inputColor?.hover?.labelColor,
+      borderColor: inputcolor?.hover?.labelColor,
     },
     '&.Mui-focused fieldset': {
-      borderColor: inputColor?.labelColor,
+      borderColor: inputcolor?.labelColor,
     },
   },
 }))
