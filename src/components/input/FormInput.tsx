@@ -5,7 +5,7 @@ import {
   FieldConfig,
   FormikValues,
 } from 'formik'
-import { SxStyleProp } from 'rebass'
+import { Flex, SxStyleProp } from 'rebass'
 import { Input, InputColor } from './Input'
 import { TextFieldProps } from '@mui/material'
 
@@ -27,7 +27,7 @@ export const FormInput = ({
         form: { touched },
         meta: { error = '' },
       }: FormikFieldProps<any, FormikValues>) => (
-        <>
+        <Flex flexDirection="column" sx={{ gap: 1 }}>
           <Input
             {...{
               ...props,
@@ -37,7 +37,7 @@ export const FormInput = ({
             }}
           />
           <InputError error={error} {...errorProp} />
-        </>
+        </Flex>
       )}
     </Field>
   )

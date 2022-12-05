@@ -44,7 +44,7 @@ export default function Home() {
     <Main id="home">
       <Flex flexDirection={'column'} alignItems="center">
         <Image src="/assets/mingming.png" alt="ming" width={'100%'} />
-        <Section id="aboutus" backgroundColor={theme.mainColors.second}>
+        <Section id="home" backgroundColor={theme.mainColors.second}>
           <Flex
             sx={{
               flexDirection: ['column-reverse', 'column-reverse', 'row'],
