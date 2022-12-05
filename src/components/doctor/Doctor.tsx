@@ -31,7 +31,6 @@ export const DisplayDoctor = ({}) => {
         .map((d, i) => (
           <DoctorCard
             key={i}
-            image="https://imaging.nikon.com/lineup/dslr/df/img/sample/img_01_l.jpg"
             user={'Dr. Vincent lennnuel Llanto'}
             workPosition="Psychiatrist"
             availability={[

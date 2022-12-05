@@ -26,7 +26,7 @@ export default function Step1() {
           backgroundColor={theme.mainColors.fourth}
           height={'100wh'}
           contentProps={{
-            flexDirection: ['column', 'row'],
+            flexDirection: ['column', 'column', 'row'],
             alignItems: 'start',
           }}
         >
