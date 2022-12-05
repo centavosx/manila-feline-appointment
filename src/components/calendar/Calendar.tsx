@@ -19,6 +19,7 @@ export const Calendar = styled(CalendarComponent)`
       abbr {
         text-decoration: none;
         font-size: 16px;
+        color: black;
       }
     }
     .react-calendar__tile--now {

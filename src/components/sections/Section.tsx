@@ -21,7 +21,13 @@ export const Section = ({
       {...other}
     >
       {!!title && (
-        <Text as={'h1'} width={'100%'} textAlign="center" {...textProps}>
+        <Text
+          as={'h1'}
+          width={'100%'}
+          textAlign="center"
+          color={'black'}
+          {...textProps}
+        >
           {title}
         </Text>
       )}

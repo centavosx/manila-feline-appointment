@@ -101,6 +101,7 @@ export default function Step1() {
                 }
                 key={1}
                 label="AM"
+                sx={{ color: 'black' }}
               />
               <FormControlLabel
                 value={false}
@@ -115,6 +116,7 @@ export default function Step1() {
                 }
                 key={2}
                 label="PM"
+                sx={{ color: 'black' }}
               />
             </RadioGroup>
             <Text sx={{ color: 'black', fontSize: 15 }}>Available Doctors</Text>

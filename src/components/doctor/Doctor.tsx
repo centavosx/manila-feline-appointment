@@ -76,13 +76,13 @@ export const DoctorCard = ({
         />
       )}
       <Flex flexDirection={'column'} flex={1} sx={{ gap: 1 }}>
-        <Text as={'h3'} width="100%">
+        <Text as={'h3'} width="100%" color="black">
           {user}
         </Text>
-        <Text as={'h5'} width="100%">
+        <Text as={'h5'} width="100%" color="black">
           {workPosition}
         </Text>
-        <Text as={'h6'}>
+        <Text as={'h6'} width="100%" color="black">
           Availability: {format(availability[0], 'hh a')} to{' '}
           {format(availability[availability.length - 1], 'hh a')}
         </Text>

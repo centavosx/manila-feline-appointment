@@ -262,6 +262,7 @@ No matter which veterinarian your pet sees you can be assured you are getting th
                   justifyContent: 'center',
                   alignItems: 'center',
                   padding: 20,
+                  width: '100%',
                 }}
                 label="Contact Us"
                 labelProps={{
@@ -329,7 +330,7 @@ No matter which veterinarian your pet sees you can be assured you are getting th
                   }}
                   minRows={12}
                   maxRows={12}
-                  sx={{ color: 'black' }}
+                  sx={{ color: 'black', width: '100%' }}
                   placeholder="Please type your password"
                 />
                 <Flex width={'100%'} justifyContent={'end'}>
