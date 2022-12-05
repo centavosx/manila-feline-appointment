@@ -6,6 +6,7 @@ export type InputColor = {
     backgroundColor?: string
     labelColor?: string
     color?: string
+    borderBottomColor?: string
     hover?: {
       backgroundColor?: string
       labelColor?: string
@@ -39,5 +40,8 @@ export const Input = styled(TextInput)(({ inputcolor }) => ({
     '&.Mui-focused fieldset': {
       borderColor: inputcolor?.labelColor,
     },
+  },
+  '& .MuiInputBase-root:after': {
+    borderBottomColor: inputcolor?.borderBottomColor,
   },
 }))

@@ -54,7 +54,7 @@ const LinkRef = ({
   )
 }
 
-const navigations = ['About Us', 'Doctors', 'Services', 'Contact Us']
+const navigations = ['Home', 'Services', 'Doctors', 'About Us', 'Contact Us']
 
 export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
   return (
@@ -101,7 +101,7 @@ export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
     >
       <List>
         {navigations.map((data: string, i) => (
-          <ListItem key={data} disablePadding={true}>
+          <ListItem key={i} disablePadding={true}>
             <ListItemButton
               onClick={() =>
                 !isLink

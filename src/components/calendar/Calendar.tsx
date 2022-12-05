@@ -34,16 +34,18 @@ export const Calendar = styled(CalendarComponent)`
       color: white;
     }
     .react-calendar__tile {
-      padding: 45px;
+      padding: 25px;
+      font-size: 16px;
+      font-weight: 400;
     }
     button:disabled {
       color: grey;
     }
-    @media screen and (max-width: 740px) {
+    @media screen and (max-width: 900px) {
       .react-calendar__tile {
-        padding: 20px;
-        padding-top: 38px;
-        padding-bottom: 38px;
+        padding: 15px;
+        padding-top: 25px;
+        padding-bottom: 25px;
       }
     }
     @media screen and (max-width: 540px) {
