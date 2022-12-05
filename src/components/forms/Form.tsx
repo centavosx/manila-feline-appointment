@@ -19,9 +19,12 @@ export const FormContainer = ({
   const { sx, ...flexOther } = flexProps ?? { sx: undefined }
   return (
     <Form style={{ width: '100%', ...others }}>
-      <Flex sx={{ flexDirection: 'column', gap: 2, ...sx }} {...flexOther}>
+      <Flex
+        sx={{ flexDirection: 'column', gap: 2, width: '100%', ...sx }}
+        {...flexOther}
+      >
         {!!label && (
-          <Label as={'h2'} {...labelProps}>
+          <Label as={'h2'} color="black" {...labelProps}>
             {label}
           </Label>
         )}

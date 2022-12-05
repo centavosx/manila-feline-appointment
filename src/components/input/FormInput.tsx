@@ -27,7 +27,7 @@ export const FormInput = ({
         form: { touched },
         meta: { error = '' },
       }: FormikFieldProps<any, FormikValues>) => (
-        <Flex flexDirection="column" sx={{ gap: 1 }}>
+        <Flex flexDirection="column" sx={{ gap: 1, width: '100%' }}>
           <Input
             {...{
               ...props,
