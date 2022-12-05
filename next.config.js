@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   assetPrefix:
-    process.env.NODE_ENV === 'development'
-      ? undefined
-      : 'https://manila-feline.netlify.app',
+    process.env.NODE_ENV === 'production'
+      ? 'https://manila-feline.netlify.app'
+      : undefined,
   reactStrictMode: true,
   swcMinify: true,
   serverRuntimeConfig: {
