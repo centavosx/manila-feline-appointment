@@ -25,7 +25,7 @@ export const Main = ({
       <Flex width={'100%'} justifyContent="center" backgroundColor={'#534b43'}>
         <Flex
           flexDirection={'column'}
-          sx={{ flex: 1 }}
+          sx={{ flex: 1, position: 'relative' }}
           maxWidth={2250}
           alignSelf="center"
           backgroundColor={theme.backgroundColors.darkbrown}
