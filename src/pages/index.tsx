@@ -3,6 +3,7 @@ import { theme } from '../utils/theme'
 import { Text } from '../components/text'
 
 import { Main } from '../components/main'
+import { Carousel } from '../components/carousel'
 import { Box, BoxContainer } from '../components/box'
 import { Section } from '../components/sections'
 import { FormInput } from '../components/input'
@@ -43,7 +44,21 @@ export default function Home() {
   return (
     <Main id="home">
       <Flex flexDirection={'column'} alignItems="center">
-        <Image src="/assets/mingming.png" alt="ming" width={'100%'} />
+        <Carousel
+          fadeDuration={150}
+          content={['first', 'second', 'third', 'fourth', 'fifth'].map(
+            (data, i) => (
+              <Image
+                key={i}
+                src={`/assets/carousel/${data}.jpg`}
+                alt="ming"
+                width={'100%'}
+                height={[250, 450, 550, 750]}
+              />
+            )
+          )}
+        />
+
         <Section id="home" backgroundColor={theme.mainColors.second}>
           <Flex
             sx={{
