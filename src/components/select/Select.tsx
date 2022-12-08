@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react'
+import { CSSProperties, useEffect, useState } from 'react'
 import SelectComponent, { StylesConfig } from 'react-select'
 import { StateManagerProps } from 'react-select/dist/declarations/src/useStateManager'
 import { StyledProps } from 'styled-components'
@@ -56,10 +56,15 @@ export const Select = ({
   singleValueStyle,
   ...other
 }: StateManagerProps<Option> & SelectStyles) => {
-  const doc = document?.body
+  const [_document, setDocument] = useState<Document | undefined>(undefined)
+
+  useEffect(() => {
+    setDocument(document)
+  }, [setDocument])
+
   return (
     <SelectComponent
-      menuPortalTarget={doc}
+      menuPortalTarget={_document?.body}
       styles={{
         ...colourStyles,
         control: (style) => ({ ...style, ...controlStyle }),
