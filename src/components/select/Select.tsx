@@ -11,7 +11,7 @@ export interface Option {
 const colourStyles: StylesConfig<Option> = {
   control: (styles) => ({
     ...styles,
-    backgroundColor: 'white',
+    backgroundColor: 'green',
     border: '1px solid gray',
     boxShadow: '0 0 0 1px black',
     '& :focus': {
@@ -33,6 +33,12 @@ const colourStyles: StylesConfig<Option> = {
     paddingLeft: 5,
     paddingRight: 5,
   }),
+
+  menuPortal: (styles) => ({
+    ...styles,
+    background: 'white',
+    zIndex: 1,
+  }),
   singleValue: (styles) => ({ ...styles }),
 }
 
@@ -53,6 +59,7 @@ export const Select = ({
   return (
     <SelectComponent
       {...other}
+      menuPortalTarget={document.body}
       styles={{
         ...colourStyles,
         control: (style) => ({ ...style, ...controlStyle }),

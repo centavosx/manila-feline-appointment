@@ -15,10 +15,15 @@ export type InputColor = {
   }
 }
 
-const TextInput = ({ sx, children, ...other }: TextFieldProps & InputColor) => {
+const TextInput = ({
+  sx,
+  children,
+  padding,
+  ...other
+}: TextFieldProps & InputColor & { padding?: number }) => {
   return <TextField sx={{ width: '100%', ...sx }} {...other} />
 }
-export const Input = styled(TextInput)(({ inputcolor }) => ({
+export const Input = styled(TextInput)(({ inputcolor, padding }) => ({
   borderRadius: 4,
   backgroundColor: inputcolor?.backgroundColor,
   '& label.Mui-focused': {
@@ -27,7 +32,7 @@ export const Input = styled(TextInput)(({ inputcolor }) => ({
 
   '& .MuiOutlinedInput-root': {
     color: inputcolor?.color,
-    padding: 1,
+    padding: padding ?? 1,
     '& fieldset': {
       borderColor: inputcolor?.labelColor,
     },
