@@ -59,7 +59,7 @@ export const Select = ({
   return (
     <SelectComponent
       {...other}
-      menuPortalTarget={document.body}
+      menuPortalTarget={!!document ? document.body : undefined}
       styles={{
         ...colourStyles,
         control: (style) => ({ ...style, ...controlStyle }),
