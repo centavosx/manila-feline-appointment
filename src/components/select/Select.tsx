@@ -56,9 +56,10 @@ export const Select = ({
   singleValueStyle,
   ...other
 }: StateManagerProps<Option> & SelectStyles) => {
+  const doc = document?.body
   return (
     <SelectComponent
-      menuPortalTarget={!!document ? document.body : undefined}
+      menuPortalTarget={doc}
       styles={{
         ...colourStyles,
         control: (style) => ({ ...style, ...controlStyle }),
