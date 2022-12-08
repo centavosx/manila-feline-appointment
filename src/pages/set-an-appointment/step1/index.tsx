@@ -10,7 +10,7 @@ import { Text } from '../../../components/text'
 import { Input } from '../../../components/input'
 import { format } from 'date-fns'
 import { Checkbox, FormControlLabel, Radio, RadioGroup } from '@mui/material'
-import { Select } from 'components/select'
+import { Select } from '../../../components/select'
 import { useState } from 'react'
 import { DisplayDoctor } from '../../../components/doctor'
 

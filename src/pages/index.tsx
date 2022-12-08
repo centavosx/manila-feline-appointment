@@ -11,6 +11,59 @@ import { Formik } from 'formik'
 import { Button } from '../components/button'
 import { FormContainer } from '../components/forms'
 import { useRouter } from 'next/router'
+import { ServiceIcon } from '../components/icon'
+
+type Services = {
+  name: string
+  src: string
+}
+
+const services: Services[] = [
+  {
+    name: 'Preventive Care',
+    src: '/assets/services/Preventive Care.png',
+  },
+  {
+    name: 'Wellness',
+    src: '/assets/services/wellness.png',
+  },
+  {
+    name: 'Consultation',
+    src: '/assets/services/Consultation.png',
+  },
+  {
+    name: 'Nutritional Counseling',
+    src: '/assets/services/nutritional counseling.png',
+  },
+  {
+    name: 'Laboratory',
+    src: '/assets/services/laboratory.png',
+  },
+  {
+    name: 'Surgery',
+    src: '/assets/services/surgery.png',
+  },
+  {
+    name: 'Telemedicine',
+    src: '/assets/services/telemedicine.png',
+  },
+  {
+    name: 'Dental Care',
+    src: '/assets/services/dental care.png',
+  },
+  {
+    name: 'Hospitalization',
+    src: '/assets/services/hospitalization.png',
+  },
+  {
+    name: 'After-hour emergency',
+    src: '/assets/services/afrer hour emergency.png',
+  },
+  {
+    name: 'Pet supplies',
+    src: '/assets/services/pet-supplies.png',
+  },
+]
 
 const team: { name: string; position: string }[] = [
   {
@@ -103,6 +156,43 @@ export default function Home() {
               <Image src="/assets/mingmore.png" alt="ming" />
             </Flex>
           </Flex>
+        </Section>
+        <Section
+          id="services"
+          title="Our Services"
+          backgroundColor={theme.mainColors.fourth}
+          contentProps={{
+            flexDirection: 'row',
+            sx: { gap: 3 },
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            pl: 50,
+            pr: 50,
+          }}
+        >
+          {services.map((d, i) => (
+            <ServiceIcon
+              key={i}
+              imageProps={{ image: { src: d.src } }}
+              flexProps={{
+                sx: {
+                  ':hover': {
+                    fontWeight: 'bold',
+                    fontStyle: 'italic',
+                  },
+                  width: 120,
+                },
+              }}
+              sx={{
+                wordWrap: 'break-word',
+                textAlign: 'center',
+                whiteSpace: 'initial',
+                overflow: 'hidden',
+              }}
+            >
+              {d.name}
+            </ServiceIcon>
+          ))}
         </Section>
         <Section
           id="mission"
