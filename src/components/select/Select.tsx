@@ -58,7 +58,6 @@ export const Select = ({
 }: StateManagerProps<Option> & SelectStyles) => {
   return (
     <SelectComponent
-      {...other}
       menuPortalTarget={!!document ? document.body : undefined}
       styles={{
         ...colourStyles,
@@ -67,6 +66,7 @@ export const Select = ({
         placeholder: (style) => ({ ...style, ...placeholderStyle }),
         singleValue: (style) => ({ ...style, ...singleValueStyle }),
       }}
+      {...other}
     />
   )
 }
