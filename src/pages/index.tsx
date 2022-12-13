@@ -3,7 +3,7 @@ import { theme } from '../utils/theme'
 import { Text } from '../components/text'
 
 import { Main } from '../components/main'
-import { Carousel } from '../components/carousel'
+import { Carousel, SecondCarousel } from '../components/carousel'
 import { Box, BoxContainer } from '../components/box'
 import { Section } from '../components/sections'
 import { FormInput } from '../components/input'
@@ -65,30 +65,36 @@ const services: Services[] = [
   },
 ]
 
-const team: { name: string; position: string }[] = [
+const team: { name: string; position: string; img?: string }[] = [
   {
     name: 'Ma. Josefina R. De Guzman',
     position: 'General Manager/ Co Owner',
+    img: '/assets/team/owner.png',
   },
   {
     name: 'Jaymie Rose M. Hayo, DVM',
     position: 'Practice owner/ lead veterinarian',
+    img: '/assets/team/vet.png',
   },
   {
     name: 'Danica D. Matias, DVM',
     position: 'Associate Veterinarian',
+    img: '/assets/team/vet2.png',
   },
   {
     name: 'Reymond Macawiwili',
     position: 'Senior Assistant',
+    img: '/assets/team/assistant.png',
   },
   {
     name: 'Ricvie Mateo',
     position: 'Assistant',
+    img: '/assets/team/assistant.png',
   },
   {
     name: 'Din Raguindin',
     position: 'Assistant',
+    img: '/assets/team/assistant.png',
   },
 ]
 
@@ -99,7 +105,7 @@ export default function Home() {
       <Flex flexDirection={'column'} alignItems="center">
         <Carousel
           fadeDuration={150}
-          content={['first', 'second', 'third', 'fourth', 'fifth'].map(
+          carouselContent={['first', 'second', 'third', 'fourth', 'fifth'].map(
             (data, i) => (
               <Image
                 key={i}
@@ -110,9 +116,53 @@ export default function Home() {
               />
             )
           )}
-        />
+          backgroundColor={'rgba(1,1,1,0.6)'}
+          contentProps={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+          }}
+        >
+          <Flex flexDirection={'column'} width="100%" flex={1} sx={{ gap: 10 }}>
+            <Text
+              textAlign={'center'}
+              fontFamily="Castego"
+              width={'100%'}
+              sx={{ fontSize: [24, 45, 55], width: '100%' }}
+            >
+              Manila Feline Center
+            </Text>
+            <Button
+              type="submit"
+              backgroundcolor={'transparent'}
+              activecolor={theme.mainColors.sixth}
+              hovercolor={theme.mainColors.seventh}
+              textcolor={theme.colors.verylight}
+              variant="outlined"
+              style={{
+                borderColor: theme.colors.verylight,
+                fontFamily: 'Castego',
+                fontWeight: 600,
+                borderRadius: 50,
+                alignSelf: 'center',
+              }}
+              size={'large'}
+              custom={{
+                padding: 20,
+                '@media screen and (max-width: 640px)': {
+                  fontSize: 12,
+                  minWidth: 200,
+                  padding: 10,
+                },
+              }}
+              onClick={() => replace('/set-an-appointment')}
+            >
+              BOOK AN APPOINTMENT
+            </Button>
+          </Flex>
+        </Carousel>
 
-        <Section id="home" backgroundColor={theme.mainColors.second}>
+        <Section backgroundColor={theme.mainColors.second}>
           <Flex
             sx={{
               flexDirection: ['column-reverse', 'column-reverse', 'row'],
@@ -135,17 +185,6 @@ export default function Home() {
               >
                 {`We offer intensive veterinary care, with qualified personnel on-hand to ensure that your pets are properly taken care of. Some of the services we offer are preventive care, wellness, consultation, nutritional counseling, laboratory, surgery, telemedicine, dental care, hospitalization, after-hour emergency, and we also have pet supplies.`}
               </Text>
-              <Button
-                type="submit"
-                backgroundcolor={theme.colors.verylight}
-                activecolor={theme.mainColors.sixth}
-                hovercolor={theme.mainColors.seventh}
-                textcolor={theme.mainColors.first}
-                style={{ width: '200px' }}
-                onClick={() => replace('/set-an-appointment')}
-              >
-                BOOK AN APPOINTMENT
-              </Button>
             </Flex>
             <Flex
               flex={1}
@@ -179,6 +218,18 @@ export default function Home() {
                   ':hover': {
                     fontWeight: 'bold',
                     fontStyle: 'italic',
+                    animation: 'zoom-in-zoom-out 1s',
+                    '@keyframes zoom-in-zoom-out': {
+                      '0%': {
+                        transform: 'scale(1, 1)',
+                      },
+                      '50%': {
+                        transform: 'scale(1.2, 1.2)',
+                      },
+                      '100%': {
+                        transform: 'scale(1, 1)',
+                      },
+                    },
                   },
                   width: 120,
                 },
@@ -188,6 +239,7 @@ export default function Home() {
                 textAlign: 'center',
                 whiteSpace: 'initial',
                 overflow: 'hidden',
+                fontFamily: 'Castego',
               }}
             >
               {d.name}
@@ -233,7 +285,7 @@ We are committed to honesty, transparency, and building up a relationship based 
           </Text>
         </Section>
         <Section
-          id="doctors"
+          id="team"
           title="Our Team"
           backgroundColor={theme.mainColors.fourth}
           contentProps={{ pl: [null, 80, 150], pr: [null, 80, 150] }}
@@ -252,51 +304,72 @@ Here at Manila Feline Center, an expert staff of veterinarian doctors and a skil
 Under the leadership of our highly skilled veterinary doctors, your pet is always in good hands. We're ready when your pet needs us.
 `}
           </Text>
-          <BoxContainer>
+          <SecondCarousel
+            nextColorButton={theme.mainColors.first}
+            contentProps={{ alignItems: 'center', justifyContent: 'center' }}
+          >
             {team.map((d, i) => (
-              <Box
-                sx={{
-                  borderColor: theme.mainColors.first,
-                  padding: 1,
-                  borderWidth: 1,
-                  textAlign: 'center',
-                }}
-                flexProps={{
-                  sx: { gap: 2 },
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                }}
-                key={i}
-              >
-                <Flex flexDirection={'column'} sx={{ gap: 1 }}>
+              <Flex key={i} flexDirection={'column'} sx={{ gap: 1 }}>
+                <ServiceIcon
+                  key={d.name}
+                  imageProps={{ image: { src: d.img } }}
+                  flexProps={{
+                    sx: {
+                      gap: 24,
+                    },
+                  }}
+                  sx={{
+                    wordWrap: 'break-word',
+                    textAlign: 'center',
+                    whiteSpace: 'initial',
+                    overflow: 'hidden',
+                  }}
+                >
                   <Text
-                    sx={{
-                      color: theme.mainColors.first,
-                      fontWeight: 'bold',
-                    }}
+                    fontFamily={'Castego'}
+                    color={'black'}
+                    sx={{ fontSize: 24, fontWeight: 600 }}
                   >
                     {d.name}
                   </Text>
                   <Text
-                    sx={{
-                      color: theme.mainColors.first,
-                      fontWeight: 'bold',
-                    }}
+                    fontFamily={'Castego'}
+                    color={'black'}
+                    sx={{ fontSize: 14 }}
                   >
                     {d.position}
                   </Text>
-                </Flex>
-              </Box>
+                </ServiceIcon>
+              </Flex>
             ))}
-          </BoxContainer>
+          </SecondCarousel>
         </Section>
-
+        <Section
+          id="team"
+          title="Gallery"
+          backgroundColor={theme.mainColors.fifth}
+        >
+          <Carousel
+            fadeDuration={150}
+            carouselContent={['1', '2', '3', '4', '5', '6'].map((d, i) => (
+              <Image
+                key={i}
+                src={`/assets/gallery/${d}.jpg`}
+                alt="ming"
+                width={'100%'}
+              />
+            ))}
+            contentProps={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+            }}
+          />
+        </Section>
         <Section
           id="aboutus"
           title="About Us"
-          backgroundColor={theme.mainColors.fifth}
+          backgroundColor={theme.mainColors.third}
           contentProps={{ pl: [null, 80, 150], pr: [null, 80, 150] }}
         >
           <Text
@@ -319,6 +392,7 @@ No matter which veterinarian your pet sees you can be assured you are getting th
 `}
           </Text>
         </Section>
+
         <Section
           id="contactus"
           padding={0}
@@ -334,7 +408,7 @@ No matter which veterinarian your pet sees you can be assured you are getting th
           }}
         >
           <Image
-            src="/assets/meow.png"
+            src="/assets/meow.jpg"
             width="100%"
             height={'100%'}
             alt="background"

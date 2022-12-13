@@ -28,7 +28,7 @@ export const Main = ({
           sx={{ flex: 1, position: 'relative' }}
           maxWidth={2250}
           alignSelf="center"
-          backgroundColor={theme.backgroundColors.darkbrown}
+          backgroundColor={theme.colors.verylight}
         >
           <Header justifyContent={'start'} sx={{ gap: 2, padding: 15 }}>
             <Flex flex={1} sx={{ justifyContent: 'start' }}>
@@ -36,15 +36,16 @@ export const Main = ({
                 <Flex alignItems={'center'} sx={{ gap: 2 }}>
                   <Image
                     src={'/assets/logo.png'}
-                    width={50}
-                    height={50}
+                    width={70}
+                    height={70}
                     alt="image"
                   />
                   <Text
                     sx={{
-                      fontSize: [11, 12],
-                      fontWeight: 'bold',
-                      color: theme.colors.verylight,
+                      fontSize: [14, 18],
+                      fontWeight: 600,
+                      fontFamily: 'Castego',
+                      color: theme.backgroundColors.darkbrown,
                     }}
                   >
                     Manila Feline Center
@@ -53,7 +54,7 @@ export const Main = ({
               </Anchor>
             </Flex>
             <WebView>
-              <Flex sx={{ gap: 24, padding: 15 }}>
+              <Flex sx={{ gap: 16, padding: 15 }}>
                 <WebNavigation isLink={isLink} />
               </Flex>
             </WebView>

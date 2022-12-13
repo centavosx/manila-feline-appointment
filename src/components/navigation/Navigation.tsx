@@ -34,7 +34,7 @@ const LinkRef = ({
       <Text
         width={'auto'}
         fontWeight={'bold'}
-        sx={{ fontSize: [14, 16] }}
+        sx={{ fontSize: [14, 16], fontFamily: 'Castego' }}
         {...others}
       >
         {children}
@@ -45,7 +45,7 @@ const LinkRef = ({
       <Text
         width={'auto'}
         fontWeight={'bold'}
-        sx={{ fontSize: [14, 16] }}
+        sx={{ fontSize: [14, 16], fontFamily: 'Castego' }}
         {...others}
       >
         {children}
@@ -54,7 +54,7 @@ const LinkRef = ({
   )
 }
 
-const navigations = ['Home', 'Services', 'Doctors', 'About Us', 'Contact Us']
+const navigations = ['Home', 'Services', 'Team', 'About Us', 'Contact Us']
 
 export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
   return (
@@ -63,7 +63,7 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
         <LinkRef
           key={data}
           href={data?.split(' ').join('').toLowerCase()}
-          color={theme.colors.verylight}
+          color={theme.backgroundColors.darkbrown}
           isLink={isLink}
         >
           {data}

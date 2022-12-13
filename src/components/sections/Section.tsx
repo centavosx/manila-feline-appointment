@@ -26,6 +26,7 @@ export const Section = ({
           width={'100%'}
           textAlign="center"
           color={'black'}
+          fontFamily="Castego"
           {...textProps}
         >
           {title}
