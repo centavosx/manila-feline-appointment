@@ -12,6 +12,7 @@ import { Button } from '../components/button'
 import { FormContainer } from '../components/forms'
 import { useRouter } from 'next/router'
 import { ServiceIcon } from '../components/icon'
+import { Collage } from 'components/collage'
 
 type Services = {
   name: string
@@ -105,17 +106,15 @@ export default function Home() {
       <Flex flexDirection={'column'} alignItems="center">
         <Carousel
           fadeDuration={150}
-          carouselContent={['first', 'second', 'third', 'fourth', 'fifth'].map(
-            (data, i) => (
-              <Image
-                key={i}
-                src={`/assets/carousel/${data}.jpg`}
-                alt="ming"
-                width={'100%'}
-                height={[250, 450, 550, 750]}
-              />
-            )
-          )}
+          carouselContent={['first', 'second', 'third'].map((data, i) => (
+            <Image
+              key={i}
+              src={`/assets/carousel/${data}.jpg`}
+              alt="ming"
+              width={'100%'}
+              height={[250, 450, 550, 750]}
+            />
+          ))}
           backgroundColor={'rgba(1,1,1,0.6)'}
           contentProps={{
             alignItems: 'center',
@@ -162,40 +161,6 @@ export default function Home() {
           </Flex>
         </Carousel>
 
-        <Section backgroundColor={theme.mainColors.second}>
-          <Flex
-            sx={{
-              flexDirection: ['column-reverse', 'column-reverse', 'row'],
-              gap: 2,
-            }}
-          >
-            <Flex
-              flex={1}
-              alignSelf="center"
-              flexDirection={'column'}
-              sx={{ gap: [24] }}
-            >
-              <Text sx={{ fontSize: 40 }}>Manila Feline Center</Text>
-              <Text
-                sx={{
-                  fontSize: 16,
-                  flex: 1,
-                  whiteSpace: 'pre-wrap',
-                }}
-              >
-                {`We offer intensive veterinary care, with qualified personnel on-hand to ensure that your pets are properly taken care of. Some of the services we offer are preventive care, wellness, consultation, nutritional counseling, laboratory, surgery, telemedicine, dental care, hospitalization, after-hour emergency, and we also have pet supplies.`}
-              </Text>
-            </Flex>
-            <Flex
-              flex={1}
-              height={'100%'}
-              justifyContent="center"
-              alignSelf={'center'}
-            >
-              <Image src="/assets/mingmore.png" alt="ming" />
-            </Flex>
-          </Flex>
-        </Section>
         <Section
           id="services"
           title="Our Services"
@@ -349,22 +314,16 @@ Under the leadership of our highly skilled veterinary doctors, your pet is alway
           title="Gallery"
           backgroundColor={theme.mainColors.fifth}
         >
-          <Carousel
-            fadeDuration={150}
-            carouselContent={['1', '2', '3', '4', '5', '6'].map((d, i) => (
+          <Collage>
+            {['1', '2', '3', '4', '5', '6'].map((d, i) => (
               <Image
                 key={i}
                 src={`/assets/gallery/${d}.jpg`}
                 alt="ming"
-                width={'100%'}
+                width={['100%', '80%', '40%']}
               />
             ))}
-            contentProps={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '100%',
-            }}
-          />
+          </Collage>
         </Section>
         <Section
           id="aboutus"

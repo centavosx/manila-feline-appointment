@@ -30,14 +30,15 @@ export const Main = ({
           alignSelf="center"
           backgroundColor={theme.colors.verylight}
         >
-          <Header justifyContent={'start'} sx={{ gap: 2, padding: 15 }}>
+          <Header justifyContent={'start'} sx={{ gap: 2, padding: 20 }}>
             <Flex flex={1} sx={{ justifyContent: 'start' }}>
               <Anchor href="/" sx={{ mr: [null, 4] }}>
                 <Flex alignItems={'center'} sx={{ gap: 2 }}>
                   <Image
                     src={'/assets/logo.png'}
-                    width={70}
-                    height={70}
+                    width={60}
+                    height={60}
+                    minWidth={'auto'}
                     alt="image"
                   />
                   <Text

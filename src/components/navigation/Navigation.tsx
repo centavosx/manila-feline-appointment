@@ -34,7 +34,16 @@ const LinkRef = ({
       <Text
         width={'auto'}
         fontWeight={'bold'}
-        sx={{ fontSize: [14, 16], fontFamily: 'Castego' }}
+        sx={{
+          fontSize: [14, 16],
+          fontFamily: 'Castego',
+          ':hover': {
+            opacity: 0.7,
+          },
+          '&&:active': {
+            opacity: 1,
+          },
+        }}
         {...others}
       >
         {children}
@@ -45,7 +54,16 @@ const LinkRef = ({
       <Text
         width={'auto'}
         fontWeight={'bold'}
-        sx={{ fontSize: [14, 16], fontFamily: 'Castego' }}
+        sx={{
+          fontSize: [14, 16],
+          fontFamily: 'Castego',
+          ':hover': {
+            opacity: 0.7,
+          },
+          '&&:active': {
+            opacity: 1,
+          },
+        }}
         {...others}
       >
         {children}
@@ -124,7 +142,7 @@ export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
   return (
     <>
       <Button onClick={toggleDrawer(true)} sx={{ minWidth: 34 }}>
-        <FiMenu />
+        <FiMenu size={30} />
       </Button>
       <Drawer open={state.right} anchor={'right'} onClose={toggleDrawer(false)}>
         {list()}
