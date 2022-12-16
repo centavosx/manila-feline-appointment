@@ -1,10 +1,11 @@
 import { Flex, Image } from 'rebass'
 
+import { useEffect } from 'react'
 import 'react-calendar/dist/Calendar.css'
 import { Text } from '../../../components/text'
 import { Main } from '../../../components/main'
 import { Calendar } from '../../../components/calendar'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 import { Section } from '../../../components/sections'
 import { theme } from '../../../utils/theme'
 import { FormContainer } from '../../../components/forms'
@@ -14,8 +15,17 @@ import { Select } from '../../../components/select'
 import { Label } from '../../../components/label'
 import { Button } from '../../../components/button'
 
-export default function Step2() {
-  const { replace } = useRouter()
+type Step2Props = {
+  isAllowed: boolean
+  id: string
+  date: string
+}
+
+export default function Step2({ id, date, isAllowed }: Step2Props) {
+  useEffect(() => {
+    if (!isAllowed) Router.replace('/set-an-appointment/step1/')
+  }, [isAllowed])
+
   return (
     <Main isLink={true}>
       <Flex flexDirection={'column'} flex={1} width={'100%'}>
@@ -188,4 +198,13 @@ export default function Step2() {
       </Flex>
     </Main>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  const id = (context.query.id ?? '') as string
+  const date = (context.query.date ?? '') as string
+
+  return {
+    props: { id, date, isAllowed: !!id && !!date },
+  }
 }

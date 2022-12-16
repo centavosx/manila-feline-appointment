@@ -50,7 +50,7 @@ export const DoctorCard = ({
   availability,
   ...other
 }: BoxProps & DoctorInfoProp) => {
-  const { replace } = useRouter()
+  const { push } = useRouter()
   return (
     <Box
       sx={{
@@ -87,7 +87,7 @@ export const DoctorCard = ({
           {format(availability[availability.length - 1], 'hh a')}
         </Text>
         <Flex flex={1}>
-          <Button onClick={() => replace({ pathname: 'step2' })}>
+          <Button onClick={() => push({ pathname: 'step2' })}>
             Set an appointment
           </Button>
         </Flex>

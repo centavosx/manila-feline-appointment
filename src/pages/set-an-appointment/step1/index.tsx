@@ -15,7 +15,6 @@ import { useState } from 'react'
 import { DisplayDoctor } from '../../../components/doctor'
 
 export default function Step1() {
-  const { replace } = useRouter()
   const [date, setDate] = useState<Date | null>(null)
 
   return (
