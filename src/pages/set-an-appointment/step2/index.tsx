@@ -21,7 +21,7 @@ export default function Step2() {
       <Flex flexDirection={'column'} flex={1} width={'100%'}>
         <Section
           title="Set Appointment"
-          backgroundColor={theme.mainColors.fourth}
+          backgroundColor={theme.mainColors.fifth}
           height={'100wh'}
           contentProps={{
             flexDirection: 'column',

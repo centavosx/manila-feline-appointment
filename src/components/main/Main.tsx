@@ -22,7 +22,11 @@ export const Main = ({
         pageTitle={pageTitle}
         description="Set your appointment now"
       />
-      <Flex width={'100%'} justifyContent="center" backgroundColor={'#534b43'}>
+      <Flex
+        width={'100%'}
+        justifyContent="center"
+        backgroundColor={theme.colors.verylight}
+      >
         <Flex
           flexDirection={'column'}
           sx={{ flex: 1, position: 'relative' }}
@@ -64,22 +68,37 @@ export const Main = ({
             </MobileView>
           </Header>
           {children}
-          <Header backgroundColor={theme.mainColors.first} padding={15}>
-            <Text sx={{ textAlign: ['center', 'start'] }}>
+          <Header backgroundColor={theme.colors.verylight} padding={15}>
+            <Text
+              sx={{
+                textAlign: ['center', 'start'],
+                color: theme.mainColors.first,
+                fontWeight: 'bold',
+              }}
+            >
               0238 SANLY BLDG P TUAZON BLVD SOCORRO, CUBAO QC
             </Text>
-            <Text sx={{ textAlign: ['center'] }}>
+            <Text
+              sx={{
+                textAlign: ['center'],
+                color: theme.mainColors.first,
+                fontWeight: 'bold',
+              }}
+            >
+              Copyright © 2022 Project
+            </Text>
+            <Text
+              textAlign={'end'}
+              sx={{
+                color: theme.mainColors.first,
+                fontWeight: 'bold',
+                textDecoration: 'underline',
+              }}
+            >
               <Anchor href="https://facebook.com/ManilaFelineCenter">
                 https://facebook.com/ManilaFelineCenter
               </Anchor>
             </Text>
-            <Text textAlign={'center'}>0919 824 2456</Text>
-            <Button
-              sx={{ width: ['50%', 'auto'] }}
-              onClick={() => replace('/#contactus')}
-            >
-              Contact Us
-            </Button>
           </Header>
         </Flex>
       </Flex>
