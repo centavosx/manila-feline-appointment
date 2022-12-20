@@ -371,7 +371,7 @@ No matter which veterinarian your pet sees you can be assured you are getting th
             width="100%"
             height={'100%'}
             alt="background"
-            sx={{ position: 'absolute' }}
+            sx={{ position: 'absolute', objectFit: 'cover' }}
           />
           <Flex
             alignSelf={'flex-end'}
