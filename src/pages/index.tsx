@@ -13,6 +13,8 @@ import { FormContainer } from '../components/forms'
 import { useRouter } from 'next/router'
 import { ServiceIcon } from '../components/icon'
 import { Collage } from 'components/collage'
+import { CreateEmailDto, sendMail } from 'api/other.api'
+import { FormikValidation } from 'helpers'
 
 type Services = {
   name: string
@@ -384,106 +386,110 @@ No matter which veterinarian your pet sees you can be assured you are getting th
             flexDirection="column"
             backgroundColor={theme.mainColors.sixth}
           >
-            <Formik<{ test: string }>
-              initialValues={{ test: '' }}
-              onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2))
-
+            <Formik<CreateEmailDto>
+              initialValues={{ from: '', message: '', subject: '', name: '' }}
+              validationSchema={FormikValidation.createMail}
+              onSubmit={(values, { setSubmitting, resetForm }) => {
+                setSubmitting(true)
+                sendMail(values).finally(() => {
                   setSubmitting(false)
-                }, 400)
+                  resetForm()
+                })
               }}
             >
-              <FormContainer
-                flexProps={{
-                  sx: { gap: 10 },
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  padding: 20,
-                  width: '100%',
-                }}
-                label="Contact Us"
-                labelProps={{
-                  width: '100%',
-                  justifyContent: 'center',
-                }}
-              >
-                <Flex
-                  sx={{
-                    gap: [10],
-                    flexDirection: ['column', 'row'],
+              {({ isSubmitting }) => (
+                <FormContainer
+                  flexProps={{
+                    sx: { gap: 10 },
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: 20,
                     width: '100%',
                   }}
+                  label="Contact Us"
+                  labelProps={{
+                    width: '100%',
+                    justifyContent: 'center',
+                  }}
                 >
-                  <FormInput
-                    name="name"
-                    label={'Name'}
-                    variant="filled"
-                    inputcolor={{
-                      labelColor: 'gray',
-                      backgroundColor: theme.mainColors.fourth,
-                      borderBottomColor: theme.mainColors.first,
-                      color: 'black',
+                  <Flex
+                    sx={{
+                      gap: [10],
+                      flexDirection: ['column', 'row'],
+                      width: '100%',
                     }}
-                    sx={{ color: 'black', width: '100%' }}
-                    placeholder="Please type your password"
-                  />
-                  <FormInput
-                    name="email"
-                    label={'Email'}
-                    variant="filled"
-                    inputcolor={{
-                      labelColor: 'gray',
-                      backgroundColor: theme.mainColors.fourth,
-                      borderBottomColor: theme.mainColors.first,
-                      color: 'black',
-                    }}
-                    sx={{ color: 'black', width: '100%' }}
-                    placeholder="Please type your password"
-                  />
-                </Flex>
-                <FormInput
-                  name="subject"
-                  label={'Subject'}
-                  variant="filled"
-                  inputcolor={{
-                    labelColor: 'gray',
-                    backgroundColor: theme.mainColors.fourth,
-                    borderBottomColor: theme.mainColors.first,
-                    color: 'black',
-                  }}
-                  sx={{ color: 'black', width: '100%' }}
-                  placeholder="Please type your password"
-                />
-                <FormInput
-                  name="message"
-                  label={'Message'}
-                  variant="filled"
-                  multiline={true}
-                  inputcolor={{
-                    labelColor: 'gray',
-                    backgroundColor: theme.mainColors.fourth,
-                    borderBottomColor: theme.mainColors.first,
-                    color: 'black',
-                  }}
-                  minRows={12}
-                  maxRows={12}
-                  sx={{ color: 'black', width: '100%' }}
-                  placeholder="Please type your password"
-                />
-                <Flex width={'100%'} justifyContent={'end'}>
-                  <Button
-                    type="submit"
-                    backgroundcolor={theme.mainColors.eight}
-                    activecolor={theme.mainColors.first}
-                    hovercolor={theme.mainColors.second}
-                    textcolor={theme.colors.verylight}
-                    style={{ width: '100px' }}
                   >
-                    Submit
-                  </Button>
-                </Flex>
-              </FormContainer>
+                    <FormInput
+                      name="name"
+                      label={'Name'}
+                      variant="filled"
+                      inputcolor={{
+                        labelColor: 'gray',
+                        backgroundColor: theme.mainColors.fourth,
+                        borderBottomColor: theme.mainColors.first,
+                        color: 'black',
+                      }}
+                      sx={{ color: 'black', width: '100%' }}
+                      placeholder="Please type your password"
+                    />
+                    <FormInput
+                      name="from"
+                      label={'Email'}
+                      variant="filled"
+                      inputcolor={{
+                        labelColor: 'gray',
+                        backgroundColor: theme.mainColors.fourth,
+                        borderBottomColor: theme.mainColors.first,
+                        color: 'black',
+                      }}
+                      sx={{ color: 'black', width: '100%' }}
+                      placeholder="Please type your password"
+                    />
+                  </Flex>
+                  <FormInput
+                    name="subject"
+                    label={'Subject'}
+                    variant="filled"
+                    inputcolor={{
+                      labelColor: 'gray',
+                      backgroundColor: theme.mainColors.fourth,
+                      borderBottomColor: theme.mainColors.first,
+                      color: 'black',
+                    }}
+                    sx={{ color: 'black', width: '100%' }}
+                    placeholder="Please type your password"
+                  />
+                  <FormInput
+                    name="message"
+                    label={'Message'}
+                    variant="filled"
+                    multiline={true}
+                    inputcolor={{
+                      labelColor: 'gray',
+                      backgroundColor: theme.mainColors.fourth,
+                      borderBottomColor: theme.mainColors.first,
+                      color: 'black',
+                    }}
+                    minRows={12}
+                    maxRows={12}
+                    sx={{ color: 'black', width: '100%' }}
+                    placeholder="Please type your password"
+                  />
+                  <Flex width={'100%'} justifyContent={'end'}>
+                    <Button
+                      type="submit"
+                      backgroundcolor={theme.mainColors.eight}
+                      activecolor={theme.mainColors.first}
+                      hovercolor={theme.mainColors.second}
+                      textcolor={theme.colors.verylight}
+                      style={{ width: '100px' }}
+                      disabled={isSubmitting}
+                    >
+                      Submit
+                    </Button>
+                  </Flex>
+                </FormContainer>
+              )}
             </Formik>
             <Flex
               backgroundColor={theme.mainColors.fourth}

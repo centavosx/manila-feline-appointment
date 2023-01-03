@@ -1,0 +1,31 @@
+import { Services } from './service.entity'
+
+export type Availability = {
+  id: string
+
+  startDate: Date
+
+  endDate: Date
+}
+
+export type User = {
+  id: string
+
+  name: string
+
+  description: string
+
+  email: string
+
+  password: string
+
+  position: string
+
+  services: Services[]
+
+  availability: Availability[]
+
+  created: Date
+
+  modified: Date
+}

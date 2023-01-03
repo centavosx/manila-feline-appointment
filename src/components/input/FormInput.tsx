@@ -26,7 +26,7 @@ export const FormInput = ({
         form: { touched },
         meta: { error = '' },
       }: FormikFieldProps<any, FormikValues>) => (
-        <Flex flexDirection="column" sx={{ gap: 1, width: '100%' }}>
+        <Flex flexDirection="column" sx={{ gap: 2, width: '100%' }}>
           <Input
             {...{
               ...props,
@@ -42,9 +42,9 @@ export const FormInput = ({
   )
 }
 
-const InputError = ({ error, sx }: ErrorProp) =>
+export const InputError = ({ error, sx }: ErrorProp) =>
   (error && (
-    <Text color={'red'} fontSize={[10, 12]} sx={{ marginTop: '8px', ...sx }}>
+    <Text color={'red'} fontSize={[10, 12]} sx={{ ...sx }}>
       {error}
     </Text>
   )) ||

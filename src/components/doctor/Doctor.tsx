@@ -3,6 +3,7 @@ import { Box } from '../box'
 import { format } from 'date-fns'
 import { Button } from 'components/button'
 import { useRouter } from 'next/router'
+import { User } from 'entities/user.entity'
 import { BoxProps } from '@mui/material'
 
 type DoctorInfoProp = {
@@ -12,7 +13,13 @@ type DoctorInfoProp = {
   availability: Date[]
 }
 
-export const DisplayDoctor = ({}) => {
+export const DisplayDoctor = ({
+  data,
+  onItemClick,
+}: {
+  data: User[]
+  onItemClick: (v: string) => void
+}) => {
   return (
     <Flex
       flexDirection={'column'}
@@ -26,19 +33,15 @@ export const DisplayDoctor = ({}) => {
         scrollbarWidth: 'thin',
       }}
     >
-      {Array(10)
-        .fill(null)
-        .map((d, i) => (
-          <DoctorCard
-            key={i}
-            user={'Dr. Vincent lennnuel Llanto'}
-            workPosition="Psychiatrist"
-            availability={[
-              new Date(),
-              new Date(new Date().setHours(new Date().getHours() + 1)),
-            ].sort((a: Date, b: Date) => a.getTime() - b.getTime())}
-          />
-        ))}
+      {data.map((d, i) => (
+        <DoctorCard
+          key={i}
+          user={d.name}
+          workPosition={d.position}
+          availability={[]}
+          onItemClick={() => onItemClick(d.id)}
+        />
+      ))}
     </Flex>
   )
 }
@@ -48,9 +51,9 @@ export const DoctorCard = ({
   user,
   workPosition,
   availability,
+  onItemClick,
   ...other
-}: BoxProps & DoctorInfoProp) => {
-  const { push } = useRouter()
+}: BoxProps & DoctorInfoProp & { onItemClick: () => void }) => {
   return (
     <Box
       sx={{
@@ -82,14 +85,14 @@ export const DoctorCard = ({
         <Text as={'h5'} width="100%" color="black">
           {workPosition}
         </Text>
-        <Text as={'h6'} width="100%" color="black">
-          Availability: {format(availability[0], 'hh a')} to{' '}
-          {format(availability[availability.length - 1], 'hh a')}
-        </Text>
+        {availability.length > 0 && (
+          <Text as={'h6'} width="100%" color="black">
+            Availability: {format(availability[0], 'hh a')} to{' '}
+            {format(availability[availability.length - 1], 'hh a')}
+          </Text>
+        )}
         <Flex flex={1}>
-          <Button onClick={() => push({ pathname: 'step2' })}>
-            Set an appointment
-          </Button>
+          <Button onClick={onItemClick}>Set an appointment</Button>
         </Flex>
       </Flex>
     </Box>
