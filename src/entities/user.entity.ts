@@ -15,6 +15,9 @@ export type User = {
 
   description: string
 
+  hasAm?: boolean
+  hasPm?: boolean
+
   email: string
 
   password: string

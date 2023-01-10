@@ -19,6 +19,7 @@ import { AmOrPm, Days, getAllService, getDoctors, SearchDoctorDto } from 'api'
 import { Services as Service } from 'entities'
 import { User } from 'entities/user.entity'
 import { CircularProgress, InputAdornment } from '@mui/material'
+import { SearchableInput } from '../../../components/input/Input'
 
 const Services = ({ onChange }: { onChange: (v: string) => void }) => {
   const { data } = useApi(async () => await getAllService())
@@ -57,48 +58,29 @@ const SearchInput = ({
   children: (data: User[]) => ReactNode
 }) => {
   const [search, setSearch] = useState('')
-  const { data, refetch, isFetching } = useApi(
-    async () => await getDoctors({ ...props, name: search })
-  )
-  const { pathname, replace, query } = useRouter()
 
-  const users: User[] = data?.data ?? []
+  const [users, setUsers] = useState<User[]>([])
 
   const refresh = useCallback(
-    (v: string) => {
-      if (!isFetching) {
-        setSearch(v)
-        refetch()
-      }
+    async (v: string) => {
+      const resp = await getDoctors({ ...props, name: v })
+      setUsers(resp.data.data)
     },
-    [isFetching, refetch, setSearch]
+    [setUsers, props]
   )
-
   useEffect(() => {
-    refetch()
-  }, [props, refetch])
+    refresh(search)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props, refresh])
 
   return (
     <>
-      <Input
-        name="subject"
+      <SearchableInput
+        value={search}
+        onChange={(e) => setSearch(() => e.target.value)}
         label="Search"
-        variant="outlined"
-        inputcolor={{
-          labelColor: 'gray',
-          borderBottomColor: theme.mainColors.first,
-          color: 'black',
-        }}
-        sx={{ color: 'black', width: '100%', mt: 0 }}
-        placeholder="Search doctor"
-        onChange={(e) => refresh(e.target.value)}
-        InputProps={{
-          endAdornment: isFetching && (
-            <InputAdornment position="end" style={{ marginRight: 10 }}>
-              <CircularProgress size={24} />
-            </InputAdornment>
-          ),
-        }}
+        placeHolder="Search doctor"
+        onSearch={async (v) => await refresh(v)}
       />
       {children(users)}
     </>
@@ -118,7 +100,6 @@ export default function Step1(props: SearchDoctorDto) {
         <Section
           title="Set Appointment"
           backgroundColor={theme.mainColors.fifth}
-          height={'100wh'}
           contentProps={{
             flexDirection: ['column', 'column', 'row'],
             alignItems: 'start',
@@ -144,6 +125,7 @@ export default function Step1(props: SearchDoctorDto) {
               borderRadius: 5,
               border: '0.5px solid gray',
               gap: 10,
+              maxHeight: '100vh',
             }}
             flexDirection={'column'}
           >

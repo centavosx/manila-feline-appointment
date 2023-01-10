@@ -67,6 +67,8 @@ export type CreateAppointmentDto = {
 
   email: string
 
+  date: Date
+
   name: string
 
   time?: AmOrPm

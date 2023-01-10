@@ -1,5 +1,20 @@
-import { TextField, TextFieldProps } from '@mui/material'
+import {
+  CircularProgress,
+  InputAdornment,
+  TextField,
+  TextFieldProps,
+} from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { de } from 'date-fns/locale'
+import {
+  ChangeEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+  ChangeEvent,
+} from 'react'
+import { theme } from 'utils/theme'
+import { FormInput } from './FormInput'
 
 export type InputColor = {
   inputcolor?: {
@@ -50,3 +65,74 @@ export const Input = styled(TextInput)(({ inputcolor, padding }) => ({
     borderBottomColor: inputcolor?.borderBottomColor,
   },
 }))
+
+export const SearchableInput = ({
+  key,
+  value,
+  label,
+  type,
+  placeHolder,
+  onSearch,
+  onChange,
+  disabled,
+}: {
+  key?: any
+  label?: string
+  type?: string
+  value?: string
+  placeHolder?: string
+  onSearch?: (val: string) => Promise<void>
+  onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
+  disabled?: boolean
+}) => {
+  const [val, setVal] = useState('')
+  const [isSearching, setIsSearching] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsSearching(true)
+    const delay = setTimeout(() => {
+      onSearch?.(val).finally(() => setIsSearching(false))
+    }, 500)
+    return () => clearTimeout(delay)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [val, setIsSearching])
+
+  useEffect(() => {
+    if (!!value) setVal(() => value)
+  }, [value, setVal])
+
+  const onChangeValue = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setVal(e.target.value)
+      onChange?.(e)
+    },
+    [setVal, onChange]
+  )
+
+  return (
+    <Input
+      key={key}
+      label={label}
+      variant="filled"
+      type={type}
+      inputcolor={{
+        labelColor: 'gray',
+        backgroundColor: 'white',
+        borderBottomColor: theme.mainColors.first,
+        color: 'black',
+      }}
+      sx={{ color: 'black', width: '100%' }}
+      placeholder={placeHolder}
+      onChange={onChangeValue}
+      value={value ?? val}
+      InputProps={{
+        endAdornment: isSearching && (
+          <InputAdornment position="end">
+            <CircularProgress size={24} />
+          </InputAdornment>
+        ),
+      }}
+      disabled={disabled}
+    />
+  )
+}

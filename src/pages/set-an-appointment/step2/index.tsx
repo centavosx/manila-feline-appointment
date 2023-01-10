@@ -11,7 +11,7 @@ import { theme } from '../../../utils/theme'
 import { FormContainer } from '../../../components/forms'
 import { Formik } from 'formik'
 import { FormInput, InputError } from '../../../components/input'
-import { Select } from '../../../components/select'
+import { Option, Select } from '../../../components/select'
 import { Label } from '../../../components/label'
 import { Button } from '../../../components/button'
 import { useApi } from 'hooks'
@@ -173,7 +173,6 @@ export default function Step2({ id, date, isAllowed }: Step2Props) {
   const { data, refetch, isFetching } = useApi(
     async () => await getDoctorInfo(id, new Date(date))
   )
-
   const [appointmentId, setAppointmentId] = useState(null)
 
   const [availability, setAvailability] = useState<TimeSetterProps>([
@@ -331,6 +330,7 @@ export default function Step2({ id, date, isAllowed }: Step2Props) {
           <Formik<CreateAppointmentDto>
             initialValues={{
               serviceId: '',
+              date: new Date(date),
               email: '',
               name: '',
               time: undefined,
@@ -397,12 +397,13 @@ export default function Step2({ id, date, isAllowed }: Step2Props) {
                   options={[
                     { label: 'Morning', value: AmOrPm.AM },
                     { label: 'Afternoon', value: AmOrPm.PM },
-                  ]}
-                  controlStyle={{
-                    padding: 8,
-                    borderColor: 'black',
-                    backgroundColor: 'white',
-                  }}
+                  ].reduce((prev: Option[], curr: Option) => {
+                    if (curr.label === 'Morning' && user?.hasAm)
+                      return [...prev, { label: 'Morning', value: AmOrPm.AM }]
+                    if (curr.label === 'Afternoon' && user?.hasPm)
+                      return [...prev, { label: 'Afternoon', value: AmOrPm.PM }]
+                    return prev
+                  }, [])}
                   value={
                     values.time === AmOrPm.AM
                       ? { label: 'Morning', value: AmOrPm.AM }
@@ -410,6 +411,11 @@ export default function Step2({ id, date, isAllowed }: Step2Props) {
                       ? { label: 'Afternoon', value: AmOrPm.PM }
                       : undefined
                   }
+                  controlStyle={{
+                    padding: 8,
+                    borderColor: 'black',
+                    backgroundColor: 'white',
+                  }}
                   onChange={(v) => handleChange('time')((v as any).value)}
                   theme={(theme) => ({
                     ...theme,
