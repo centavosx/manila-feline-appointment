@@ -80,7 +80,7 @@ export const DoctorCard = ({
       )}
       <Flex flexDirection={'column'} flex={1} sx={{ gap: 1 }}>
         <Text as={'h3'} width="100%" color="black">
-          {user}
+          Dr. {user}
         </Text>
         <Text as={'h5'} width="100%" color="black">
           {workPosition}

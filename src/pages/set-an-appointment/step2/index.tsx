@@ -482,7 +482,6 @@ export default function Step2({ id, date, isAllowed }: Step2Props) {
                   maxRows={12}
                   padding={20}
                   sx={{ color: 'black', width: '100%', mt: 2 }}
-                  placeholder="Please type your password"
                 />
 
                 {!appointmentId && (
