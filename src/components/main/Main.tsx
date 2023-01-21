@@ -18,7 +18,7 @@ export const Main = ({
   return (
     <>
       <BaseHead
-        title="Appointment"
+        title="Manila Feline Center"
         pageTitle={pageTitle}
         description="Set your appointment now"
       />
