@@ -120,7 +120,6 @@ export default function Step1(props: SearchDoctorDto) {
             width={'100%'}
             sx={{
               backgroundColor: 'white',
-              height: '100%',
               padding: 12,
               borderRadius: 5,
               border: '0.5px solid gray',

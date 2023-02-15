@@ -381,7 +381,6 @@ No matter which veterinarian your pet sees you can be assured you are getting th
               width: ['100%', '50%'],
               zIndex: 1,
               margin: 10,
-              height: '100%',
             }}
             flexDirection="column"
             backgroundColor={theme.mainColors.sixth}

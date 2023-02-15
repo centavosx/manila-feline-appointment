@@ -20,6 +20,7 @@ export const Section = ({
       alignItems={'center'}
       flexDirection="column"
       width={'100%'}
+      height={'100%'}
       sx={{ gap: 4 }}
       {...other}
     >
