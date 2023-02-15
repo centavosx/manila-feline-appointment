@@ -30,7 +30,13 @@ export const Main = ({
       >
         <Flex
           flexDirection={'column'}
-          sx={{ flex: 1, position: 'fixed', height: '100%', overflow: 'auto' }}
+          sx={{
+            flex: 1,
+            position: 'fixed',
+            height: '100%',
+            overflow: 'auto',
+            width: '100%',
+          }}
           maxWidth={2250}
           alignSelf="center"
           backgroundColor={theme.colors.verylight}
