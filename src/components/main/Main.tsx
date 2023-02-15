@@ -24,12 +24,13 @@ export const Main = ({
       />
       <Flex
         width={'100%'}
+        sx={{ position: 'fixed', height: '100%' }}
         justifyContent="center"
         backgroundColor={theme.colors.verylight}
       >
         <Flex
           flexDirection={'column'}
-          sx={{ flex: 1, position: 'relative' }}
+          sx={{ flex: 1, position: 'fixed', height: '100%', overflow: 'auto' }}
           maxWidth={2250}
           alignSelf="center"
           backgroundColor={theme.colors.verylight}
