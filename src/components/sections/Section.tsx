@@ -1,3 +1,4 @@
+import { Loading } from 'components/loading'
 import { Flex, FlexProps, TextProps, Text } from 'rebass'
 
 export const Section = ({
@@ -5,11 +6,13 @@ export const Section = ({
   children,
   textProps,
   contentProps,
+  isFetching,
   ...other
 }: {
   title?: string
   textProps?: TextProps
   contentProps?: FlexProps
+  isFetching?: boolean
 } & FlexProps) => {
   return (
     <Flex
@@ -32,17 +35,21 @@ export const Section = ({
           {title}
         </Text>
       )}
-      <Flex
-        alignItems={'center'}
-        flexDirection="column"
-        width={'100%'}
-        color="black"
-        fontFamily={'Castego'}
-        sx={{ gap: 4 }}
-        {...contentProps}
-      >
-        {children}
-      </Flex>
+      {isFetching ? (
+        <Loading />
+      ) : (
+        <Flex
+          alignItems={'center'}
+          flexDirection="column"
+          width={'100%'}
+          color="black"
+          fontFamily={'Castego'}
+          sx={{ gap: 4 }}
+          {...contentProps}
+        >
+          {children}
+        </Flex>
+      )}
     </Flex>
   )
 }

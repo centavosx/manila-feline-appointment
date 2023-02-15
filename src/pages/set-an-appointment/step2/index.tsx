@@ -170,7 +170,7 @@ const ValidateEmail = ({ appointmentId }: { appointmentId: string }) => {
 }
 
 export default function Step2({ id, date, isAllowed }: Step2Props) {
-  const { data, refetch, isFetching } = useApi(
+  const { data, isFetching } = useApi(
     async () => await getDoctorInfo(id, new Date(date))
   )
   const [appointmentId, setAppointmentId] = useState(null)
@@ -232,6 +232,7 @@ export default function Step2({ id, date, isAllowed }: Step2Props) {
               borderRadius: 5,
             },
           }}
+          isFetching={isFetching}
         >
           <Flex
             flex={1}

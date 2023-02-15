@@ -1,3 +1,4 @@
+import { Loading } from 'components/loading'
 import { useRouter } from 'next/router'
 
 import { useEffect } from 'react'
@@ -9,5 +10,5 @@ export default function RedirectHOC() {
     replace('/set-an-appointment/step1')
   })
 
-  return null
+  return <Loading />
 }
