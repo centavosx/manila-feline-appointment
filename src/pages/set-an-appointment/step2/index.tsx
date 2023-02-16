@@ -14,6 +14,7 @@ import { FormInput, InputError } from '../../../components/input'
 import { Option, Select } from '../../../components/select'
 import { Label } from '../../../components/label'
 import { Button } from '../../../components/button'
+import { Loading } from '../../../components/loading'
 import { useApi } from 'hooks'
 import {
   AmOrPm,
@@ -58,6 +59,7 @@ const ValidateEmail = ({ appointmentId }: { appointmentId: string }) => {
   const [error, setError] = useState('')
   const { back, replace } = useRouter()
   const [time, setTime] = useState(180)
+  const [isSubmitRefresh, setIsSubmitRefresh] = useState(false)
   const goBack = useCallback(() => {
     if (window.history.length > 2) return back()
     return replace('/')
@@ -72,8 +74,11 @@ const ValidateEmail = ({ appointmentId }: { appointmentId: string }) => {
   }, [setTime, time])
 
   const refreshCode = useCallback(() => {
-    refreshAppointment(appointmentId).then(() => setTime(180))
-  }, [setTime, appointmentId])
+    setIsSubmitRefresh(true)
+    refreshAppointment(appointmentId)
+      .then(() => setTime(180))
+      .finally(() => setIsSubmitRefresh(false))
+  }, [setTime, appointmentId, setIsSubmitRefresh])
 
   return (
     <Formik<VerifyAppointmentDto>
@@ -115,6 +120,7 @@ const ValidateEmail = ({ appointmentId }: { appointmentId: string }) => {
             mb: 10,
           }}
         >
+          {(isSubmitting || isSubmitRefresh) && <Loading />}
           <Flex sx={{ flexDirection: 'column', gap: 2, width: '100%' }}>
             <FormInput
               name="verification"
@@ -359,6 +365,7 @@ export default function Step2({ id, date, isAllowed }: Step2Props) {
                   mb: 10,
                 }}
               >
+                {isSubmitting && <Loading />}
                 <FormInput
                   name="name"
                   label={'Full name'}

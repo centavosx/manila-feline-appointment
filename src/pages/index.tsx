@@ -15,6 +15,7 @@ import { ServiceIcon } from '../components/icon'
 import { Collage } from 'components/collage'
 import { CreateEmailDto, sendMail } from 'api/other.api'
 import { FormikValidation } from 'helpers'
+import { Loading } from 'components/loading'
 
 type Services = {
   name: string
@@ -411,6 +412,7 @@ No matter which veterinarian your pet sees you can be assured you are getting th
                     justifyContent: 'center',
                   }}
                 >
+                  {isSubmitting && <Loading />}
                   <Flex
                     sx={{
                       gap: [10],
