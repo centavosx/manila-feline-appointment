@@ -70,10 +70,12 @@ const SearchInput = ({
     },
     [setUsers, props, setIsSearching]
   )
+
   useEffect(() => {
+    setUsers([])
     refresh(search)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props, refresh])
+  }, [props, refresh, setUsers])
 
   return (
     <>
