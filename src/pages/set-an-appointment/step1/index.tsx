@@ -53,20 +53,22 @@ const Services = ({ onChange }: { onChange: (v: string) => void }) => {
 const SearchInput = ({
   props,
   children,
+  setIsSearching,
 }: {
   props: SearchDoctorDto
   children: (data: User[]) => ReactNode
+  setIsSearching: (v: boolean) => void
 }) => {
   const [search, setSearch] = useState('')
-
   const [users, setUsers] = useState<User[]>([])
 
   const refresh = useCallback(
     async (v: string) => {
       const resp = await getDoctors({ ...props, name: v })
       setUsers(resp.data.data)
+      setIsSearching(false)
     },
-    [setUsers, props]
+    [setUsers, props, setIsSearching]
   )
   useEffect(() => {
     refresh(search)
@@ -93,6 +95,11 @@ export default function Step1(props: SearchDoctorDto) {
   const [date, setDate] = useState<Date | undefined>(
     new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)
   )
+  const [isSearching, setIsSearching] = useState(false)
+
+  useEffect(() => {
+    setIsSearching(true)
+  }, [date, setIsSearching])
 
   return (
     <Main isLink={true}>
@@ -104,6 +111,7 @@ export default function Step1(props: SearchDoctorDto) {
             flexDirection: ['column', 'column', 'row'],
             alignItems: 'start',
           }}
+          isFetching={isSearching}
         >
           <Calendar
             minDate={
@@ -143,6 +151,7 @@ export default function Step1(props: SearchDoctorDto) {
                       .toLowerCase() as Days)
                   : undefined,
               }}
+              setIsSearching={setIsSearching}
             >
               {(data) => (
                 <>

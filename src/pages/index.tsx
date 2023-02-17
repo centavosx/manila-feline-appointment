@@ -4,7 +4,6 @@ import { Text } from '../components/text'
 
 import { Main } from '../components/main'
 import { Carousel, SecondCarousel } from '../components/carousel'
-import { Box, BoxContainer } from '../components/box'
 import { Section } from '../components/sections'
 import { FormInput } from '../components/input'
 import { Formik } from 'formik'
@@ -16,6 +15,7 @@ import { Collage } from 'components/collage'
 import { CreateEmailDto, sendMail } from 'api/other.api'
 import { FormikValidation } from 'helpers'
 import { Loading } from 'components/loading'
+import { useEffect } from 'react'
 
 type Services = {
   name: string
@@ -104,6 +104,7 @@ const team: { name: string; position: string; img?: string }[] = [
 
 export default function Home() {
   const { replace } = useRouter()
+
   return (
     <Main id="home">
       <Flex flexDirection={'column'} alignItems="center">
