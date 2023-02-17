@@ -33,9 +33,9 @@ export const DisplayDoctor = ({
         scrollbarWidth: 'thin',
       }}
     >
-      {data.map((d, i) => (
+      {data.map((d) => (
         <DoctorCard
-          key={i}
+          key={d?.id}
           user={d.name}
           workPosition={d.position}
           availability={[]}
