@@ -2,7 +2,7 @@ import { Flex, Image, Link as Anchor, FlexProps } from 'rebass'
 import { MobileNavigation, WebNavigation } from '../navigation'
 
 import { theme } from '../../utils/theme'
-import { Button } from '../button'
+
 import { Header } from '../header'
 import { Text } from '../text'
 import { MobileView, WebView } from '../views'
@@ -14,7 +14,7 @@ export const Main = ({
   children,
   isLink,
 }: { pageTitle?: string; isLink?: boolean } & FlexProps) => {
-  const { replace } = useRouter()
+  const { pathname } = useRouter()
   return (
     <>
       <BaseHead
@@ -24,7 +24,7 @@ export const Main = ({
       />
       <Flex
         width={'100%'}
-        sx={{ position: 'fixed', height: '100%' }}
+        sx={{ position: pathname === '/' ? 'unset' : 'fixed', height: '100%' }}
         justifyContent="center"
         backgroundColor={theme.colors.verylight}
       >
@@ -32,7 +32,7 @@ export const Main = ({
           flexDirection={'column'}
           sx={{
             flex: 1,
-            position: 'fixed',
+            position: pathname === '/' ? 'unset' : 'fixed',
             height: '100%',
             overflow: 'auto',
             width: '100%',
