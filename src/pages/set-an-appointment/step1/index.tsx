@@ -54,28 +54,40 @@ const SearchInput = ({
   props,
   children,
   setIsSearching,
+  isSearching,
 }: {
   props: SearchDoctorDto
   children: (data: User[]) => ReactNode
   setIsSearching: (v: boolean) => void
+  isSearching: boolean
 }) => {
   const [search, setSearch] = useState('')
   const [users, setUsers] = useState<User[]>([])
+  const [fetchHandler, setFetchHandler] = useState(0)
 
   const refresh = useCallback(
     async (v: string) => {
-      const resp = await getDoctors({ ...props, name: v })
-      setUsers(resp.data.data)
-      setIsSearching(false)
+      if (fetchHandler === 0) {
+        const resp = await getDoctors({ ...props, name: v })
+        setUsers(resp.data.data)
+        setIsSearching(false)
+      }
     },
-    [setUsers, props, setIsSearching]
+    [setUsers, props, setIsSearching, fetchHandler]
   )
 
   useEffect(() => {
-    setUsers([])
-    refresh(search)
+    if (!isSearching) setFetchHandler(0)
+  }, [isSearching])
+
+  useEffect(() => {
+    if (fetchHandler === 0) {
+      setFetchHandler((v) => v + 1)
+      setUsers([])
+      refresh(search)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props, refresh, setUsers])
+  }, [props, refresh, setUsers, isSearching, fetchHandler, setFetchHandler])
 
   return (
     <>
@@ -167,6 +179,7 @@ export default function Step1(props: SearchDoctorDto) {
               flexDirection={'column'}
             >
               <SearchInput
+                isSearching={isSearching}
                 props={{
                   ...props,
                   day: date
