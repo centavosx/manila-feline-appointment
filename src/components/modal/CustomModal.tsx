@@ -7,25 +7,26 @@ import {
 } from 'react'
 
 import Modal from '@mui/material/Modal'
-import { Button, ButtonProps } from 'components/button'
 import { AiOutlineClose } from 'react-icons/ai'
 import { Flex } from 'rebass'
 
-type ChildProps = {
+type ChildrenProps = {
   isOpen: boolean
-  onSubmit: () => void
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export function ButtonModal({
-  className,
-  sx,
+type ChildProps = ChildrenProps & {
+  onSubmit: () => void
+}
+
+export function CustomModal({
   children,
   modalChild,
+
   onSubmit,
-  ...props
-}: ButtonProps & {
+}: {
   modalChild?: ((props: ChildProps) => ReactNode) | ReactNode
+  children: ((props: ChildrenProps) => ReactNode) | ReactNode
   onSubmit?: () => void
 }) {
   const [open, setOpen] = useState<boolean>(false)
@@ -37,9 +38,9 @@ export function ButtonModal({
 
   return (
     <>
-      <Button className={className} onClick={() => setOpen(true)} {...props}>
-        {children}
-      </Button>
+      {typeof children === 'function'
+        ? children({ isOpen: open, setOpen })
+        : children}
       <Modal
         open={open}
         onClose={() => setOpen(false)}

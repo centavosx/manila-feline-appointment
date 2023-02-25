@@ -16,7 +16,7 @@ type ChildProps = {
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function TextModal({
+export function TextModal({
   className,
   sx,
   children,

@@ -107,11 +107,17 @@ export default function Step1(props: SearchDoctorDto) {
     <Main isLink={true}>
       <Flex flexDirection={'column'} flex={1} width={'100%'}>
         <Section
-          title="Set Appointment"
-          backgroundColor={theme.mainColors.fifth}
+          title="Set An Appointment"
           contentProps={{
             flexDirection: ['column', 'column', 'row'],
             alignItems: 'start',
+          }}
+          textProps={{
+            backgroundColor: theme.colors.blackgray,
+            width: '100%',
+            padding: 3,
+            textAlign: 'center',
+            color: 'white',
           }}
           isFetching={isSearching}
         >
@@ -129,103 +135,129 @@ export default function Step1(props: SearchDoctorDto) {
           <Flex
             width={'100%'}
             sx={{
-              backgroundColor: 'white',
-              padding: 12,
+              backgroundColor: theme.colors.black,
               borderRadius: 5,
               border: '0.5px solid gray',
-              gap: 10,
-              maxHeight: '100vh',
             }}
             flexDirection={'column'}
           >
             {!!date && (
-              <Text sx={{ color: 'black', fontSize: 18, fontWeight: 'bold' }}>
+              <Text
+                sx={{
+                  color: theme.colors.white,
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                  width: '100%',
+                  position: 'relative',
+                  padding: 2,
+                }}
+              >
                 {format(date, 'cccc LLLL d, yyyy')}
               </Text>
             )}
+            <Flex
+              width={'100%'}
+              sx={{
+                backgroundColor: 'white',
+                padding: 12,
 
-            <SearchInput
-              props={{
-                ...props,
-                day: date
-                  ? (format(date, 'cccc LLLL d, yyyy')
-                      .split(' ')[0]
-                      .toLowerCase() as Days)
-                  : undefined,
+                gap: 10,
+                maxHeight: '100vh',
               }}
-              setIsSearching={setIsSearching}
+              flexDirection={'column'}
             >
-              {(data) => (
-                <>
-                  <Services
-                    onChange={(v) =>
-                      replace({ pathname, query: { ...query, serviceId: v } })
-                    }
-                  />
-                  <RadioGroup
-                    defaultValue={true}
-                    name="radio-buttons-group"
-                    sx={{ flexDirection: 'row' }}
-                    onChange={(e) =>
-                      replace({
-                        pathname,
-                        query: {
-                          ...query,
-                          time:
-                            e.target.value === 'true' ? AmOrPm.AM : AmOrPm.PM,
-                        },
-                      })
-                    }
-                  >
-                    <FormControlLabel
-                      value={true}
-                      control={
-                        <Radio
-                          sx={{
-                            '&.Mui-checked': {
-                              color: '#3f352c',
-                            },
-                          }}
+              <SearchInput
+                props={{
+                  ...props,
+                  day: date
+                    ? (format(date, 'cccc LLLL d, yyyy')
+                        .split(' ')[0]
+                        .toLowerCase() as Days)
+                    : undefined,
+                }}
+                setIsSearching={setIsSearching}
+              >
+                {(data) => (
+                  <>
+                    <Flex flexDirection={'row'} sx={{ gap: 2, width: '100%' }}>
+                      <Flex flexDirection={'column'} flex={1}>
+                        <Services
+                          onChange={(v) =>
+                            replace({
+                              pathname,
+                              query: { ...query, serviceId: v },
+                            })
+                          }
                         />
-                      }
-                      key={1}
-                      label="AM"
-                      sx={{ color: 'black' }}
-                    />
-                    <FormControlLabel
-                      value={false}
-                      control={
-                        <Radio
-                          sx={{
-                            '&.Mui-checked': {
-                              color: '#3f352c',
+                      </Flex>
+                      <RadioGroup
+                        defaultValue={true}
+                        name="radio-buttons-group"
+                        sx={{ flexDirection: 'row' }}
+                        onChange={(e) =>
+                          replace({
+                            pathname,
+                            query: {
+                              ...query,
+                              time:
+                                e.target.value === 'true'
+                                  ? AmOrPm.AM
+                                  : AmOrPm.PM,
                             },
-                          }}
+                          })
+                        }
+                      >
+                        <FormControlLabel
+                          value={true}
+                          control={
+                            <Radio
+                              sx={{
+                                '&.Mui-checked': {
+                                  color: '#3f352c',
+                                },
+                              }}
+                            />
+                          }
+                          key={1}
+                          label="AM"
+                          sx={{ color: 'black' }}
                         />
+                        <FormControlLabel
+                          value={false}
+                          control={
+                            <Radio
+                              sx={{
+                                '&.Mui-checked': {
+                                  color: '#3f352c',
+                                },
+                              }}
+                            />
+                          }
+                          key={2}
+                          label="PM"
+                          sx={{ color: 'black' }}
+                        />
+                      </RadioGroup>
+                    </Flex>
+                    <Text sx={{ color: 'black', fontSize: 15 }}>
+                      Available Doctors
+                    </Text>
+                    <DisplayDoctor
+                      data={data}
+                      onItemClick={(v) =>
+                        push({
+                          pathname: 'step2',
+                          query: {
+                            id: v,
+                            date: date?.toISOString(),
+                          },
+                        })
                       }
-                      key={2}
-                      label="PM"
-                      sx={{ color: 'black' }}
                     />
-                  </RadioGroup>
-                  <Text sx={{ color: 'black', fontSize: 15 }}>
-                    Available Doctors
-                  </Text>
-                  <DisplayDoctor
-                    data={data}
-                    onItemClick={(v) =>
-                      push({
-                        pathname: 'step2',
-                        query: {
-                          id: v,
-                          date: date?.toISOString(),
-                        },
-                      })
-                    }
-                  />
-                </>
-              )}
-            </SearchInput>
+                  </>
+                )}
+              </SearchInput>
+            </Flex>
           </Flex>
         </Section>
       </Flex>

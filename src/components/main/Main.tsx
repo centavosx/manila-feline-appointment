@@ -1,6 +1,6 @@
 import { Flex, Image, Link as Anchor, FlexProps } from 'rebass'
 import Wave from 'react-wavify'
-import { MobileNavigation, WebNavigation } from '../navigation'
+import Navigation from '../navigation'
 
 import { theme } from '../../utils/theme'
 
@@ -76,11 +76,11 @@ export const Main = ({
             </Flex>
             <WebView>
               <Flex sx={{ gap: 16, padding: 15 }}>
-                <WebNavigation isLink={isLink} />
+                <Navigation.WebNavigation isLink={isLink} />
               </Flex>
             </WebView>
             <MobileView>
-              <MobileNavigation isLink={isLink} />
+              <Navigation.MobileNavigation isLink={isLink} />
             </MobileView>
           </Header>
           {children}

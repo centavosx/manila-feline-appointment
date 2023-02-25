@@ -3,20 +3,14 @@ import { theme } from '../utils/theme'
 import { Text } from '../components/text'
 
 import { Main } from '../components/main'
-import { Carousel, SecondCarousel } from '../components/carousel'
+import { Carousel } from '../components/carousel'
 import { Section } from '../components/sections'
-import { FormInput } from '../components/input'
-import { Formik } from 'formik'
+
 import { Button } from '../components/button'
-import { FormContainer } from '../components/forms'
+
 import { useRouter } from 'next/router'
-import { ServiceIcon } from '../components/icon'
-import { Collage } from 'components/collage'
-import { CreateEmailDto, sendMail } from 'api/other.api'
-import { FormikValidation } from 'helpers'
-import { Loading } from 'components/loading'
-import { useEffect } from 'react'
-import ButtonModal from 'components/modal/ModalButton'
+
+import { ButtonModal } from 'components/modal'
 
 type Services = {
   name: string
