@@ -66,28 +66,29 @@ const SearchInput = ({
   const [fetchHandler, setFetchHandler] = useState(0)
 
   const refresh = useCallback(
-    async (v: string) => {
-      if (fetchHandler === 0) {
+    async (v: string, handler: number) => {
+      if (handler === 1) {
         const resp = await getDoctors({ ...props, name: v })
         setUsers(resp.data.data)
         setIsSearching(false)
+        setFetchHandler(0)
       }
     },
-    [setUsers, props, setIsSearching, fetchHandler]
+    [setUsers, props, setIsSearching, setFetchHandler]
   )
 
   useEffect(() => {
-    if (!isSearching) setFetchHandler(0)
-  }, [isSearching])
+    if (fetchHandler === 1) {
+      refresh(search, fetchHandler)
+    }
+  }, [fetchHandler, refresh, search])
 
   useEffect(() => {
     if (fetchHandler === 0) {
-      setFetchHandler((v) => v + 1)
-      setUsers([])
-      refresh(search)
+      setFetchHandler(1)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props, refresh, setUsers, isSearching, fetchHandler, setFetchHandler])
+  }, [props, isSearching, setFetchHandler])
 
   return (
     <>
@@ -96,7 +97,7 @@ const SearchInput = ({
         onChange={(e) => setSearch(() => e.target.value)}
         label="Search"
         placeHolder="Search doctor"
-        onSearch={async (v) => await refresh(v)}
+        onSearch={async (v) => await refresh(v, 1)}
       />
       {children(users)}
     </>
