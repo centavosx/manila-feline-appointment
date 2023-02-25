@@ -78,19 +78,19 @@ const SearchInput = ({
   )
 
   useEffect(() => {
-    if (fetchHandler === 1) {
+    if (fetchHandler === 1 && isSearching) {
       setUsers(null)
     }
-  }, [fetchHandler, setUsers])
+  }, [fetchHandler, setUsers, isSearching])
 
   useEffect(() => {
-    if (fetchHandler === 1 && users === null) {
+    if (fetchHandler === 1 && users === null && isSearching) {
       refresh(search, fetchHandler)
     }
-  }, [users, fetchHandler, refresh, search])
+  }, [users, fetchHandler, refresh, search, isSearching])
 
   useEffect(() => {
-    if (fetchHandler === 0) {
+    if (fetchHandler === 0 && isSearching) {
       setFetchHandler(1)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,7 +120,7 @@ export default function Step1(props: SearchDoctorDto) {
 
   useEffect(() => {
     setIsSearching(true)
-  }, [date, setIsSearching])
+  }, [date, setIsSearching, props.serviceId, props.time])
 
   return (
     <Main isLink={true}>
