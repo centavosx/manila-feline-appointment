@@ -21,6 +21,7 @@ const StyledButton = ({ className, sx, ...props }: ButtonProps) => {
 }
 export const Button = styled(StyledButton)`
   && {
+    font-weight: bold;
     background-color: ${({ backgroundcolor }) =>
       backgroundcolor ?? theme.colors.blackgray};
     color: ${({ textcolor }) => textcolor ?? theme.colors.pink};

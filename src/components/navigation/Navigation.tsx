@@ -116,11 +116,10 @@ export const ContactUs = () => (
               variant="filled"
               inputcolor={{
                 labelColor: 'gray',
-                backgroundColor: theme.mainColors.fourth,
                 borderBottomColor: theme.mainColors.first,
-                color: 'black',
               }}
               sx={{ color: 'black', width: '100%' }}
+              style={{ background: 'white' }}
               placeholder="Please type your password"
             />
             <FormInput
@@ -129,11 +128,10 @@ export const ContactUs = () => (
               variant="filled"
               inputcolor={{
                 labelColor: 'gray',
-                backgroundColor: theme.mainColors.fourth,
                 borderBottomColor: theme.mainColors.first,
-                color: 'black',
               }}
               sx={{ color: 'black', width: '100%' }}
+              style={{ background: 'white' }}
               placeholder="Please type your password"
             />
           </Flex>
@@ -143,11 +141,10 @@ export const ContactUs = () => (
             variant="filled"
             inputcolor={{
               labelColor: 'gray',
-              backgroundColor: theme.mainColors.fourth,
               borderBottomColor: theme.mainColors.first,
-              color: 'black',
             }}
             sx={{ color: 'black', width: '100%' }}
+            style={{ background: 'white' }}
             placeholder="Please type your password"
           />
           <FormInput
@@ -157,22 +154,17 @@ export const ContactUs = () => (
             multiline={true}
             inputcolor={{
               labelColor: 'gray',
-              backgroundColor: theme.mainColors.fourth,
               borderBottomColor: theme.mainColors.first,
-              color: 'black',
             }}
+            sx={{ color: 'black', width: '100%' }}
+            style={{ background: 'white' }}
             minRows={12}
             maxRows={12}
-            sx={{ color: 'black', width: '100%' }}
             placeholder="Please type your password"
           />
           <Flex width={'100%'} justifyContent={'end'}>
             <Button
               type="submit"
-              backgroundcolor={theme.mainColors.eight}
-              activecolor={theme.mainColors.first}
-              hovercolor={theme.mainColors.second}
-              textcolor={theme.colors.verylight}
               style={{ width: '100px' }}
               disabled={isSubmitting}
             >

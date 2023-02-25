@@ -133,9 +133,6 @@ export default function Home() {
             <Button
               type="submit"
               backgroundcolor={'transparent'}
-              activecolor={theme.mainColors.sixth}
-              hovercolor={theme.mainColors.seventh}
-              textcolor={theme.colors.verylight}
               variant="outlined"
               style={{
                 borderColor: theme.colors.verylight,
@@ -199,8 +196,8 @@ export default function Home() {
             textcolor={'black'}
             hovercolor={'#e0e0e0'}
             hovertextcolor={'black'}
-            activetextcolor={'#d6d6d6'}
-            activecolor={'black'}
+            activetextcolor={'black'}
+            activecolor={'#d6d6d6'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
@@ -260,8 +257,8 @@ We are committed to honesty, transparency, and building up a relationship based 
             textcolor={'black'}
             hovercolor={'#e0e0e0'}
             hovertextcolor={'black'}
-            activetextcolor={'#d6d6d6'}
-            activecolor={'black'}
+            activetextcolor={'black'}
+            activecolor={'#d6d6d6'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>

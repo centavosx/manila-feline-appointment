@@ -225,8 +225,7 @@ export default function Step2({ id, date, isAllowed }: Step2Props) {
     <Main isLink={true}>
       <Flex flexDirection={'column'} flex={1} width={'100%'}>
         <Section
-          title="Set Appointment"
-          backgroundColor={theme.mainColors.fifth}
+          title="Set An Appointment"
           height={'100wh'}
           contentProps={{
             flexDirection: 'column',
@@ -237,6 +236,13 @@ export default function Step2({ id, date, isAllowed }: Step2Props) {
               padding: 24,
               borderRadius: 5,
             },
+          }}
+          textProps={{
+            backgroundColor: theme.colors.blackgray,
+            width: '100%',
+            padding: 3,
+            textAlign: 'center',
+            color: 'white',
           }}
           isFetching={isFetching}
         >
