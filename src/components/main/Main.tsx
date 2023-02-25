@@ -66,7 +66,7 @@ export const Main = ({
                       fontSize: [14, 18],
                       fontWeight: 600,
                       fontFamily: 'Castego',
-                      color: theme.backgroundColors.darkbrown,
+                      color: theme.colors.pink,
                     }}
                   >
                     Manila Feline Center

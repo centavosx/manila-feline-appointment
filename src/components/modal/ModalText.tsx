@@ -7,9 +7,8 @@ import {
 } from 'react'
 
 import Modal from '@mui/material/Modal'
-import { Button, ButtonProps } from 'components/button'
 import { AiOutlineClose } from 'react-icons/ai'
-import { Flex } from 'rebass'
+import { Flex, Text, TextProps } from 'rebass'
 
 type ChildProps = {
   isOpen: boolean
@@ -17,14 +16,16 @@ type ChildProps = {
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function ButtonModal({
+export default function TextModal({
   className,
   sx,
   children,
   modalChild,
+  isNotClickable,
   onSubmit,
   ...props
-}: ButtonProps & {
+}: TextProps & {
+  isNotClickable?: boolean
   modalChild?: ((props: ChildProps) => ReactNode) | ReactNode
   onSubmit?: () => void
 }) {
@@ -37,9 +38,13 @@ export default function ButtonModal({
 
   return (
     <>
-      <Button className={className} onClick={() => setOpen(true)} {...props}>
+      <Text
+        className={className}
+        {...props}
+        onClick={!isNotClickable ? () => setOpen(true) : undefined}
+      >
         {children}
-      </Button>
+      </Text>
       <Modal
         open={open}
         onClose={() => setOpen(false)}

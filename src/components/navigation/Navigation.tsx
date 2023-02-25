@@ -1,8 +1,7 @@
-import { Link, scroller } from 'react-scroll'
-import NextLink from 'next/link'
-import { TextProps } from 'rebass'
+import { scroller } from 'react-scroll'
+
 import { theme } from '../../utils/theme'
-import { Text } from '../text'
+import { Flex, Text as TextComp } from 'rebass'
 import Drawer from '@mui/material/Drawer'
 import React, { useCallback, useState } from 'react'
 import { FiMenu } from 'react-icons/fi'
@@ -15,78 +14,276 @@ import {
 } from '@mui/material'
 import { Button } from '../button'
 import { useRouter } from 'next/router'
+import TextModal from 'components/modal/ModalText'
+import { ServiceIcon } from 'components/icon'
+import { FormInput } from 'components/input'
+import { Loading } from 'components/loading'
+import { FormContainer } from 'components/forms'
+import { Formik } from 'formik'
+import { CreateEmailDto, sendMail } from 'api'
+import { FormikValidation } from 'helpers'
 
-const LinkRef = ({
-  href,
-  children,
-  isLink,
-  ...others
-}: { href: string; isLink?: boolean } & TextProps) => {
-  return !isLink ? (
-    <Link
-      to={href}
-      spy={true}
-      smooth={true}
-      offset={0}
-      duration={500}
-      style={{ cursor: 'pointer' }}
-    >
-      <Text
-        width={'auto'}
-        fontWeight={'bold'}
-        sx={{
-          fontSize: [14, 16],
-          fontFamily: 'Castego',
-          ':hover': {
-            opacity: 0.7,
-          },
-          '&&:active': {
-            opacity: 1,
-          },
-        }}
-        {...others}
-      >
-        {children}
-      </Text>
-    </Link>
-  ) : (
-    <NextLink href={'/#' + href} style={{ cursor: 'pointer' }}>
-      <Text
-        width={'auto'}
-        fontWeight={'bold'}
-        sx={{
-          fontSize: [14, 16],
-          fontFamily: 'Castego',
-          ':hover': {
-            opacity: 0.7,
-          },
-          '&&:active': {
-            opacity: 1,
-          },
-        }}
-        {...others}
-      >
-        {children}
-      </Text>
-    </NextLink>
-  )
+type Services = {
+  name: string
+  src: string
 }
-
-const navigations = ['Home', 'Services', 'Team', 'About Us', 'Contact Us']
+const navigations = ['Home']
+const services: Services[] = [
+  {
+    name: 'Preventive Care',
+    src: '/assets/services/Preventive Care.png',
+  },
+  {
+    name: 'Wellness',
+    src: '/assets/services/wellness.png',
+  },
+  {
+    name: 'Consultation',
+    src: '/assets/services/Consultation.png',
+  },
+  {
+    name: 'Nutritional Counseling',
+    src: '/assets/services/nutritional counseling.png',
+  },
+  {
+    name: 'Laboratory',
+    src: '/assets/services/laboratory.png',
+  },
+  {
+    name: 'Surgery',
+    src: '/assets/services/surgery.png',
+  },
+  {
+    name: 'Telemedicine',
+    src: '/assets/services/telemedicine.png',
+  },
+  {
+    name: 'Dental Care',
+    src: '/assets/services/dental care.png',
+  },
+  {
+    name: 'Hospitalization',
+    src: '/assets/services/hospitalization.png',
+  },
+  {
+    name: 'After-hour emergency',
+    src: '/assets/services/afrer hour emergency.png',
+  },
+  {
+    name: 'Pet supplies',
+    src: '/assets/services/pet-supplies.png',
+  },
+]
 
 export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
+  const { push } = useRouter()
   return (
     <>
-      {navigations.map((data) => (
-        <LinkRef
-          key={data}
-          href={data?.split(' ').join('').toLowerCase()}
-          color={theme.backgroundColors.darkbrown}
-          isLink={isLink}
-        >
-          {data}
-        </LinkRef>
-      ))}
+      <TextModal
+        width={'auto'}
+        fontWeight={'bold'}
+        style={{ cursor: 'pointer' }}
+        onMouseOver={(e) => (e.currentTarget.style.opacity = '0.7')}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+        sx={{
+          fontSize: [14, 16],
+          fontFamily: 'Castego',
+
+          padding: 0,
+        }}
+        color={theme.colors.pink}
+        onClick={() => push('/#home')}
+        isNotClickable={true}
+      >
+        {navigations[0]}
+      </TextModal>
+      <TextModal
+        width={'auto'}
+        style={{ cursor: 'pointer' }}
+        fontWeight={'bold'}
+        onMouseOver={(e) => (e.currentTarget.style.opacity = '0.7')}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+        sx={{
+          fontSize: [14, 16],
+          fontFamily: 'Castego',
+          padding: 0,
+        }}
+        color={theme.colors.pink}
+        modalChild={
+          <Flex flexDirection={'column'} sx={{ gap: 2 }}>
+            <TextComp as={'h2'}>Services</TextComp>
+            <Flex
+              flexDirection={'row'}
+              flexWrap={'wrap'}
+              sx={{ gap: 1 }}
+              justifyContent={'center'}
+              padding={20}
+            >
+              {services.map((d, i) => (
+                <ServiceIcon
+                  key={i}
+                  imageProps={{ image: { src: d.src } }}
+                  flexProps={{
+                    sx: {
+                      ':hover': {
+                        fontWeight: 'bold',
+                        fontStyle: 'italic',
+                        animation: 'zoom-in-zoom-out 1s',
+                        '@keyframes zoom-in-zoom-out': {
+                          '0%': {
+                            transform: 'scale(1, 1)',
+                          },
+                          '50%': {
+                            transform: 'scale(1.2, 1.2)',
+                          },
+                          '100%': {
+                            transform: 'scale(1, 1)',
+                          },
+                        },
+                      },
+                      width: 120,
+                    },
+                  }}
+                  sx={{
+                    wordWrap: 'break-word',
+                    textAlign: 'center',
+                    whiteSpace: 'initial',
+                    overflow: 'hidden',
+                    fontFamily: 'Castego',
+                  }}
+                >
+                  {d.name}
+                </ServiceIcon>
+              ))}
+            </Flex>
+          </Flex>
+        }
+      >
+        Services
+      </TextModal>
+      <TextModal
+        width={'auto'}
+        style={{ cursor: 'pointer' }}
+        fontWeight={'bold'}
+        onMouseOver={(e) => (e.currentTarget.style.opacity = '0.7')}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+        sx={{
+          fontSize: [14, 16],
+          fontFamily: 'Castego',
+          padding: 0,
+        }}
+        color={theme.colors.pink}
+        modalChild={
+          <Formik<CreateEmailDto>
+            initialValues={{ from: '', message: '', subject: '', name: '' }}
+            validationSchema={FormikValidation.createMail}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+              setSubmitting(true)
+              sendMail(values).finally(() => {
+                setSubmitting(false)
+                resetForm()
+              })
+            }}
+          >
+            {({ isSubmitting }) => (
+              <FormContainer
+                flexProps={{
+                  sx: { gap: 10 },
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  padding: 20,
+                  width: '100%',
+                  height: '100%',
+                }}
+                label="Contact Us"
+                labelProps={{
+                  width: '100%',
+                }}
+              >
+                {isSubmitting && <Loading />}
+                <Flex
+                  sx={{
+                    gap: [10],
+                    flexDirection: ['column', 'row'],
+                    width: '100%',
+                  }}
+                >
+                  <FormInput
+                    name="name"
+                    label={'Name'}
+                    variant="filled"
+                    inputcolor={{
+                      labelColor: 'gray',
+                      backgroundColor: theme.mainColors.fourth,
+                      borderBottomColor: theme.mainColors.first,
+                      color: 'black',
+                    }}
+                    sx={{ color: 'black', width: '100%' }}
+                    placeholder="Please type your password"
+                  />
+                  <FormInput
+                    name="from"
+                    label={'Email'}
+                    variant="filled"
+                    inputcolor={{
+                      labelColor: 'gray',
+                      backgroundColor: theme.mainColors.fourth,
+                      borderBottomColor: theme.mainColors.first,
+                      color: 'black',
+                    }}
+                    sx={{ color: 'black', width: '100%' }}
+                    placeholder="Please type your password"
+                  />
+                </Flex>
+                <FormInput
+                  name="subject"
+                  label={'Subject'}
+                  variant="filled"
+                  inputcolor={{
+                    labelColor: 'gray',
+                    backgroundColor: theme.mainColors.fourth,
+                    borderBottomColor: theme.mainColors.first,
+                    color: 'black',
+                  }}
+                  sx={{ color: 'black', width: '100%' }}
+                  placeholder="Please type your password"
+                />
+                <FormInput
+                  name="message"
+                  label={'Message'}
+                  variant="filled"
+                  multiline={true}
+                  inputcolor={{
+                    labelColor: 'gray',
+                    backgroundColor: theme.mainColors.fourth,
+                    borderBottomColor: theme.mainColors.first,
+                    color: 'black',
+                  }}
+                  minRows={12}
+                  maxRows={12}
+                  sx={{ color: 'black', width: '100%' }}
+                  placeholder="Please type your password"
+                />
+                <Flex width={'100%'} justifyContent={'end'}>
+                  <Button
+                    type="submit"
+                    backgroundcolor={theme.mainColors.eight}
+                    activecolor={theme.mainColors.first}
+                    hovercolor={theme.mainColors.second}
+                    textcolor={theme.colors.verylight}
+                    style={{ width: '100px' }}
+                    disabled={isSubmitting}
+                  >
+                    Submit
+                  </Button>
+                </Flex>
+              </FormContainer>
+            )}
+          </Formik>
+        }
+      >
+        Contact Us
+      </TextModal>
     </>
   )
 }
