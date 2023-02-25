@@ -62,7 +62,7 @@ const SearchInput = ({
   isSearching: boolean
 }) => {
   const [search, setSearch] = useState('')
-  const [users, setUsers] = useState<User[]>([])
+  const [users, setUsers] = useState<User[] | null>([])
   const [fetchHandler, setFetchHandler] = useState(0)
 
   const refresh = useCallback(
@@ -79,9 +79,15 @@ const SearchInput = ({
 
   useEffect(() => {
     if (fetchHandler === 1) {
+      setUsers(null)
+    }
+  }, [fetchHandler, setUsers])
+
+  useEffect(() => {
+    if (fetchHandler === 1 && users === null) {
       refresh(search, fetchHandler)
     }
-  }, [fetchHandler, refresh, search])
+  }, [users, fetchHandler, refresh, search])
 
   useEffect(() => {
     if (fetchHandler === 0) {
@@ -99,7 +105,7 @@ const SearchInput = ({
         placeHolder="Search doctor"
         onSearch={async (v) => await refresh(v, 1)}
       />
-      {children(users)}
+      {children(users ?? [])}
     </>
   )
 }
