@@ -2,6 +2,8 @@ export const theme = {
   colors: {
     text: '#111',
     pink: 'pink',
+    darkpink: '#F55887',
+    lightpink: '#FF759F',
     black: 'black',
     blackgray: '#555555',
     white: 'white',

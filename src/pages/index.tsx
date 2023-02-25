@@ -195,6 +195,12 @@ export default function Home() {
           </ButtonModal>
           <ButtonModal
             style={{ fontSize: 18, padding: 12, width: 280 }}
+            backgroundcolor={theme.colors.white}
+            textcolor={'black'}
+            hovercolor={'#e0e0e0'}
+            hovertextcolor={'black'}
+            activetextcolor={'#d6d6d6'}
+            activecolor={'black'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
@@ -250,6 +256,12 @@ We are committed to honesty, transparency, and building up a relationship based 
           </ButtonModal>
           <ButtonModal
             style={{ fontSize: 18, padding: 12, width: 280 }}
+            backgroundcolor={theme.colors.white}
+            textcolor={'black'}
+            hovercolor={'#e0e0e0'}
+            hovertextcolor={'black'}
+            activetextcolor={'#d6d6d6'}
+            activecolor={'black'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>

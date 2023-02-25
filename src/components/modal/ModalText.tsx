@@ -40,8 +40,8 @@ export function TextModal({
     <>
       <Text
         className={className}
-        {...props}
         onClick={!isNotClickable ? () => setOpen(true) : undefined}
+        {...props}
       >
         {children}
       </Text>

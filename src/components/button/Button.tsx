@@ -1,5 +1,6 @@
 import { Button as ButtonComponent, ButtonProps as Props } from '@mui/material'
 import styled from '@emotion/styled'
+import { theme } from 'utils/theme'
 
 export type ButtonProps = {
   backgroundcolor?: string
@@ -20,19 +21,20 @@ const StyledButton = ({ className, sx, ...props }: ButtonProps) => {
 }
 export const Button = styled(StyledButton)`
   && {
-    background-color: ${({ backgroundcolor }) => backgroundcolor ?? 'white'};
-    color: ${({ textcolor }) => textcolor ?? 'black'};
+    background-color: ${({ backgroundcolor }) =>
+      backgroundcolor ?? theme.colors.blackgray};
+    color: ${({ textcolor }) => textcolor ?? theme.colors.pink};
     :disabled {
       background-color: gray;
       color: white;
     }
     :hover {
-      background-color: ${({ hovercolor }) => hovercolor ?? '#e0e0e0'};
-      color: ${({ hovertextcolor }) => hovertextcolor ?? 'black'};
+      background-color: ${({ hovercolor }) => hovercolor ?? '#7A7A7A'};
+      color: ${({ hovertextcolor }) => hovertextcolor ?? 'pink'};
     }
     :active {
-      background-color: ${({ activecolor }) => activecolor ?? '#d6d6d6'};
-      color: ${({ activetextcolor }) => activetextcolor ?? 'black'};
+      background-color: ${({ activecolor }) => activecolor ?? '#707070'};
+      color: ${({ activetextcolor }) => activetextcolor ?? 'pink'};
     }
 
     ${({ custom }) => custom}
