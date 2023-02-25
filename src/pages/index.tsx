@@ -16,6 +16,7 @@ import { CreateEmailDto, sendMail } from 'api/other.api'
 import { FormikValidation } from 'helpers'
 import { Loading } from 'components/loading'
 import { useEffect } from 'react'
+import ButtonModal from 'components/modal/ModalButton'
 
 type Services = {
   name: string
@@ -116,7 +117,7 @@ export default function Home() {
               src={`/assets/carousel/${data}.jpg`}
               alt="ming"
               width={'100%'}
-              height={[250, 450, 550, 750]}
+              height={[250, 450, 550]}
             />
           ))}
           backgroundColor={'rgba(1,1,1,0.6)'}
@@ -164,7 +165,130 @@ export default function Home() {
             </Button>
           </Flex>
         </Carousel>
+        <Section
+          contentProps={{
+            flexDirection: 'row',
+            sx: { gap: 3 },
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            pl: 50,
+            pr: 50,
+          }}
+        >
+          <ButtonModal
+            style={{ fontSize: 18, padding: 12, width: 280 }}
+            backgroundcolor={theme.colors.blackgray}
+            textcolor={theme.colors.pink}
+            hovercolor={'#7A7A7A'}
+            hovertextcolor={theme.colors.pink}
+            activetextcolor={theme.colors.pink}
+            activecolor={'#707070'}
+            modalChild={
+              <Flex flexDirection={'column'}>
+                <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
+                  Mission
+                </Text>
+                <Flex flexWrap={'wrap'} padding={20} overflow={'auto'}>
+                  We provide quality medical, surgical, and dental care to every
+                  feline or cat in need. We are dedicated to treating every cat
+                  as if they were our own and exceeding our client’s
+                  expectations.
+                </Flex>
+              </Flex>
+            }
+          >
+            Mission
+          </ButtonModal>
+          <ButtonModal
+            style={{ fontSize: 18, padding: 12, width: 280 }}
+            modalChild={
+              <Flex flexDirection={'column'}>
+                <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
+                  Vision
+                </Text>
+                <Flex flexWrap={'wrap'} padding={20} overflow={'auto'}>
+                  We envision creating a culture of lifelong healthier cats in
+                  the community.
+                </Flex>
+              </Flex>
+            }
+          >
+            Vision
+          </ButtonModal>
+          <ButtonModal
+            style={{ fontSize: 18, padding: 12, width: 280 }}
+            backgroundcolor={theme.colors.blackgray}
+            textcolor={theme.colors.pink}
+            hovercolor={'#7A7A7A'}
+            hovertextcolor={theme.colors.pink}
+            activetextcolor={theme.colors.pink}
+            activecolor={'#707070'}
+            modalChild={
+              <Flex flexDirection={'column'}>
+                <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
+                  Commitment
+                </Text>
+                <Flex
+                  flexWrap={'wrap'}
+                  justifyContent={'center'}
+                  padding={20}
+                  overflow={'auto'}
+                >
+                  <Text
+                    sx={{
+                      fontSize: 16,
+                      flex: 1,
+                      whiteSpace: 'pre-wrap',
+                      color: 'black',
+                    }}
+                  >
+                    {`We share your love of cats and are committed to providing expert-level feline medicine, dental, and surgery without sacrificing accessibility and compassion. 
+We adopt a progressive, holistic and comprehensive veterinary approach to patient ailments. 
+We maintain the highest standards and place an emphasis on constantly improving our medical, surgical, and diagnostic capabilities, to improve all outcomes.
+We are committed to honesty, transparency, and building up a relationship based on trust and respect. 
+`}
+                  </Text>
+                </Flex>
+              </Flex>
+            }
+          >
+            Commitment
+          </ButtonModal>
+          <ButtonModal
+            style={{ fontSize: 18, padding: 12, width: 280 }}
+            modalChild={
+              <Flex flexDirection={'column'}>
+                <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
+                  About Us
+                </Text>
+                <Flex flexWrap={'wrap'} padding={20} overflow={'auto'}>
+                  <Text
+                    sx={{
+                      fontSize: 16,
+                      flex: 1,
+                      whiteSpace: 'pre-wrap',
+                      color: 'black',
+                    }}
+                  >
+                    {`Manila Feline Center is a cat-only veterinary clinic, the very FIRST ISFM Accredited Cat-Friendly Clinic here in the country, offering a unique, special place where you and your cats are listened to and treated with respect.   We strive to help keep your cat happy and healthy.   Established on __Feb 1st 2022 (date)  by  Ma. Josefina Rada De Guzman and Dr Jaymie Rose Hayo  aiming to provide the best possible medical, surgical and dental care for your cherished cats.
 
+Our veterinary services and facilities are designed to offer preventive care for healthy pets, early detection and treatment of disease as your pet ages, and complete medical, surgical, and dental care.  No matter whether your furry friend is your first pet or you’ve been a lifelong pet owner, we are here to give you exactly the assistance and information you need.  We are committed to providing the best possible veterinary care for all pets and pet owners, irrespective of their medical or material circumstances. Our experience and love for cats ensure that cats receive the best care possible. 
+
+We provide comprehensive and compassionate medical care.  
+
+Currently serving the cats and cat owners in Quezon City, and we look forward to serving you for years to come.  We are currently operating at 0238 Sanly Building P. Tuazon, Cubao, Quezon City.
+
+No matter which veterinarian your pet sees you can be assured you are getting the highest quality care here at Manila Feline Center.
+`}
+                  </Text>
+                </Flex>
+              </Flex>
+            }
+          >
+            Services
+          </ButtonModal>
+        </Section>
+        {/* 
         <Section
           id="services"
           title="Our Services"
@@ -533,7 +657,7 @@ No matter which veterinarian your pet sees you can be assured you are getting th
               </Flex>
             </Flex>
           </Flex>
-        </Section>
+        </Section> */}
       </Flex>
     </Main>
   )

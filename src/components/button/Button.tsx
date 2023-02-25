@@ -1,7 +1,7 @@
-import { Button as ButtonComponent, ButtonProps } from '@mui/material'
+import { Button as ButtonComponent, ButtonProps as Props } from '@mui/material'
 import styled from '@emotion/styled'
 
-type ButtoncolorProps = {
+export type ButtonProps = {
   backgroundcolor?: string
   activecolor?: string
   hovercolor?: string
@@ -9,13 +9,9 @@ type ButtoncolorProps = {
   hovertextcolor?: string
   activetextcolor?: string
   custom?: any
-}
+} & Props
 
-const StyledButton = ({
-  className,
-  sx,
-  ...props
-}: ButtonProps & ButtoncolorProps) => {
+const StyledButton = ({ className, sx, ...props }: ButtonProps) => {
   return (
     <ButtonComponent className={className} {...props}>
       {props?.children}
@@ -24,16 +20,19 @@ const StyledButton = ({
 }
 export const Button = styled(StyledButton)`
   && {
-    background-color: ${({ backgroundcolor }) => backgroundcolor ?? '#f7efe3'};
-    color: ${({ textcolor }) => textcolor ?? '#3f352c'};
-
+    background-color: ${({ backgroundcolor }) => backgroundcolor ?? 'white'};
+    color: ${({ textcolor }) => textcolor ?? 'black'};
+    :disabled {
+      background-color: gray;
+      color: white;
+    }
     :hover {
-      background-color: ${({ hovercolor }) => hovercolor ?? '#e1d3c2'};
-      color: ${({ hovertextcolor }) => hovertextcolor ?? '#3f352c'};
+      background-color: ${({ hovercolor }) => hovercolor ?? '#e0e0e0'};
+      color: ${({ hovertextcolor }) => hovertextcolor ?? 'black'};
     }
     :active {
-      background-color: ${({ activecolor }) => activecolor ?? '#b4a79e'};
-      color: ${({ activetextcolor }) => activetextcolor ?? '#3f352c'};
+      background-color: ${({ activecolor }) => activecolor ?? '#d6d6d6'};
+      color: ${({ activetextcolor }) => activetextcolor ?? 'black'};
     }
 
     ${({ custom }) => custom}
