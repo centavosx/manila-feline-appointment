@@ -11,6 +11,7 @@ import { Button } from '../components/button'
 import { useRouter } from 'next/router'
 
 import { ButtonModal } from 'components/modal'
+import { ServiceIcon } from 'components/icon'
 
 type Services = {
   name: string
@@ -262,6 +263,66 @@ We are committed to honesty, transparency, and building up a relationship based 
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
+                  Team
+                </Text>
+                <Flex
+                  flexWrap={'wrap'}
+                  padding={10}
+                  overflow={'auto'}
+                  justifyContent={'center'}
+                >
+                  {team.map((d, i) => (
+                    <Flex key={i} flexDirection={'column'} sx={{ gap: 1 }}>
+                      <ServiceIcon
+                        key={d.name}
+                        imageProps={{ image: { src: d.img } }}
+                        flexProps={{
+                          sx: {
+                            gap: 24,
+                          },
+                        }}
+                        sx={{
+                          width: 250,
+                          wordWrap: 'break-word',
+                          textAlign: 'center',
+                          whiteSpace: 'initial',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <Text
+                          fontFamily={'Castego'}
+                          color={'black'}
+                          sx={{ fontSize: 24, fontWeight: 600 }}
+                        >
+                          {d.name}
+                        </Text>
+                        <Text
+                          fontFamily={'Castego'}
+                          color={'black'}
+                          sx={{ fontSize: 14 }}
+                        >
+                          {d.position}
+                        </Text>
+                      </ServiceIcon>
+                    </Flex>
+                  ))}
+                </Flex>
+              </Flex>
+            }
+          >
+            Team
+          </ButtonModal>
+          <ButtonModal
+            style={{ fontSize: 18, padding: 12, width: 280 }}
+            backgroundcolor={theme.colors.blackgray}
+            textcolor={theme.colors.pink}
+            hovercolor={'#7A7A7A'}
+            hovertextcolor={theme.colors.pink}
+            activetextcolor={theme.colors.pink}
+            activecolor={'#707070'}
+            modalChild={
+              <Flex flexDirection={'column'}>
+                <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
                   About Us
                 </Text>
                 <Flex flexWrap={'wrap'} padding={20} overflow={'auto'}>
@@ -288,7 +349,7 @@ No matter which veterinarian your pet sees you can be assured you are getting th
               </Flex>
             }
           >
-            Services
+            About Us
           </ButtonModal>
         </Section>
         {/* 

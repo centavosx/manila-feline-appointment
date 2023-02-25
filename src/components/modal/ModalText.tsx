@@ -72,7 +72,7 @@ export function TextModal({
             flexDirection: 'column',
           }}
         >
-          <Flex flex={1} sx={{ alignSelf: 'end' }}>
+          <Flex sx={{ alignSelf: 'end' }}>
             <AiOutlineClose
               style={{ cursor: 'pointer' }}
               onClick={() => setOpen(false)}

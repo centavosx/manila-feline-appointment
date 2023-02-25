@@ -1,7 +1,9 @@
-import { theme } from '../../utils/theme'
-import { Flex, Text as TextComp } from 'rebass'
+import React, { useCallback, useState, Fragment, useEffect } from 'react'
+import { Flex, Text } from 'rebass'
 import Drawer from '@mui/material/Drawer'
-import React, { useCallback, useState } from 'react'
+import { scroller } from 'react-scroll'
+
+import { theme } from '../../utils/theme'
 import { FiMenu } from 'react-icons/fi'
 import {
   Box,
@@ -13,7 +15,6 @@ import {
 import { Button } from '../button'
 import { useRouter } from 'next/router'
 
-import { ServiceIcon } from '../icon'
 import { FormInput } from '../input'
 import { Loading } from '../loading'
 import { FormContainer } from '../forms'
@@ -21,6 +22,10 @@ import { Formik } from 'formik'
 import { CreateEmailDto, sendMail } from 'api'
 import { FormikValidation } from 'helpers'
 import { CustomModal, TextModal } from '../modal'
+
+import Select from '@mui/material/Select'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import MenuItem from '@mui/material/MenuItem'
 
 type Services = {
   name: string
@@ -178,53 +183,68 @@ export const ContactUs = () => (
 )
 
 export const AllServices = () => (
-  <Flex flexDirection={'column'} sx={{ gap: 2 }}>
-    <TextComp as={'h2'}>Services</TextComp>
-    <Flex
-      flexDirection={'row'}
-      flexWrap={'wrap'}
-      sx={{ gap: 1 }}
-      justifyContent={'center'}
-      padding={20}
-    >
-      {services.map((d, i) => (
-        <ServiceIcon
-          key={i}
-          imageProps={{ image: { src: d.src } }}
-          flexProps={{
-            sx: {
-              ':hover': {
-                fontWeight: 'bold',
-                fontStyle: 'italic',
-                animation: 'zoom-in-zoom-out 1s',
-                '@keyframes zoom-in-zoom-out': {
-                  '0%': {
-                    transform: 'scale(1, 1)',
-                  },
-                  '50%': {
-                    transform: 'scale(1.2, 1.2)',
-                  },
-                  '100%': {
-                    transform: 'scale(1, 1)',
-                  },
-                },
-              },
-              width: 120,
-            },
-          }}
-          sx={{
-            wordWrap: 'break-word',
-            textAlign: 'center',
-            whiteSpace: 'initial',
-            overflow: 'hidden',
-            fontFamily: 'Castego',
-          }}
-        >
-          {d.name}
-        </ServiceIcon>
-      ))}
-    </Flex>
-  </Flex>
+  <Select
+    displayEmpty
+    input={
+      <OutlinedInput
+        sx={{
+          border: 0,
+          paddingRight: 0,
+          ':focus': {
+            outline: 'none !important',
+          },
+        }}
+      />
+    }
+    renderValue={(selected) => {
+      if (selected !== null) {
+        return 'Services'
+      }
+
+      return selected
+    }}
+    sx={{
+      ':focus': {
+        outline: 'none !important',
+      },
+      div: {
+        padding: 0,
+        width: 'auto',
+        marginRight: '-32px',
+        borderColor: 'transparent',
+      },
+      'div:focus': {
+        outline: 'none !important',
+      },
+      fieldset: {
+        border: 0,
+        borderColor: 'transparent',
+        display: 'none',
+      },
+      'input:focus': {
+        outline: 'none !important',
+      },
+      fontFamily:
+        '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+      svg: {
+        display: 'none',
+      },
+      fontSize: [14, 16],
+      lineHeight: '1.5rem',
+      letterSpacing: '0.01071em',
+      color: theme.colors.pink,
+      ':hover': {
+        opacity: 0.7,
+      },
+      fontWeight: 'bold',
+    }}
+  >
+    {services.map((s) => (
+      <MenuItem key={s.name} value={s.name}>
+        {s.name}
+      </MenuItem>
+    ))}
+  </Select>
 )
 
 export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
@@ -240,7 +260,6 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
         sx={{
           fontSize: [14, 16],
           fontFamily: 'Castego',
-
           padding: 0,
         }}
         color={theme.colors.pink}
@@ -249,22 +268,7 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
       >
         {navigations[0]}
       </TextModal>
-      <TextModal
-        width={'auto'}
-        style={{ cursor: 'pointer' }}
-        fontWeight={'bold'}
-        onMouseOver={(e) => (e.currentTarget.style.opacity = '0.7')}
-        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-        sx={{
-          fontSize: [14, 16],
-          fontFamily: 'Castego',
-          padding: 0,
-        }}
-        modalChild={<AllServices />}
-        color={theme.colors.pink}
-      >
-        Services
-      </TextModal>
+      <AllServices />
       <TextModal
         width={'auto'}
         style={{ cursor: 'pointer' }}
@@ -277,7 +281,14 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
           padding: 0,
         }}
         color={theme.colors.pink}
-        modalChild={<ContactUs />}
+        onClick={() => {
+          scroller.scrollTo('footer', {
+            spy: true,
+            smooth: true,
+            offset: 50,
+            duration: 500,
+          })
+        }}
       >
         Contact Us
       </TextModal>
@@ -291,6 +302,7 @@ export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
     right: false,
   })
   const [link, setLink] = useState<string | null>(null)
+  const [open, setOpen] = useState(false)
   const toggleDrawer = useCallback(
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -305,54 +317,83 @@ export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
     [setState]
   )
 
-  const list = (setOpen: (v: boolean) => void) => (
+  const list = () => (
     <Box
       sx={{ width: 250 }}
-      onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
       role="presentation"
     >
       <List>
         {['Home', 'Services', 'Contact Us'].map((data: string, i) => (
-          <ListItem key={i} disablePadding={true}>
-            <ListItemButton
-              onClick={() => {
-                setLink(data)
-                if (data === 'Services' || data === 'Contact Us') setOpen(true)
-                else push('/#' + data?.split(' ').join('').toLowerCase())
-              }}
-            >
-              <ListItemText primary={data} />
-            </ListItemButton>
-          </ListItem>
+          <Fragment key={i}>
+            <ListItem disablePadding={true}>
+              <ListItemButton
+                onClick={() => {
+                  setLink(data)
+                  switch (data) {
+                    case 'Services':
+                      setOpen((v) => !v)
+                      break
+                    case 'Contact Us':
+                      scroller.scrollTo('footer', {
+                        spy: true,
+                        smooth: true,
+                        offset: 50,
+                        duration: 500,
+                      })
+                      break
+                    default:
+                      push('/#' + data?.split(' ').join('').toLowerCase())
+                      break
+                  }
+                }}
+              >
+                <ListItemText
+                  primary={data}
+                  secondary={
+                    link === 'Services' &&
+                    data === 'Services' &&
+                    open &&
+                    services.map((d, i) => (
+                      <Text
+                        key={d.name}
+                        sx={{
+                          width: '100%',
+                          pl: 2,
+                          pt: i === 0 ? 2 : 0,
+                          fontSize: 16,
+                          color: 'gray',
+                        }}
+                      >
+                        {d.name}
+                      </Text>
+                    ))
+                  }
+                />
+              </ListItemButton>
+            </ListItem>
+          </Fragment>
         ))}
       </List>
     </Box>
   )
+
+  useEffect(() => {
+    if (link !== 'Services') {
+      setState({ right: false })
+      setOpen(false)
+    }
+  }, [link, setState, setOpen])
+
   return (
     <>
       <Button onClick={toggleDrawer(true)} sx={{ minWidth: 34 }}>
-        <FiMenu size={30} />
+        <FiMenu size={30} color={theme.colors.pink} />
       </Button>
-      <CustomModal
-        modalChild={
-          link === 'Services' ? (
-            <AllServices />
-          ) : link === 'Contact Us' ? (
-            <ContactUs />
-          ) : undefined
-        }
-      >
-        {({ setOpen }) => (
-          <Drawer
-            open={state.right}
-            anchor={'right'}
-            onClose={toggleDrawer(false)}
-          >
-            {list(setOpen)}
-          </Drawer>
-        )}
-      </CustomModal>
+
+      <Drawer open={state.right} anchor={'right'} onClose={toggleDrawer(false)}>
+        {list()}
+      </Drawer>
     </>
   )
 }

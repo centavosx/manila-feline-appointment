@@ -179,7 +179,10 @@ export default function Step1(props: SearchDoctorDto) {
               >
                 {(data) => (
                   <>
-                    <Flex flexDirection={'row'} sx={{ gap: 2, width: '100%' }}>
+                    <Flex
+                      flexDirection={['column', 'row']}
+                      sx={{ gap: 2, width: '100%' }}
+                    >
                       <Flex flexDirection={'column'} flex={1}>
                         <Services
                           onChange={(v) =>
@@ -243,7 +246,7 @@ export default function Step1(props: SearchDoctorDto) {
                       Available Doctors
                     </Text>
                     <DisplayDoctor
-                      data={data}
+                      data={isSearching ? [] : data}
                       onItemClick={(v) =>
                         push({
                           pathname: 'step2',

@@ -25,7 +25,7 @@ export const Main = ({
       />
       <Flex
         width={'100%'}
-        sx={{ position: pathname === '/' ? 'unset' : 'fixed', height: '100%' }}
+        sx={{ position: 'unset', height: '100%' }}
         justifyContent="center"
         backgroundColor={theme.colors.pink}
       >
@@ -33,7 +33,7 @@ export const Main = ({
           flexDirection={'column'}
           sx={{
             flex: 1,
-            position: pathname === '/' ? 'unset' : 'fixed',
+            position: 'unset',
             height: '100%',
             overflow: 'auto',
             width: '100%',
@@ -121,6 +121,7 @@ export const Main = ({
             />
           </MobileView>
           <Header
+            id={'footer'}
             backgroundColor={theme.colors.blackgray}
             padding={20}
             flexDirection={['column', 'row']}

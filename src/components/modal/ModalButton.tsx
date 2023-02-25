@@ -57,7 +57,8 @@ export function ButtonModal({
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: ['80%', '80%'],
-            height: ['80%', 'auto'],
+            height: 'auto',
+            maxHeight: ['80%', 'unset'],
             backgroundColor: 'white',
             border: '1px solid gray',
             borderRadius: '10px',
@@ -67,7 +68,7 @@ export function ButtonModal({
             flexDirection: 'column',
           }}
         >
-          <Flex flex={1} sx={{ alignSelf: 'end' }}>
+          <Flex sx={{ alignSelf: 'end' }}>
             <AiOutlineClose
               style={{ cursor: 'pointer' }}
               onClick={() => setOpen(false)}
