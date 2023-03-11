@@ -28,17 +28,12 @@ export const PageProvider = ({
   )
 
   useEffect(() => {
-    if (!!user && user.verified) {
-      if (pathname === 'login') {
-        redirect('/')
+    if (!!user) {
+      if (!user.verified) {
+        redirect('/login')
         return
       }
-      setIsLoading(false)
-      return
-    }
-
-    if (pathname === 'login') {
-      setIsLoading(false)
+      if (pathname === 'login') redirect('/')
       return
     }
     redirect('/login')
