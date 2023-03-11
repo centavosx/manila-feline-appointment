@@ -39,6 +39,7 @@
     "yup-password": "^0.2.2"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.3",
     "@types/next": "^9.0.0",
     "@types/node": "^18.11.11",
     "@types/react": "18.0.25",
