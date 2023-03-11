@@ -3,7 +3,7 @@ export const theme = {
     text: '#111',
     pink: 'pink',
     darkpink: '#F55887',
-    lightpink: '#FF759F',
+    lightpink: '#fddde6',
     black: 'black',
     blackgray: '#555555',
     white: 'white',

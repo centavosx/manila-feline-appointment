@@ -1,4 +1,6 @@
 import * as Yup from 'yup'
+import YupPassword from 'yup-password'
+YupPassword(Yup)
 
 export const FormikValidation = {
   createMail: Yup.object().shape({
@@ -34,5 +36,25 @@ export const FormikValidation = {
     verification: Yup.string()
       .min(2, 'Too Short!')
       .required('Please enter a valid code'),
+  }),
+
+  login: Yup.object().shape({
+    email: Yup.string()
+      .email('Please enter a valid email')
+      .required('Required'),
+    password: Yup.string().required('Required'),
+  }),
+  register: Yup.object().shape({
+    name: Yup.string().required('Required'),
+    email: Yup.string()
+      .email('Please enter a valid email')
+      .required('Required'),
+    password: Yup.string().trim().password().required('Required'),
+    confirm: Yup.string()
+      .oneOf([Yup.ref('password')], 'Passwords must match')
+      .required('Required'),
+  }),
+  code: Yup.object().shape({
+    code: Yup.string().required('Required'),
   }),
 }

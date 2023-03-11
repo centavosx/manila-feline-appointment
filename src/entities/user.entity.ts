@@ -16,11 +16,10 @@ export type User = {
   description: string
 
   hasAm?: boolean
+
   hasPm?: boolean
 
   email: string
-
-  password: string
 
   position: string
 
@@ -31,4 +30,6 @@ export type User = {
   created: Date
 
   modified: Date
+
+  verified: boolean
 }

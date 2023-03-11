@@ -179,7 +179,6 @@ export default function Step1(props: SearchDoctorDto) {
               sx={{
                 backgroundColor: 'white',
                 padding: 12,
-
                 gap: 10,
                 maxHeight: '100vh',
               }}
@@ -273,6 +272,7 @@ export default function Step1(props: SearchDoctorDto) {
                           query: {
                             id: v,
                             date: date?.toISOString(),
+                            ...query,
                           },
                         })
                       }

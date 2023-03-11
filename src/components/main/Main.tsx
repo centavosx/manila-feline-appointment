@@ -15,7 +15,6 @@ export const Main = ({
   children,
   isLink,
 }: { pageTitle?: string; isLink?: boolean } & FlexProps) => {
-  const { pathname } = useRouter()
   return (
     <>
       <BaseHead

@@ -26,6 +26,7 @@ import { CustomModal, TextModal } from '../modal'
 import Select from '@mui/material/Select'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import MenuItem from '@mui/material/MenuItem'
+import { useUser } from 'hooks'
 
 type Services = {
   name: string
@@ -230,7 +231,6 @@ export const AllServices = () => (
         display: 'none',
       },
       fontSize: [14, 16],
-      lineHeight: '1.5rem',
       letterSpacing: '0.01071em',
       color: theme.colors.pink,
       ':hover': {
@@ -249,6 +249,7 @@ export const AllServices = () => (
 
 export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
   const { push } = useRouter()
+  const { logout } = useUser()
   return (
     <>
       <TextModal
@@ -279,6 +280,7 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
           fontSize: [14, 16],
           fontFamily: 'Castego',
           padding: 0,
+          zIndex: 99,
         }}
         color={theme.colors.pink}
         onClick={() => {
@@ -292,12 +294,32 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
       >
         Contact Us
       </TextModal>
+      <TextModal
+        width={'auto'}
+        style={{ cursor: 'pointer' }}
+        fontWeight={'bold'}
+        onMouseOver={(e) => (e.currentTarget.style.opacity = '0.7')}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+        sx={{
+          fontSize: [14, 16],
+          fontFamily: 'Castego',
+          padding: 0,
+          zIndex: 99,
+        }}
+        color={theme.colors.pink}
+        onClick={() => {
+          logout()
+        }}
+      >
+        Logout
+      </TextModal>
     </>
   )
 }
 
 export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
   const { push } = useRouter()
+  const { logout } = useUser()
   const [state, setState] = useState({
     right: false,
   })
@@ -324,7 +346,7 @@ export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
       role="presentation"
     >
       <List>
-        {['Home', 'Services', 'Contact Us'].map((data: string, i) => (
+        {['Home', 'Services', 'Contact Us', 'Logout'].map((data: string, i) => (
           <Fragment key={i}>
             <ListItem disablePadding={true}>
               <ListItemButton
@@ -341,6 +363,9 @@ export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
                         offset: 50,
                         duration: 500,
                       })
+                      break
+                    case 'Logout':
+                      logout()
                       break
                     default:
                       push('/#' + data?.split(' ').join('').toLowerCase())
