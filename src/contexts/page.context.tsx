@@ -33,11 +33,15 @@ export const PageProvider = ({
         redirect('/login')
         return
       }
-      if (pathname === 'login') redirect('/')
+      if (pathname === '/login') {
+        redirect('/')
+        return
+      }
+      setIsLoading(false)
       return
     }
     redirect('/login')
-  }, [user, redirect])
+  }, [user, redirect, setIsLoading])
 
   if (isLoading) return <Loading />
 

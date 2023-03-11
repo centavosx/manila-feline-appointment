@@ -6,7 +6,7 @@ import { Main } from '../../../components/main'
 import { Calendar } from '../../../components/calendar'
 import { useRouter } from 'next/router'
 import { Section } from '../../../components/sections'
-import { theme } from '../../../utils/theme'
+import { theme as colorTheme } from '../../../utils/theme'
 import { Text } from '../../../components/text'
 import { Input } from '../../../components/input'
 import { format } from 'date-fns'
@@ -41,9 +41,8 @@ const Services = ({ onChange }: { onChange: (v: string) => void }) => {
         ...theme,
         colors: {
           ...theme.colors,
-
-          primary25: '#f7efe3',
-          primary: '#3f352c',
+          primary25: colorTheme.colors.lightpink,
+          primary: colorTheme.colors.darkpink,
         },
       })}
     />
@@ -132,7 +131,7 @@ export default function Step1(props: SearchDoctorDto) {
             alignItems: 'start',
           }}
           textProps={{
-            backgroundColor: theme.colors.blackgray,
+            backgroundColor: colorTheme.colors.blackgray,
             width: '100%',
             padding: 3,
             textAlign: 'center',
@@ -154,7 +153,7 @@ export default function Step1(props: SearchDoctorDto) {
           <Flex
             width={'100%'}
             sx={{
-              backgroundColor: theme.colors.black,
+              backgroundColor: colorTheme.colors.black,
               borderRadius: 5,
               border: '0.5px solid gray',
             }}
@@ -163,7 +162,7 @@ export default function Step1(props: SearchDoctorDto) {
             {!!date && (
               <Text
                 sx={{
-                  color: theme.colors.white,
+                  color: colorTheme.colors.white,
                   fontSize: 18,
                   fontWeight: 'bold',
                   width: '100%',

@@ -7,7 +7,7 @@ import { Main } from '../../../components/main'
 import { Calendar } from '../../../components/calendar'
 import Router, { useRouter } from 'next/router'
 import { Section } from '../../../components/sections'
-import { theme } from '../../../utils/theme'
+import { theme as colorTheme } from '../../../utils/theme'
 import { FormContainer } from '../../../components/forms'
 import { Formik } from 'formik'
 import { FormInput, InputError } from '../../../components/input'
@@ -131,7 +131,7 @@ const ValidateEmail = ({ appointmentId }: { appointmentId: string }) => {
               inputcolor={{
                 labelColor: 'gray',
                 backgroundColor: 'transparent',
-                borderBottomColor: theme.mainColors.first,
+                borderBottomColor: colorTheme.mainColors.first,
                 color: 'black',
               }}
               sx={{ color: 'black', width: '100%' }}
@@ -242,7 +242,7 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
             },
           }}
           textProps={{
-            backgroundColor: theme.colors.blackgray,
+            backgroundColor: colorTheme.colors.blackgray,
             width: '100%',
             padding: 3,
             textAlign: 'center',
@@ -312,7 +312,7 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                 sx={{
                   flexDirection: 'column',
                   padding: 24,
-                  backgroundColor: theme.colors.lightpink,
+                  backgroundColor: colorTheme.colors.lightpink,
                 }}
               >
                 {availability.map(
@@ -356,7 +356,7 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
             flex={1}
             sx={{
               border: '0.5px solid gray',
-              backgroundColor: theme.colors.lightpink,
+              backgroundColor: colorTheme.colors.lightpink,
               padding: 24,
               width: '100%',
               borderRadius: 5,
@@ -401,7 +401,7 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                     inputcolor={{
                       labelColor: 'gray',
                       backgroundColor: 'white',
-                      borderBottomColor: theme.mainColors.first,
+                      borderBottomColor: colorTheme.mainColors.first,
                       color: 'black',
                     }}
                     sx={{ color: 'black', width: '100%' }}
@@ -415,7 +415,7 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                     inputcolor={{
                       labelColor: 'gray',
                       backgroundColor: 'white',
-                      borderBottomColor: theme.mainColors.first,
+                      borderBottomColor: colorTheme.mainColors.first,
                       color: 'black',
                     }}
                     sx={{ color: 'black', width: '100%' }}
@@ -460,8 +460,9 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                       ...theme,
                       colors: {
                         ...theme.colors,
-                        primary25: '#f7efe3',
-                        primary: '#3f352c',
+
+                        primary25: colorTheme.colors.lightpink,
+                        primary: colorTheme.colors.darkpink,
                       },
                     })}
                     placeholder="Select Time"
@@ -518,7 +519,7 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                     inputcolor={{
                       labelColor: 'gray',
                       backgroundColor: 'white',
-                      borderBottomColor: theme.mainColors.first,
+                      borderBottomColor: colorTheme.mainColors.first,
                       color: 'black',
                     }}
                     minRows={12}
