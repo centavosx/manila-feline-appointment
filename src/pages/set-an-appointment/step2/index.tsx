@@ -505,8 +505,8 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                       ...theme,
                       colors: {
                         ...theme.colors,
-                        primary25: '#f7efe3',
-                        primary: '#3f352c',
+                        primary25: colorTheme.colors.lightpink,
+                        primary: colorTheme.colors.darkpink,
                       },
                     })}
                     placeholder="Select Service"
