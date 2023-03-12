@@ -57,4 +57,10 @@ export const FormikValidation = {
   code: Yup.object().shape({
     code: Yup.string().required('Required'),
   }),
+  reset: Yup.object().shape({
+    password: Yup.string().trim().password().required('Required'),
+    confirm: Yup.string()
+      .oneOf([Yup.ref('password')], 'Passwords must match')
+      .required('Required'),
+  }),
 }

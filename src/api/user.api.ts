@@ -31,6 +31,19 @@ export const me = async () => {
   }
 }
 
+export const reset = async (token: string, password: string) => {
+  try {
+    const response = await API.post(
+      '/user/reset',
+      { password },
+      { headers: { Authorization: 'Bearer ' + token } }
+    )
+    return response.data
+  } catch {
+    return undefined
+  }
+}
+
 export const loginUser = async ({
   email,
   password,
