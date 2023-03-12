@@ -8,7 +8,13 @@ import { FormContainer } from 'components/forms'
 import { FormInput, InputError } from 'components/input'
 import { Button } from 'components/button'
 import { FormikValidation } from 'helpers'
-import { loginUser, refreshVerifCode, registerUser, verifyUser } from 'api'
+import {
+  loginUser,
+  refreshVerifCode,
+  registerUser,
+  resetPass,
+  verifyUser,
+} from 'api'
 import { useUser } from 'hooks'
 import { Loading } from 'components/loading'
 
@@ -109,11 +115,72 @@ const ValidateEmail = () => {
   )
 }
 
+const ResetPassword = ({ onSubmit }: { onSubmit?: () => void }) => {
+  return (
+    <Formik
+      key={4}
+      initialValues={{ email: '' }}
+      onSubmit={(values, { setSubmitting }) => {
+        setSubmitting(true)
+        resetPass(values.email)
+          .then(() => {
+            alert('Reset password link has been sent.')
+            onSubmit?.()
+          })
+          .finally(() => {
+            setSubmitting(false)
+          })
+      }}
+      validationSchema={FormikValidation.forgot}
+    >
+      {({ values, isSubmitting }) => (
+        <FormContainer
+          flex={1}
+          label="Forgot Password"
+          labelProps={{ sx: { justifyContent: 'center' } }}
+          flexProps={{ sx: { gap: 20 } }}
+        >
+          {isSubmitting && <Loading />}
+          <FormInput
+            name="email"
+            type={'email'}
+            placeholder="Enter your email"
+            value={values.email}
+          />
+
+          <Flex>
+            <Flex flex={1}>
+              <Button
+                fullWidth={false}
+                style={{ width: 120, alignSelf: 'flex-end' }}
+                disabled={isSubmitting}
+                onClick={onSubmit}
+              >
+                Back
+              </Button>
+            </Flex>
+
+            <Button
+              type="submit"
+              fullWidth={false}
+              style={{ width: 120, alignSelf: 'flex-end' }}
+              disabled={isSubmitting}
+            >
+              Submit
+            </Button>
+          </Flex>
+        </FormContainer>
+      )}
+    </Formik>
+  )
+}
+
 export default function Login() {
   const { width, height } = useWindowSize()
   const { refetch } = useUser()
   const [isLogin, setIsLogin] = useState(true)
   const [registered, setRegistered] = useState(false)
+  const [isReset, setIsReset] = useState(false)
 
   let rotatedWidth = 0,
     rotatedHeight = 0,
@@ -246,75 +313,88 @@ export default function Login() {
           </Flex>
         </Flex>
         {isLogin ? (
-          <Formik
-            key={1}
-            initialValues={{ email: '', password: '' }}
-            validationSchema={FormikValidation.login}
-            onSubmit={(values, { setSubmitting }) => {
-              setSubmitting(true)
-              loginUser(values)
-                .then(async () => await refetch())
-                .catch((v) => alert(v.response.data.message || 'Invalid user'))
-                .finally(() => {
-                  setSubmitting(false)
-                })
-            }}
-          >
-            {({ values, isSubmitting }) => (
-              <FormContainer
-                flex={1}
-                label="Login to your Account"
-                labelProps={{ sx: { justifyContent: 'center' } }}
-                flexProps={{ sx: { gap: 20 } }}
-              >
-                {isSubmitting && <Loading />}
-                <FormInput
-                  name="email"
-                  type={'email'}
-                  placeholder="Email"
-                  value={values.email}
-                />
-                <FormInput
-                  name="password"
-                  type={'password'}
-                  placeholder="Password"
-                  value={values.password}
-                />
-                <Link sx={{ textAlign: 'right', cursor: 'pointer' }}>
-                  Forgot Password?
-                </Link>
-                <Button
-                  style={{ width: 120, alignSelf: 'center' }}
-                  type="submit"
-                  disabled={isSubmitting}
+          !isReset ? (
+            <Formik
+              key={1}
+              initialValues={{ email: '', password: '' }}
+              validationSchema={FormikValidation.login}
+              onSubmit={(values, { setSubmitting }) => {
+                setSubmitting(true)
+                loginUser(values)
+                  .then(async () => await refetch())
+                  .catch((v) =>
+                    alert(v.response.data.message || 'Invalid user')
+                  )
+                  .finally(() => {
+                    setSubmitting(false)
+                  })
+              }}
+            >
+              {({ values, isSubmitting }) => (
+                <FormContainer
+                  flex={1}
+                  label="Login to your Account"
+                  labelProps={{ sx: { justifyContent: 'center' } }}
+                  flexProps={{ sx: { gap: 20 } }}
                 >
-                  Login
-                </Button>
-                <Text
-                  as={'h3'}
-                  sx={{
-                    textAlign: 'center',
-                    mt: 45,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: 2,
-                  }}
-                >
-                  New user?
-                  <Text
-                    sx={{
-                      textDecoration: 'underline',
-                      color: 'blue',
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => setIsLogin(false)}
+                  {isSubmitting && <Loading />}
+                  <FormInput
+                    name="email"
+                    type={'email'}
+                    placeholder="Email"
+                    value={values.email}
+                  />
+                  <FormInput
+                    name="password"
+                    type={'password'}
+                    placeholder="Password"
+                    value={values.password}
+                  />
+                  <Link
+                    sx={{ textAlign: 'right', cursor: 'pointer' }}
+                    onClick={() => setIsReset(true)}
                   >
-                    Create your account
+                    Forgot Password?
+                  </Link>
+                  <Button
+                    style={{ width: 120, alignSelf: 'center' }}
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    Login
+                  </Button>
+                  <Text
+                    as={'h3'}
+                    sx={{
+                      textAlign: 'center',
+                      mt: 45,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: 2,
+                    }}
+                  >
+                    New user?
+                    <Text
+                      sx={{
+                        textDecoration: 'underline',
+                        color: 'blue',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => setIsLogin(false)}
+                    >
+                      Create your account
+                    </Text>
                   </Text>
-                </Text>
-              </FormContainer>
-            )}
-          </Formik>
+                </FormContainer>
+              )}
+            </Formik>
+          ) : (
+            <ResetPassword
+              onSubmit={() => {
+                setIsReset(false)
+              }}
+            />
+          )
         ) : registered ? (
           <ValidateEmail />
         ) : (

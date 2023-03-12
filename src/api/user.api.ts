@@ -76,3 +76,12 @@ export const refreshVerifCode = async () => {
   const response = await apiAuth.get('/user/refresh-code')
   return response
 }
+
+export const resetPass = async (email: string) => {
+  const response = await API.get(`/user/forgot-pass`, {
+    params: {
+      email,
+    },
+  })
+  return response
+}

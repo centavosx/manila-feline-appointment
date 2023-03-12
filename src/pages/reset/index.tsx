@@ -1,21 +1,14 @@
-import { Flex, Image, Link, Text } from 'rebass'
+import { Flex, Image, Text } from 'rebass'
 import Wave from 'react-wavify'
 import { theme } from 'utils/theme'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { Formik } from 'formik'
 import { FormContainer } from 'components/forms'
-import { FormInput, InputError } from 'components/input'
+import { FormInput } from 'components/input'
 import { Button } from 'components/button'
 import { FormikValidation } from 'helpers'
-import {
-  loginUser,
-  refreshVerifCode,
-  registerUser,
-  reset,
-  verifyUser,
-} from 'api'
-import { useUser } from 'hooks'
+import { reset } from 'api'
 import { Loading } from 'components/loading'
 
 export default function Reset({ token }: { token: string }) {
@@ -167,7 +160,7 @@ export default function Reset({ token }: { token: string }) {
           {({ values, isSubmitting }) => (
             <FormContainer
               flex={1}
-              label="Create an Account"
+              label="Reset your password"
               labelProps={{ sx: { justifyContent: 'center' } }}
               flexProps={{ sx: { gap: 20 } }}
             >
@@ -186,7 +179,7 @@ export default function Reset({ token }: { token: string }) {
                 value={values.confirm}
               />
               <Button
-                style={{ width: 120, alignSelf: 'center' }}
+                style={{ width: 180, alignSelf: 'center' }}
                 type="submit"
                 disabled={isSubmitting}
               >

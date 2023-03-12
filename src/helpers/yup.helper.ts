@@ -63,4 +63,9 @@ export const FormikValidation = {
       .oneOf([Yup.ref('password')], 'Passwords must match')
       .required('Required'),
   }),
+  forgot: Yup.object().shape({
+    email: Yup.string()
+      .email('Please enter a valid email')
+      .required('Required'),
+  }),
 }
