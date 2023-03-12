@@ -5,7 +5,6 @@ import {
   TextFieldProps,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { de } from 'date-fns/locale'
 import {
   ChangeEventHandler,
   useCallback,
@@ -14,7 +13,6 @@ import {
   ChangeEvent,
 } from 'react'
 import { theme } from 'utils/theme'
-import { FormInput } from './FormInput'
 
 export type InputColor = {
   inputcolor?: {
@@ -90,12 +88,17 @@ export const SearchableInput = ({
 
   useEffect(() => {
     setIsSearching(true)
-    const delay = setTimeout(() => {
-      onSearch?.(val).finally(() => setIsSearching(false))
-    }, 500)
-    return () => clearTimeout(delay)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [val, setIsSearching])
+
+  useEffect(() => {
+    if (isSearching) {
+      const delay = setTimeout(() => {
+        onSearch?.(val).finally(() => setIsSearching(false))
+      }, 500)
+      return () => clearTimeout(delay)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSearching, val, setIsSearching])
 
   useEffect(() => {
     if (!!value) setVal(() => value)
