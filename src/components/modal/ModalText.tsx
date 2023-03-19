@@ -61,7 +61,7 @@ export function TextModal({
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: ['80%', '80%'],
+            width: ['80%', 'auto'],
             height: ['80%', 'auto'],
             backgroundColor: 'white',
             border: '1px solid gray',

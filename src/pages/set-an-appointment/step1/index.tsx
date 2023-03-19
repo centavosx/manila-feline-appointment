@@ -67,7 +67,11 @@ const SearchInput = ({
   const refresh = useCallback(
     async (v: string, handler: number) => {
       if (handler === 1) {
-        const resp = await getDoctors({ ...props, name: v })
+        const resp = await getDoctors({
+          ...props,
+          name: v,
+          time: !props.time ? undefined : props.time,
+        })
         setUsers(resp.data.data)
         setIsSearching(false)
         setFetchHandler(0)
@@ -199,9 +203,12 @@ export default function Step1(props: SearchDoctorDto) {
                   <>
                     <Flex
                       flexDirection={['column', 'row']}
-                      sx={{ gap: 2, width: '100%' }}
+                      sx={{ gap: [2, 3], width: '100%' }}
                     >
-                      <Flex flexDirection={'column'} flex={1}>
+                      <Flex flexDirection={'column'} flex={1} sx={{ gap: 1 }}>
+                        <Text as={'h1'} sx={{ color: 'black', fontSize: 18 }}>
+                          Service
+                        </Text>
                         <Services
                           onChange={(v) =>
                             replace({
@@ -211,54 +218,76 @@ export default function Step1(props: SearchDoctorDto) {
                           }
                         />
                       </Flex>
-                      <RadioGroup
-                        defaultValue={true}
-                        name="radio-buttons-group"
-                        sx={{ flexDirection: 'row' }}
-                        onChange={(e) =>
-                          replace({
-                            pathname,
-                            query: {
-                              ...query,
-                              time:
-                                e.target.value === 'true'
-                                  ? AmOrPm.AM
-                                  : AmOrPm.PM,
-                            },
-                          })
-                        }
-                      >
-                        <FormControlLabel
-                          value={true}
-                          control={
-                            <Radio
-                              sx={{
-                                '&.Mui-checked': {
-                                  color: '#3f352c',
-                                },
-                              }}
-                            />
+                      <Flex flexDirection={'column'} flex={1} sx={{ gap: 1 }}>
+                        <Text as={'h1'} sx={{ color: 'black', fontSize: 18 }}>
+                          Time
+                        </Text>
+                        <RadioGroup
+                          defaultValue={'all'}
+                          name="radio-buttons-group"
+                          sx={{ flexDirection: 'row' }}
+                          onChange={(e) =>
+                            replace({
+                              pathname,
+                              query: {
+                                ...query,
+                                time:
+                                  e.target.value === 'true'
+                                    ? AmOrPm.AM
+                                    : e.target.value === 'all'
+                                    ? undefined
+                                    : AmOrPm.PM,
+                              },
+                            })
                           }
-                          key={1}
-                          label="AM"
-                          sx={{ color: 'black' }}
-                        />
-                        <FormControlLabel
-                          value={false}
-                          control={
-                            <Radio
-                              sx={{
-                                '&.Mui-checked': {
-                                  color: '#3f352c',
-                                },
-                              }}
-                            />
-                          }
-                          key={2}
-                          label="PM"
-                          sx={{ color: 'black' }}
-                        />
-                      </RadioGroup>
+                        >
+                          <FormControlLabel
+                            value={'all'}
+                            control={
+                              <Radio
+                                sx={{
+                                  '&.Mui-checked': {
+                                    color: '#3f352c',
+                                  },
+                                }}
+                              />
+                            }
+                            key={0}
+                            label="All"
+                            sx={{ color: 'black' }}
+                          />
+                          <FormControlLabel
+                            value={true}
+                            control={
+                              <Radio
+                                sx={{
+                                  '&.Mui-checked': {
+                                    color: '#3f352c',
+                                  },
+                                }}
+                              />
+                            }
+                            key={1}
+                            label="AM"
+                            sx={{ color: 'black' }}
+                          />
+                          <FormControlLabel
+                            value={false}
+                            control={
+                              <Radio
+                                sx={{
+                                  '&.Mui-checked': {
+                                    color: '#3f352c',
+                                  },
+                                }}
+                              />
+                            }
+                            key={2}
+                            label="PM"
+                            sx={{ color: 'black' }}
+                          />
+                        </RadioGroup>
+                      </Flex>
                     </Flex>
                     <Text sx={{ color: 'black', fontSize: 15 }}>
                       Available Doctors

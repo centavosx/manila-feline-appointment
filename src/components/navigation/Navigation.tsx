@@ -1,5 +1,5 @@
 import React, { useCallback, useState, Fragment, useEffect } from 'react'
-import { Flex, Text } from 'rebass'
+import { Flex, Text, Link as Anchor } from 'rebass'
 import Drawer from '@mui/material/Drawer'
 import { scroller } from 'react-scroll'
 
@@ -15,17 +15,8 @@ import {
 import { Button } from '../button'
 import { useRouter } from 'next/router'
 
-import { FormInput } from '../input'
-import { Loading } from '../loading'
-import { FormContainer } from '../forms'
-import { Formik } from 'formik'
-import { CreateEmailDto, sendMail } from 'api'
-import { FormikValidation } from 'helpers'
-import { CustomModal, TextModal } from '../modal'
+import { TextModal } from '../modal'
 
-import Select from '@mui/material/Select'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import MenuItem from '@mui/material/MenuItem'
 import { useUser } from 'hooks'
 
 type Services = {
@@ -81,106 +72,53 @@ const services: Services[] = [
 ]
 
 export const ContactUs = () => (
-  <>
-    <Formik<CreateEmailDto>
-      initialValues={{ from: '', message: '', subject: '', name: '' }}
-      validationSchema={FormikValidation.createMail}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
-        setSubmitting(true)
-        sendMail(values).finally(() => {
-          setSubmitting(false)
-          resetForm()
-        })
-      }}
+  <Flex flexDirection={'column'}>
+    <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
+      Contact Us
+    </Text>
+    <Flex
+      flexDirection={'column'}
+      pt={20}
+      pb={20}
+      justifyContent={'center'}
+      sx={{ gap: 1, wordWrap: 'break-word' }}
     >
-      {({ isSubmitting }) => (
-        <FormContainer
-          flexProps={{
-            sx: { gap: 10 },
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: 20,
-            width: '100%',
-            height: '100%',
-          }}
-          label="Contact Us"
-          labelProps={{
-            width: '100%',
-          }}
+      <Text>0238 SANLY BLDG P TUAZON BLVD SOCORRO, CUBAO QC</Text>
+      <Text>09123456789</Text>
+      <Text>manila.feline.center@gmail.com</Text>
+      <Text as={'h2'} sx={{ fontSize: 18, color: 'black', mt: 3 }}>
+        Links
+      </Text>
+      <Text
+        sx={{
+          textDecoration: 'underline',
+        }}
+      >
+        <Anchor
+          href="https://facebook.com/ManilaFelineCenter"
+          sx={{ wordWrap: 'break-word' }}
         >
-          {isSubmitting && <Loading />}
-          <Flex
-            sx={{
-              gap: [10],
-              flexDirection: ['column', 'row'],
-              width: '100%',
-            }}
-          >
-            <FormInput
-              name="name"
-              label={'Name'}
-              variant="filled"
-              inputcolor={{
-                labelColor: 'gray',
-                borderBottomColor: theme.mainColors.first,
-              }}
-              sx={{ color: 'black', width: '100%' }}
-              style={{ background: 'white' }}
-              placeholder="Please type your password"
-            />
-            <FormInput
-              name="from"
-              label={'Email'}
-              variant="filled"
-              inputcolor={{
-                labelColor: 'gray',
-                borderBottomColor: theme.mainColors.first,
-              }}
-              sx={{ color: 'black', width: '100%' }}
-              style={{ background: 'white' }}
-              placeholder="Please type your password"
-            />
-          </Flex>
-          <FormInput
-            name="subject"
-            label={'Subject'}
-            variant="filled"
-            inputcolor={{
-              labelColor: 'gray',
-              borderBottomColor: theme.mainColors.first,
-            }}
-            sx={{ color: 'black', width: '100%' }}
-            style={{ background: 'white' }}
-            placeholder="Please type your password"
-          />
-          <FormInput
-            name="message"
-            label={'Message'}
-            variant="filled"
-            multiline={true}
-            inputcolor={{
-              labelColor: 'gray',
-              borderBottomColor: theme.mainColors.first,
-            }}
-            sx={{ color: 'black', width: '100%' }}
-            style={{ background: 'white' }}
-            minRows={12}
-            maxRows={12}
-            placeholder="Please type your password"
-          />
-          <Flex width={'100%'} justifyContent={'end'}>
-            <Button
-              type="submit"
-              style={{ width: '100px' }}
-              disabled={isSubmitting}
-            >
-              Submit
-            </Button>
-          </Flex>
-        </FormContainer>
-      )}
-    </Formik>
-  </>
+          https://facebook.com/ManilaFelineCenter
+        </Anchor>
+      </Text>
+      <Text
+        sx={{
+          textDecoration: 'underline',
+        }}
+      >
+        <Anchor
+          href="https://instragram.com/ManilaFelineCenter"
+          sx={{ wordWrap: 'break-word' }}
+        >
+          https://instragram.com/ManilaFelineCenter
+        </Anchor>
+      </Text>
+      <Text as={'h2'} sx={{ fontSize: 18, color: 'black', mt: 3 }}>
+        Opening hours
+      </Text>
+      <Text>9:00 AM to 8:00PM</Text>
+    </Flex>
+  </Flex>
 )
 
 export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
@@ -217,15 +155,8 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
           padding: 0,
           zIndex: 99,
         }}
+        modalChild={<ContactUs />}
         color={theme.colors.pink}
-        onClick={() => {
-          scroller.scrollTo('footer', {
-            spy: true,
-            smooth: true,
-            offset: 50,
-            duration: 500,
-          })
-        }}
       >
         Contact Us
       </TextModal>
@@ -288,17 +219,6 @@ export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
                 onClick={() => {
                   setLink(data)
                   switch (data) {
-                    case 'Services':
-                      setOpen((v) => !v)
-                      break
-                    case 'Contact Us':
-                      scroller.scrollTo('footer', {
-                        spy: true,
-                        smooth: true,
-                        offset: 50,
-                        duration: 500,
-                      })
-                      break
                     case 'Logout':
                       logout()
                       break
@@ -309,7 +229,15 @@ export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
                 }}
               >
                 <ListItemText
-                  primary={data}
+                  primary={
+                    data === 'Contact Us' ? (
+                      <TextModal width={'auto'} modalChild={<ContactUs />}>
+                        Contact Us
+                      </TextModal>
+                    ) : (
+                      data
+                    )
+                  }
                   secondary={
                     link === 'Services' &&
                     data === 'Services' &&

@@ -35,7 +35,7 @@ export type SearchDoctorDto = {
 
   serviceId?: string
 
-  time: AmOrPm
+  time?: AmOrPm
 
   page?: number
 
