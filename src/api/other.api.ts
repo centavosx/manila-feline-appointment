@@ -62,6 +62,11 @@ export const getDoctorInfo = async (id: string, date: Date) => {
   return response
 }
 
+export enum Gender {
+  male = 'MALE',
+  female = 'FEMALE',
+}
+
 export type CreateAppointmentDto = {
   serviceId: string
 
@@ -74,6 +79,14 @@ export type CreateAppointmentDto = {
   time?: AmOrPm
 
   message: string
+
+  petName?: string
+
+  birthDate?: string
+
+  age?: number
+
+  gender?: Gender
 }
 
 export type VerifyAppointmentDto = {

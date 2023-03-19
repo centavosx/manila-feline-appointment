@@ -30,6 +30,13 @@ export const FormikValidation = {
       .max(50, 'Too Long!')
       .required('Required'),
     message: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+    petName: Yup.string().required('Required'),
+
+    birthDate: Yup.string().required('Required'),
+
+    age: Yup.number().min(0).required('Required'),
+
+    gender: Yup.string().required('Required'),
   }),
 
   verify: Yup.object().shape({

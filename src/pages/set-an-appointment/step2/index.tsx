@@ -119,7 +119,7 @@ const ValidateEmail = ({ appointmentId }: { appointmentId: string }) => {
             width: '100%',
             fontSize: 20,
             fontWeight: 600,
-            mb: 10,
+            mb: 2,
           }}
         >
           {(isSubmitting || isSubmitRefresh) && <Loading />}
@@ -130,7 +130,7 @@ const ValidateEmail = ({ appointmentId }: { appointmentId: string }) => {
               variant="outlined"
               inputcolor={{
                 labelColor: 'gray',
-                backgroundColor: 'transparent',
+                backgroundColor: 'white',
                 borderBottomColor: colorTheme.mainColors.first,
                 color: 'black',
               }}
@@ -354,12 +354,14 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
           </Flex>
           <Flex
             flex={1}
+            flexDirection={'column'}
             sx={{
               border: '0.5px solid gray',
               backgroundColor: colorTheme.colors.lightpink,
               padding: 24,
               width: '100%',
               borderRadius: 5,
+              gap: 10,
             }}
           >
             <Formik<CreateAppointmentDto>
@@ -370,9 +372,17 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                 name: userData?.name ?? '',
                 time: !!time ? time : undefined,
                 message: '',
+                birthDate: undefined,
+                gender: undefined,
+                age: undefined,
+                petName: undefined,
               }}
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(true)
+                values.birthDate = values.birthDate
+                  ? new Date(values?.birthDate).toDateString()
+                  : undefined
+                values.age = Number(values.age)
                 saveAppoinment(user?.id, values)
                   .then((d) => setAppointmentId(d.data.id))
                   .finally(() => setSubmitting(false))
@@ -467,7 +477,6 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                     })}
                     placeholder="Select Time"
                   />
-
                   <Flex flexDirection={'column'} sx={{ gap: 2 }}>
                     <Label sx={{ fontWeight: 600 }}>
                       Please select service
@@ -511,6 +520,101 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                     })}
                     placeholder="Select Service"
                   />
+                  <Flex flexDirection={'column'} sx={{ gap: 2 }}>
+                    <Label sx={{ fontWeight: 800, fontSize: 20 }}>
+                      Pet Information
+                    </Label>
+                  </Flex>
+                  <FormInput
+                    name="petName"
+                    label={'Pet name'}
+                    variant="outlined"
+                    inputcolor={{
+                      labelColor: 'gray',
+                      backgroundColor: 'white',
+                      borderBottomColor: colorTheme.mainColors.first,
+                      color: 'black',
+                    }}
+                    sx={{ color: 'black', width: '100%' }}
+                    placeholder="Please type your pet name"
+                  />
+                  <FormInput
+                    name="age"
+                    label={'Age'}
+                    type="number"
+                    variant="outlined"
+                    inputcolor={{
+                      labelColor: 'gray',
+                      backgroundColor: 'white',
+                      borderBottomColor: colorTheme.mainColors.first,
+                      color: 'black',
+                    }}
+                    sx={{ color: 'black', width: '100%' }}
+                    placeholder="Please type your pet age"
+                  />
+                  <Flex flexDirection={'column'} sx={{ gap: 1 }}>
+                    <Label sx={{ fontWeight: 500 }}>Birthday</Label>
+                    <FormInput
+                      name="birthDate"
+                      label={''}
+                      variant="outlined"
+                      type={'date'}
+                      inputcolor={{
+                        labelColor: 'gray',
+                        backgroundColor: 'white',
+                        borderBottomColor: colorTheme.mainColors.first,
+                        color: 'black',
+                      }}
+                      sx={{ color: 'black', width: '100%' }}
+                      placeholder="Please type your pet birthday"
+                    />
+                  </Flex>
+                  <Flex flexDirection={'column'} sx={{ gap: 2 }}>
+                    <Select
+                      isSearchable={true}
+                      name="gender"
+                      options={[
+                        {
+                          label: 'Male',
+                          value: 'MALE',
+                        },
+                        {
+                          label: 'Female',
+                          value: 'FEMALE',
+                        },
+                      ]}
+                      controlStyle={{
+                        padding: 8,
+                        borderColor: 'black',
+                        backgroundColor: 'white',
+                      }}
+                      value={
+                        !!values.gender
+                          ? [
+                              {
+                                label: 'Male',
+                                value: 'MALE',
+                              },
+                              {
+                                label: 'Female',
+                                value: 'FEMALE',
+                              },
+                            ].find((v) => v.value === values.gender)!
+                          : undefined
+                      }
+                      onChange={(v) => handleChange('gender')((v as any).value)}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: colorTheme.colors.lightpink,
+                          primary: colorTheme.colors.darkpink,
+                        },
+                      })}
+                      placeholder="Select Gender"
+                    />
+                    <InputError error={errors.gender} />
+                  </Flex>
                   <FormInput
                     name="message"
                     label={'Message'}
@@ -527,7 +631,6 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                     padding={20}
                     sx={{ color: 'black', width: '100%', mt: 2 }}
                   />
-
                   {!appointmentId && (
                     <Button
                       type="submit"
