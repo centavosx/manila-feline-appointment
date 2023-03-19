@@ -16,52 +16,74 @@ import { ServiceIcon } from 'components/icon'
 type Services = {
   name: string
   src: string
+  description: string
 }
 
 const services: Services[] = [
   {
     name: 'Preventive Care',
     src: '/assets/services/Preventive Care.png',
+    description: `Early detection is the key to prevention and management of serious medical problems. A thorough physical exam performed by one of our veterinarians is the first diagnostic step used in assessing your pet's health. In addition to an evaluation of all major organ systems, our physical exam also assesses your pet's dental health and weight. Diet, supplements, and medications are recommended as appropriate to ensure a long, healthy life. During the annual visit we recommend blood testing to identify hidden problem areas (such as diabetes, kidney disease, and liver disease). If the physical exam reveals the potential of a specific problem such as thyroid disease, the testing is adjusted to include evaluation for the suspected problem. Finding hidden problems early, before the pet shows signs of disease, allows us more options for treatment or management of that disease and improves quality of life.`,
   },
   {
     name: 'Wellness',
     src: '/assets/services/wellness.png',
+    description:
+      'Our wellness and vaccination services will allow us to assess the general well-being of your pet. We will be able to see how their overall health is and can determine if they need any treatments or medication, think of this as a checkup to ensure everything is well.',
   },
   {
     name: 'Consultation',
     src: '/assets/services/Consultation.png',
+    description:
+      'We strongly believe that an ounce of prevention is worth of a pound of cure especially with pets that age much faster than humans. As such, you will  find our veterinarians focusing on preventive care options. Every patient is evaluated and an individual treatment plan is discussed.',
   },
   {
     name: 'Nutritional Counseling',
     src: '/assets/services/nutritional counseling.png',
+    description:
+      'A process by which a health professional with special training in nutrition helps people make healthy food choices and form healthy eating habits. In cancer treatment, the goal of nutritional counseling is to help patients stay healthy during and after treatment and to stay strong enough to fight infections and the recurrence of disease. Also called dietary counseling.',
   },
   {
     name: 'Laboratory',
     src: '/assets/services/laboratory.png',
+    description:
+      'Our clinic is fully equipped with analyzers allowing us to get rapid results on critical patients as well as on routine check. Some tests we do includes Digital Radiography, Ultrasonography, Echocardiography, Ophthalmology, Hematology, Chemistry, Tumor Markers, Antibiotic Sensitivity, Specific Diseases Antigen/Antibody testing.',
   },
   {
     name: 'Surgery',
     src: '/assets/services/surgery.png',
+    description:
+      'Our clinic is equipped to perform most surgical procedures from spays and neuters to soft tissue surgeries. We offer the latest in anesthesia drug protocols in order to provide your pet with a safer and more pain free surgical experience. Out top priority is their safety and comfort during any procedure.',
   },
   {
     name: 'Telemedicine',
     src: '/assets/services/telemedicine.png',
+    description:
+      'For our clients that cannot bring their pets to our hospital, we now offer a Telemedicine consultation with our dedicated Telemedicine veterinarian. Telemedicine can be applied to pets as well as wildlife.',
   },
   {
     name: 'Dental Care',
     src: '/assets/services/dental care.png',
+    description:
+      'Cracked and fractured teeth and dental disease can be silent torture for your pet. Regular checkups and teeth cleaning can help prevent the progression of dental problems, and our in-depth assessments will identify any existing issues. Our clinic provides cleanings under anesthesia to ensure your pet’s teeth are cleaned above and below the gum line, which is crucial for their oral health.',
   },
   {
     name: 'Hospitalization',
     src: '/assets/services/hospitalization.png',
+    description:
+      'Treatment of your pet’s diagnosed medical condition can either be done at home or, in more serious cases, while confined in our hospital',
   },
   {
     name: 'After-hour emergency',
     src: '/assets/services/afrer hour emergency.png',
+    description:
+      'Our branch accepts after-hours emergency cases from 9:00AM to 8:00PM',
   },
   {
     name: 'Pet supplies',
     src: '/assets/services/pet-supplies.png',
+    description:
+      'We stock an extensive range of pet products, prescription and specialty diets. Our on-site pharmacy offers prescription and non-prescription medicines, preventives, nutritional supplements, oral and ear care, grooming items and prescription food.',
   },
 ]
 
@@ -214,13 +236,71 @@ export default function Home() {
             Vision
           </ButtonModal>
           <ButtonModal
+            style={{ fontSize: 18, padding: 12, width: 280, height: '80%' }}
+            maxHeight={'90%'}
+            modalChild={
+              <Flex flexDirection={'column'}>
+                <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
+                  Services
+                </Text>
+                <Flex
+                  flexWrap={'wrap'}
+                  flexDirection={'column'}
+                  padding={10}
+                  overflow={'auto'}
+                  justifyContent={'center'}
+                  sx={{ gap: 10 }}
+                >
+                  {services.map((d, i) => (
+                    <Flex key={i} flexDirection={'column'} sx={{ gap: 3 }}>
+                      <ServiceIcon
+                        key={d.name}
+                        imageProps={{ image: { src: d.src } }}
+                        flexProps={{
+                          sx: {
+                            gap: 24,
+                            flexDirection: 'row',
+                          },
+                        }}
+                        sx={{
+                          width: '100%',
+                          wordWrap: 'break-word',
+                          textAlign: 'left',
+                          whiteSpace: 'initial',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <Text
+                          fontFamily={'Castego'}
+                          color={'black'}
+                          sx={{ fontSize: 24, fontWeight: 600 }}
+                        >
+                          {d.name}
+                        </Text>
+                        <Text
+                          fontFamily={'Castego'}
+                          color={'black'}
+                          sx={{ fontSize: 14 }}
+                        >
+                          {d.description}
+                        </Text>
+                      </ServiceIcon>
+                    </Flex>
+                  ))}
+                </Flex>
+              </Flex>
+            }
+          >
+            Services
+          </ButtonModal>
+          <ButtonModal
             style={{ fontSize: 18, padding: 12, width: 280 }}
-            backgroundcolor={theme.colors.blackgray}
-            textcolor={theme.colors.pink}
-            hovercolor={'#7A7A7A'}
-            hovertextcolor={theme.colors.pink}
-            activetextcolor={theme.colors.pink}
-            activecolor={'#707070'}
+            backgroundcolor={theme.colors.white}
+            textcolor={'black'}
+            hovercolor={'#e0e0e0'}
+            hovertextcolor={'black'}
+            activetextcolor={'black'}
+            activecolor={'#d6d6d6'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
@@ -254,12 +334,6 @@ We are committed to honesty, transparency, and building up a relationship based 
           </ButtonModal>
           <ButtonModal
             style={{ fontSize: 18, padding: 12, width: 280 }}
-            backgroundcolor={theme.colors.white}
-            textcolor={'black'}
-            hovercolor={'#e0e0e0'}
-            hovertextcolor={'black'}
-            activetextcolor={'black'}
-            activecolor={'#d6d6d6'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
@@ -314,12 +388,12 @@ We are committed to honesty, transparency, and building up a relationship based 
           </ButtonModal>
           <ButtonModal
             style={{ fontSize: 18, padding: 12, width: 280 }}
-            backgroundcolor={theme.colors.blackgray}
-            textcolor={theme.colors.pink}
-            hovercolor={'#7A7A7A'}
-            hovertextcolor={theme.colors.pink}
-            activetextcolor={theme.colors.pink}
-            activecolor={'#707070'}
+            backgroundcolor={theme.colors.white}
+            textcolor={'black'}
+            hovercolor={'#e0e0e0'}
+            hovertextcolor={'black'}
+            activetextcolor={'black'}
+            activecolor={'#d6d6d6'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>

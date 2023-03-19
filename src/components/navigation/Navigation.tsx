@@ -183,70 +183,6 @@ export const ContactUs = () => (
   </>
 )
 
-export const AllServices = () => (
-  <Select
-    displayEmpty
-    input={
-      <OutlinedInput
-        sx={{
-          border: 0,
-          paddingRight: 0,
-          ':focus': {
-            outline: 'none !important',
-          },
-        }}
-      />
-    }
-    renderValue={(selected) => {
-      if (selected !== null) {
-        return 'Services'
-      }
-
-      return selected
-    }}
-    sx={{
-      ':focus': {
-        outline: 'none !important',
-      },
-      div: {
-        padding: 0,
-        width: 'auto',
-        marginRight: '-32px',
-        borderColor: 'transparent',
-      },
-      'div:focus': {
-        outline: 'none !important',
-      },
-      fieldset: {
-        border: 0,
-        borderColor: 'transparent',
-        display: 'none',
-      },
-      'input:focus': {
-        outline: 'none !important',
-      },
-      fontFamily:
-        '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-      svg: {
-        display: 'none',
-      },
-      fontSize: [14, 16],
-      letterSpacing: '0.01071em',
-      color: theme.colors.pink,
-      ':hover': {
-        opacity: 0.7,
-      },
-      fontWeight: 'bold',
-    }}
-  >
-    {services.map((s) => (
-      <MenuItem key={s.name} value={s.name}>
-        {s.name}
-      </MenuItem>
-    ))}
-  </Select>
-)
-
 export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
   const { push } = useRouter()
   const { logout } = useUser()
@@ -269,7 +205,6 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
       >
         {navigations[0]}
       </TextModal>
-      <AllServices />
       <TextModal
         width={'auto'}
         style={{ cursor: 'pointer' }}
@@ -346,7 +281,7 @@ export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
       role="presentation"
     >
       <List>
-        {['Home', 'Services', 'Contact Us', 'Logout'].map((data: string, i) => (
+        {['Home', 'Contact Us', 'Logout'].map((data: string, i) => (
           <Fragment key={i}>
             <ListItem disablePadding={true}>
               <ListItemButton

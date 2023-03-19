@@ -23,10 +23,12 @@ export function ButtonModal({
   children,
   modalChild,
   onSubmit,
+  maxHeight,
   ...props
 }: ButtonProps & {
   modalChild?: ((props: ChildProps) => ReactNode) | ReactNode
   onSubmit?: () => void
+  maxHeight?: string[] | number[] | number | string
 }) {
   const [open, setOpen] = useState<boolean>(false)
 
@@ -58,7 +60,7 @@ export function ButtonModal({
             transform: 'translate(-50%, -50%)',
             width: ['80%', '80%'],
             height: 'auto',
-            maxHeight: ['80%', 'unset'],
+            maxHeight: maxHeight ?? ['80%', 'unset'],
             backgroundColor: 'white',
             border: '1px solid gray',
             borderRadius: '10px',

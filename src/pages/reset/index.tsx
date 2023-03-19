@@ -57,12 +57,14 @@ export default function Reset({ token }: { token: string }) {
               Number(
                 rotatedWidth +
                   (scale < 0.6
-                    ? (rotatedWidth * 80) / 100
-                    : scale >= 0.6 && scale < 0.7
                     ? (rotatedWidth * 35) / 100
-                    : scale >= 0.7 && scale < 0.8
+                    : scale >= 0.6 && scale < 0.7
                     ? (rotatedWidth * 15) / 100
-                    : -(rotatedWidth * 10) / 100)
+                    : scale >= 0.7 && scale < 0.8
+                    ? -(rotatedWidth * 5) / 100
+                    : scale >= 0.8 && scale < 0.9
+                    ? -(rotatedWidth * 10) / 100
+                    : -(rotatedWidth * 20) / 100)
               ).toFixed(1) + 'px',
             transform: `rotate(0.25turn) translateY(${yshift}%) scale(${scale})`,
             transformOrigin: 'top left',
