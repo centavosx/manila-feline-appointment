@@ -313,6 +313,7 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                   flexDirection: 'column',
                   padding: 24,
                   backgroundColor: colorTheme.colors.lightpink,
+                  gap: 3,
                 }}
               >
                 {availability.map(
@@ -322,7 +323,7 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
                         key={i}
                         width={'100%'}
                         flexDirection={'column'}
-                        sx={{ gap: 10 }}
+                        sx={{ gap: 2 }}
                       >
                         <Text
                           sx={{
