@@ -6,16 +6,16 @@ export const FormikValidation = {
   createMail: Yup.object().shape({
     from: Yup.string().email('Please enter a valid email').required('Required'),
     subject: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
+      .min(1, 'Too Short!')
+      .max(5000, 'Too Long!')
       .required('Required'),
     name: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
+      .min(1, 'Too Short!')
+      .max(5000, 'Too Long!')
       .required('Required'),
     message: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
+      .min(1, 'Too Short!')
+      .max(5000, 'Too Long!')
       .required('Required'),
   }),
 
@@ -26,10 +26,10 @@ export const FormikValidation = {
     time: Yup.string().required('Required'),
     serviceId: Yup.string().required('Required'),
     name: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
+      .min(1, 'Too Short!')
+      .max(5000, 'Too Long!')
       .required('Required'),
-    message: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+    message: Yup.string().min(1, 'Too Short!').max(5000, 'Too Long!'),
     petName: Yup.string().required('Required'),
 
     birthDate: Yup.string().required('Required'),
