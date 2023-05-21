@@ -380,11 +380,12 @@ export default function Step2({ id, date, isAllowed, time, sId }: Step2Props) {
               }}
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(true)
-                values.birthDate = values.birthDate
-                  ? new Date(values?.birthDate).toDateString()
+                let copy = structuredClone(values);
+                copy.birthDate = copy.birthDate
+                  ? new Date(copy?.birthDate).toDateString()
                   : undefined
-                values.age = Number(values.age)
-                saveAppoinment(user?.id, values)
+                copy.age = Number(copy.age)
+                saveAppoinment(user?.id, copy)
                   .then((d) => setAppointmentId(d.data.id))
                   .finally(() => setSubmitting(false))
               }}
