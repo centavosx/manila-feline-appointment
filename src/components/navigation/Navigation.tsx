@@ -137,11 +137,27 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
           fontFamily: 'Castego',
           padding: 0,
         }}
-        color={theme.colors.pink}
+        color={theme.colors.black}
         onClick={() => push('/#home')}
         isNotClickable={true}
       >
         {navigations[0]}
+      </TextModal>
+      <TextModal
+        width={'auto'}
+        fontWeight={'bold'}
+        style={{ cursor: 'pointer' }}
+        onMouseOver={(e) => (e.currentTarget.style.opacity = '0.7')}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+        sx={{
+          fontSize: [14, 16],
+          fontFamily: 'Castego',
+          padding: 0,
+        }}
+        color={theme.colors.black}
+        isNotClickable={true}
+      >
+        Shop
       </TextModal>
       <TextModal
         width={'auto'}
@@ -156,7 +172,7 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
           zIndex: 99,
         }}
         modalChild={<ContactUs />}
-        color={theme.colors.pink}
+        color={theme.colors.black}
       >
         Contact Us
       </TextModal>
@@ -172,7 +188,7 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
           padding: 0,
           zIndex: 99,
         }}
-        color={theme.colors.pink}
+        color={theme.colors.black}
         onClick={() => {
           logout()
         }}

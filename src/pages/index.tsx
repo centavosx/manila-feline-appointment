@@ -155,7 +155,11 @@ export default function Home() {
             </Text>
             <Button
               type="submit"
-              backgroundcolor={'transparent'}
+              backgroundcolor="rgba(188, 143, 143,0.8)"
+              textcolor={theme.colors.black}
+              hovercolor={'rgba(188, 143, 143,0.4)'}
+              hovertextcolor={theme.colors.pink}
+              activetextcolor={theme.colors.pink}
               variant="outlined"
               style={{
                 borderColor: theme.colors.verylight,
@@ -166,16 +170,48 @@ export default function Home() {
               }}
               size={'large'}
               custom={{
-                padding: 20,
+                padding: 15,
+                width: 250,
                 '@media screen and (max-width: 640px)': {
                   fontSize: 12,
                   minWidth: 200,
                   padding: 10,
+                  width: 'auto',
                 },
               }}
               onClick={() => replace('/set-an-appointment')}
             >
               BOOK AN APPOINTMENT
+            </Button>
+            <Button
+              type="submit"
+              backgroundcolor="rgba(188, 143, 143,0.8)"
+              textcolor={theme.colors.black}
+              hovercolor={'rgba(188, 143, 143,0.4)'}
+              hovertextcolor={theme.colors.pink}
+              activetextcolor={theme.colors.pink}
+              variant="outlined"
+              style={{
+                borderColor: theme.colors.verylight,
+                fontFamily: 'Castego',
+                fontWeight: 600,
+                borderRadius: 50,
+                alignSelf: 'center',
+              }}
+              size={'large'}
+              custom={{
+                padding: 15,
+                width: 250,
+                '@media screen and (max-width: 640px)': {
+                  fontSize: 12,
+                  minWidth: 200,
+                  padding: 10,
+                  width: 'auto',
+                },
+              }}
+              onClick={() => replace('/shop')}
+            >
+              Shop
             </Button>
           </Flex>
         </Carousel>
@@ -196,6 +232,7 @@ export default function Home() {
             hovercolor={'#7A7A7A'}
             hovertextcolor={theme.colors.pink}
             activetextcolor={theme.colors.pink}
+            maxHeight={'80%'}
             activecolor={'#707070'}
             modalChild={
               <Flex flexDirection={'column'}>
@@ -221,6 +258,7 @@ export default function Home() {
             hovertextcolor={'black'}
             activetextcolor={'black'}
             activecolor={'#d6d6d6'}
+            maxHeight={'80%'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
@@ -236,8 +274,8 @@ export default function Home() {
             Vision
           </ButtonModal>
           <ButtonModal
-            style={{ fontSize: 18, padding: 12, width: 280, height: '80%' }}
-            maxHeight={'90%'}
+            style={{ fontSize: 18, padding: 12, width: 280 }}
+            maxHeight={'80%'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
@@ -298,6 +336,7 @@ export default function Home() {
             backgroundcolor={theme.colors.white}
             textcolor={'black'}
             hovercolor={'#e0e0e0'}
+            maxHeight={'80%'}
             hovertextcolor={'black'}
             activetextcolor={'black'}
             activecolor={'#d6d6d6'}
@@ -334,6 +373,7 @@ We are committed to honesty, transparency, and building up a relationship based 
           </ButtonModal>
           <ButtonModal
             style={{ fontSize: 18, padding: 12, width: 280 }}
+            maxHeight={'80%'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
@@ -390,6 +430,7 @@ We are committed to honesty, transparency, and building up a relationship based 
             style={{ fontSize: 18, padding: 12, width: 280 }}
             backgroundcolor={theme.colors.white}
             textcolor={'black'}
+            maxHeight={'80%'}
             hovercolor={'#e0e0e0'}
             hovertextcolor={'black'}
             activetextcolor={'black'}

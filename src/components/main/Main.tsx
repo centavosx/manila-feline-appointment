@@ -33,9 +33,9 @@ export const Main = ({
           sx={{
             flex: 1,
             position: 'unset',
-            height: '100%',
+            height: '100vh',
             overflow: 'auto',
-            width: '100%',
+            width: '100vw',
           }}
           maxWidth={2250}
           alignSelf="center"
@@ -47,25 +47,35 @@ export const Main = ({
               gap: 2,
               padding: 20,
               position: 'relative',
-              backgroundColor: theme.colors.black,
+              backgroundColor: theme.colors.white,
             }}
           >
             <Flex flex={1} sx={{ justifyContent: 'start' }}>
               <Anchor href="/" sx={{ mr: [null, 4] }}>
                 <Flex alignItems={'center'} sx={{ gap: 2 }}>
-                  <Image
-                    src={'/assets/logo.png'}
-                    width={60}
-                    height={60}
-                    minWidth={'auto'}
-                    alt="image"
-                  />
+                  <Flex
+                    sx={{
+                      borderRadius: '100%',
+                      height: 60,
+                      width: 60,
+                      backgroundColor: theme.colors.pink,
+                      padding: 0,
+                    }}
+                  >
+                    <Image
+                      src={'/assets/logo.png'}
+                      width={'101%'}
+                      height={'101%'}
+                      minWidth={'auto'}
+                      alt="image"
+                    />
+                  </Flex>
                   <Text
                     sx={{
                       fontSize: [14, 18],
                       fontWeight: 600,
                       fontFamily: 'Castego',
-                      color: theme.colors.pink,
+                      color: theme.colors.black,
                     }}
                   >
                     Manila Feline Center
