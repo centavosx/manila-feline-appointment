@@ -252,12 +252,12 @@ export default function Home() {
           </ButtonModal>
           <ButtonModal
             style={{ fontSize: 18, padding: 12, width: 280 }}
-            backgroundcolor={theme.colors.white}
+            backgroundcolor={theme.colors.pink}
             textcolor={'black'}
-            hovercolor={'#e0e0e0'}
+            hovercolor={theme.colors.lightpink}
             hovertextcolor={'black'}
             activetextcolor={'black'}
-            activecolor={'#d6d6d6'}
+            activecolor={theme.colors.lightpink}
             maxHeight={'80%'}
             modalChild={
               <Flex flexDirection={'column'}>
@@ -333,13 +333,13 @@ export default function Home() {
           </ButtonModal>
           <ButtonModal
             style={{ fontSize: 18, padding: 12, width: 280 }}
-            backgroundcolor={theme.colors.white}
+            backgroundcolor={theme.colors.pink}
             textcolor={'black'}
-            hovercolor={'#e0e0e0'}
-            maxHeight={'80%'}
+            hovercolor={theme.colors.lightpink}
             hovertextcolor={'black'}
             activetextcolor={'black'}
-            activecolor={'#d6d6d6'}
+            activecolor={theme.colors.lightpink}
+            maxHeight={'80%'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>
@@ -428,13 +428,13 @@ We are committed to honesty, transparency, and building up a relationship based 
           </ButtonModal>
           <ButtonModal
             style={{ fontSize: 18, padding: 12, width: 280 }}
-            backgroundcolor={theme.colors.white}
+            backgroundcolor={theme.colors.pink}
             textcolor={'black'}
-            maxHeight={'80%'}
-            hovercolor={'#e0e0e0'}
+            hovercolor={theme.colors.lightpink}
             hovertextcolor={'black'}
             activetextcolor={'black'}
-            activecolor={'#d6d6d6'}
+            activecolor={theme.colors.lightpink}
+            maxHeight={'80%'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>

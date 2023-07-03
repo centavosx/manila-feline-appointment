@@ -14,8 +14,7 @@ export const Main = ({
   pageTitle,
   children,
   isLink,
-  isShop,
-}: { pageTitle?: string; isLink?: boolean; isShop?: boolean } & FlexProps) => {
+}: { pageTitle?: string; isLink?: boolean } & FlexProps) => {
   return (
     <>
       <BaseHead
@@ -27,14 +26,14 @@ export const Main = ({
         width={'100%'}
         sx={{ height: '100%', flexDirection: 'column' }}
         justifyContent="center"
-        backgroundColor={theme.colors.white}
+        backgroundColor={theme.colors.pink}
       >
         <Flex
           sx={{
             height: 'auto',
             width: '100%',
             flexDirection: 'column',
-            backgroundColor: theme.colors.white,
+            backgroundColor: theme.colors.pink,
           }}
         >
           <Header
@@ -97,7 +96,7 @@ export const Main = ({
         <Flex
           sx={{
             gap: 2,
-            backgroundColor: isShop ? theme.colors.white : theme.colors.pink,
+            backgroundColor: theme.colors.white,
             height: '100%',
             overflow: 'auto',
             width: '100%',

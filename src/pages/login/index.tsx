@@ -206,13 +206,13 @@ export default function Login() {
         width: '100vw',
         backgroundColor:
           !!width && !!height && width >= height
-            ? theme.colors.pink
-            : theme.colors.blackgray,
+            ? theme.colors.white
+            : theme.colors.pink,
       }}
     >
       {!!width && !!height && width >= height ? (
         <Wave
-          fill={theme.colors.blackgray}
+          fill={theme.colors.pink}
           paused={false}
           options={{
             height: height * (scale * 0.2),
@@ -242,7 +242,7 @@ export default function Login() {
         />
       ) : (
         <Wave
-          fill={theme.colors.pink}
+          fill={theme.colors.white}
           paused={false}
           options={{
             height: (width ?? 0) < 450 ? 220 : 250,
@@ -295,7 +295,7 @@ export default function Login() {
                   fontSize: !!width && !!height && width >= height ? 24 : 18,
                   fontWeight: 600,
                   fontFamily: 'Castego',
-                  color: theme.colors.pink,
+                  color: theme.colors.black,
                 }}
               >
                 MANILA FELINE CENTER
@@ -306,7 +306,7 @@ export default function Login() {
                   fontSize: !!width && !!height && width >= height ? 18 : 14,
                   fontWeight: 600,
                   fontFamily: 'Castego',
-                  color: theme.colors.pink,
+                  color: theme.colors.black,
                 }}
               >
                 Care, compassion and care for cats

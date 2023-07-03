@@ -305,7 +305,7 @@ const ShopItem = () => {
 
 export default function Shop() {
   return (
-    <Main isLink={true} isShop={true}>
+    <Main isLink={true}>
       <Flex
         p={12}
         width={[200, 700]}
