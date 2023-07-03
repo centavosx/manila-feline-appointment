@@ -1,8 +1,10 @@
+import { ReactNode } from 'react'
 import { Loading } from 'components/loading'
 import { Flex, FlexProps, TextProps, Text } from 'rebass'
 
 export const Section = ({
   title,
+  rightChild,
   children,
   textProps,
   contentProps,
@@ -13,6 +15,7 @@ export const Section = ({
   textProps?: TextProps
   contentProps?: FlexProps
   isFetching?: boolean
+  rightChild?: ReactNode
 } & FlexProps) => {
   return (
     <Flex
@@ -24,18 +27,21 @@ export const Section = ({
       sx={{ gap: 4 }}
       {...other}
     >
-      {!!title && (
-        <Text
-          as={'h1'}
-          width={'100%'}
-          textAlign="center"
-          color={'black'}
-          fontFamily="Castego"
-          {...textProps}
-        >
-          {title}
-        </Text>
-      )}
+      <Flex flexDirection={'row'} width={'100%'} alignItems={'center'}>
+        {!!title && (
+          <Text
+            as={'h1'}
+            flex={1}
+            textAlign="center"
+            color={'black'}
+            fontFamily="Castego"
+            {...textProps}
+          >
+            {title}
+          </Text>
+        )}
+        {rightChild}
+      </Flex>
       {isFetching && <Loading />}
       <Flex
         alignItems={'center'}

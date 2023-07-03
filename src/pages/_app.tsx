@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { ThemeProvider } from 'styled-components'
 import { createTheme } from '@mui/material'
 import { DataProvider, PageProvider } from '../contexts'
+// import './index.scss'
 
 const theme = createTheme()
 export default function App({ Component, pageProps }: AppProps) {

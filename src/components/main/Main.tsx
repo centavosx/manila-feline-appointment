@@ -14,7 +14,8 @@ export const Main = ({
   pageTitle,
   children,
   isLink,
-}: { pageTitle?: string; isLink?: boolean } & FlexProps) => {
+  isShop,
+}: { pageTitle?: string; isLink?: boolean; isShop?: boolean } & FlexProps) => {
   return (
     <>
       <BaseHead
@@ -24,31 +25,31 @@ export const Main = ({
       />
       <Flex
         width={'100%'}
-        sx={{ position: 'unset', height: '100%' }}
+        sx={{ height: '100%', flexDirection: 'column' }}
         justifyContent="center"
-        backgroundColor={theme.colors.pink}
+        backgroundColor={theme.colors.white}
       >
         <Flex
-          flexDirection={'column'}
           sx={{
-            flex: 1,
-            position: 'unset',
-            height: '100vh',
-            overflow: 'auto',
-            width: '100vw',
+            height: 'auto',
+            width: '100%',
+            flexDirection: 'column',
+            backgroundColor: theme.colors.white,
           }}
-          maxWidth={2250}
-          alignSelf="center"
-          backgroundColor={theme.colors.pink}
         >
           <Header
             justifyContent={'start'}
             sx={{
               gap: 2,
-              padding: 20,
-              position: 'relative',
-              backgroundColor: theme.colors.white,
+              paddingLeft: 20,
+              paddingRight: 20,
+              paddingTop: '8px',
+              paddingBottom: '8px',
+              width: '100%',
+              zIndex: 99,
             }}
+            maxWidth={2250}
+            alignSelf="center"
           >
             <Flex flex={1} sx={{ justifyContent: 'start' }}>
               <Anchor href="/" sx={{ mr: [null, 4] }}>
@@ -92,11 +93,27 @@ export const Main = ({
               <Navigation.MobileNavigation isLink={isLink} />
             </MobileView>
           </Header>
-          {children}
+        </Flex>
+        <Flex
+          sx={{
+            gap: 2,
+            backgroundColor: isShop ? theme.colors.white : theme.colors.pink,
+            height: '100%',
+            overflow: 'auto',
+            width: '100%',
+            flexDirection: 'column',
+          }}
+          alignSelf="center"
+        >
+          <Flex flex={1} maxWidth={2250} alignSelf="center">
+            <Flex flexDirection={'column'} sx={{ height: '100%' }}>
+              {children}
+            </Flex>
+          </Flex>
           <WebView
             style={{
               position: 'relative',
-              bottom: -10,
+              bottom: -20,
             }}
           >
             <Wave
@@ -132,9 +149,13 @@ export const Main = ({
           <Header
             id={'footer'}
             backgroundColor={theme.colors.blackgray}
-            padding={20}
-            flexDirection={['column', 'row']}
-            sx={{ alignItems: ['center', 'start'], gap: [3, 1] }}
+            sx={{
+              gap: 2,
+              padding: 20,
+              width: '100%',
+              position: 'relative',
+            }}
+            alignSelf="center"
           >
             <Flex
               flex={1}
@@ -143,6 +164,7 @@ export const Main = ({
                 gap: 1,
                 textAlign: 'center',
               }}
+              maxWidth={2250}
             >
               <Text
                 sx={{

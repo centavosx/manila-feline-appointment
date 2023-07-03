@@ -125,7 +125,7 @@ export default function Home() {
 
   return (
     <Main id="home">
-      <Flex flexDirection={'column'} alignItems="center">
+      <Flex flexDirection={'column'} alignItems="center" sx={{ flex: 1 }}>
         <Carousel
           fadeDuration={150}
           carouselContent={['first', 'second', 'third'].map((data, i) => (
