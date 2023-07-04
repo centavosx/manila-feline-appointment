@@ -8,7 +8,6 @@ import { Header } from '../header'
 import { Text } from '../text'
 import { MobileView, WebView } from '../views'
 import { BaseHead } from '../basehead'
-import { useRouter } from 'next/router'
 
 export const Main = ({
   pageTitle,
@@ -104,8 +103,11 @@ export const Main = ({
           }}
           alignSelf="center"
         >
-          <Flex flex={1} maxWidth={2250} alignSelf="center">
-            <Flex flexDirection={'column'} sx={{ height: '100%' }}>
+          <Flex flex={1} maxWidth={2250} alignSelf="center" width={'100%'}>
+            <Flex
+              flexDirection={'column'}
+              sx={{ height: '100%', width: '100%' }}
+            >
               {children}
             </Flex>
           </Flex>

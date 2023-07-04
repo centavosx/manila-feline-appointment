@@ -41,3 +41,89 @@ export const Button = styled(StyledButton)`
     ${({ custom }) => custom}
   }
 `
+
+export const ShopButtonPrimary = ({
+  isTransition = true,
+  style,
+  ...props
+}: ButtonProps & { isTransition?: boolean }) => (
+  <Button
+    backgroundcolor={theme.colors.pink}
+    textcolor={theme.colors.black}
+    hovercolor={'rgba(188, 143, 143,0.4)'}
+    hovertextcolor={theme.colors.black}
+    activecolor={'rgba(188, 143, 143,0.4)'}
+    activetextcolor={theme.colors.black}
+    variant="outlined"
+    style={{
+      borderColor: 'black',
+      fontFamily: 'Castego',
+      fontWeight: 600,
+      borderRadius: 50,
+      alignSelf: 'center',
+      transition: isTransition ? '0.3s ease-in-out' : undefined,
+      ...style,
+    }}
+    size={'large'}
+    custom={{
+      padding: 10,
+      paddingLeft: 24,
+      paddingRight: 24,
+      width: 'auto',
+      '@media screen and (max-width: 640px)': {
+        fontSize: 12,
+        paddingLeft: 16,
+        paddingRight: 16,
+        width: 'auto',
+      },
+      '&:hover': {
+        transform: isTransition ? 'scale(0.9)' : undefined,
+      },
+    }}
+    {...props}
+  />
+)
+
+export const ShopButtonSecondary = ({
+  isTransition = true,
+  style,
+  ...props
+}: ButtonProps & { isTransition?: boolean }) => {
+  return (
+    <Button
+      backgroundcolor={theme.colors.white}
+      textcolor={theme.colors.black}
+      hovercolor={'rgba(255, 255, 255,0.4)'}
+      hovertextcolor={theme.colors.black}
+      activecolor={'rgba(255, 255, 255,0.4)'}
+      activetextcolor={theme.colors.black}
+      variant="outlined"
+      style={{
+        borderColor: 'black',
+        fontFamily: 'Castego',
+        fontWeight: 600,
+        borderRadius: 50,
+        alignSelf: 'center',
+        transition: isTransition ? '0.3s ease-in-out' : undefined,
+        ...style,
+      }}
+      size={'large'}
+      custom={{
+        padding: 10,
+        paddingLeft: 24,
+        paddingRight: 24,
+        width: 'auto',
+        '@media screen and (max-width: 640px)': {
+          fontSize: 12,
+          paddingLeft: 16,
+          paddingRight: 16,
+          width: 'auto',
+        },
+        '&:hover': {
+          transform: isTransition ? 'scale(0.9)' : undefined,
+        },
+      }}
+      {...props}
+    />
+  )
+}
