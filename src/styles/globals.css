@@ -13,6 +13,11 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+div,
+span,
+font {
   color: black;
 }
 

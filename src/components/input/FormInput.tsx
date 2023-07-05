@@ -16,7 +16,13 @@ export const FormInput = ({
   ...props
 }: {
   errorProp?: ErrorProp
-} & TextFieldProps & { padding?: number } & InputColor & {
+} & TextFieldProps & {
+    padding?: number
+    paddingTop?: number
+    paddingBottom?: number
+    paddingLeft?: number
+    paddingRight?: number
+  } & InputColor & {
     theme?: undefined
   } & Pick<FieldConfig, 'name'>) => {
   return (

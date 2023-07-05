@@ -27,7 +27,12 @@ export const Section = ({
       sx={{ gap: 4 }}
       {...other}
     >
-      <Flex flexDirection={'row'} width={'100%'} alignItems={'center'}>
+      <Flex
+        flexDirection={['column', 'row', 'row']}
+        width={'100%'}
+        sx={{ gap: 2 }}
+        alignItems={['left', 'center', 'center']}
+      >
         {!!title && (
           <Text
             as={'h1'}
