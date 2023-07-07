@@ -57,7 +57,13 @@ const CardContainer = styled(Flex)`
     }
   }
 `
-export const ShopItemContainer = ({ children }: { children: ReactNode }) => {
+export const ShopItemContainer = ({
+  children,
+  aligned = 'center',
+}: {
+  children: ReactNode
+  aligned?: 'left' | 'right' | 'center'
+}) => {
   return (
     <Flex justifyContent={'center'} width={'100%'}>
       <Flex
@@ -67,7 +73,7 @@ export const ShopItemContainer = ({ children }: { children: ReactNode }) => {
           flexWrap: 'wrap',
           alignItems: 'initial',
           gap: '60px',
-          justifyContent: 'center',
+          justifyContent: aligned,
         }}
       >
         {children}
@@ -76,11 +82,26 @@ export const ShopItemContainer = ({ children }: { children: ReactNode }) => {
   )
 }
 
-export const ShopItem = () => {
+export const ShopItem = ({
+  size = 'large',
+}: {
+  size?: 'small' | 'medium' | 'large'
+}) => {
   return (
-    <CardContainer>
+    <CardContainer
+      style={{
+        width: size === 'large' ? undefined : size === 'medium' ? 284 : 254,
+      }}
+    >
       <div className="card-upper">
-        <span>STOCK 150</span>
+        <span
+          style={{
+            fontSize:
+              size === 'large' ? undefined : size === 'medium' ? 12 : 10,
+          }}
+        >
+          STOCK 150
+        </span>
       </div>
       <div className="card-img">
         <img
@@ -93,7 +114,12 @@ export const ShopItem = () => {
           }}
         />
       </div>
-      <h4 className="card-title">
+      <h4
+        className="card-title"
+        style={{
+          fontSize: size === 'large' ? undefined : size === 'medium' ? 18 : 16,
+        }}
+      >
         Whiskas Tasty Mix Chicken and Tuna with Carrots in Gravy 70g Cat Wet
         Food
         <br />
@@ -101,13 +127,35 @@ export const ShopItem = () => {
         PHP 40.00
       </h4>
       <Flex sx={{ gap: 2, flexDirection: 'row', justifyContent: 'center' }}>
-        <ShopButtonSecondary>View More</ShopButtonSecondary>
-        <ShopButtonPrimary>
-          <AiOutlineShoppingCart size={24} />
+        <ShopButtonSecondary
+          style={{
+            fontSize:
+              size === 'large' ? undefined : size === 'medium' ? 14 : 12,
+          }}
+        >
+          View More
+        </ShopButtonSecondary>
+        <ShopButtonPrimary
+          style={{
+            fontSize:
+              size === 'large' ? undefined : size === 'medium' ? 14 : 12,
+          }}
+        >
+          <AiOutlineShoppingCart
+            size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
+          />
         </ShopButtonPrimary>
       </Flex>
-      <span className="card-rating">
-        <AiFillStar size={24} style={{ marginRight: 8 }} />
+      <span
+        className="card-rating"
+        style={{
+          fontSize: size === 'large' ? undefined : size === 'medium' ? 18 : 16,
+        }}
+      >
+        <AiFillStar
+          size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
+          style={{ marginRight: 8 }}
+        />
         (5.0)
       </span>
     </CardContainer>
