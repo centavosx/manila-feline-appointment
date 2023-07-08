@@ -245,6 +245,9 @@ const ShowMoreContainer = () => {
   )
 }
 
+
+
+
 export default function ProductInfo() {
   return (
     <Main isLink={true}>
@@ -300,63 +303,7 @@ export default function ProductInfo() {
               Descriptiondawdwadawdawd Descriptiondawdwadawdawddawdawdawd
               Descriptiondawdwadawdawddaw dawd
             </Text>
-            <Flex
-              flexDirection={'column'}
-              alignItems={'flex-start'}
-              sx={{ gap: 2, mt: 2 }}
-            >
-              <Text as={'h3'}>Quantity</Text>
-              <ShadowedFlex
-                sx={{
-                  borderRadius: 150,
-                  overflow: 'hidden',
-                  border: '0.5px solid black',
-                  textAlign: 'center',
-                }}
-                justifyContent={'center'}
-              >
-                <ShopButtonPrimary
-                  style={{
-                    width: 50,
-                    height: '100%',
-                    padding: 2,
-                    minWidth: 0,
-                    borderRadius: 0,
-                    borderTopLeftRadius: 100,
-                    borderBottomLeftRadius: 100,
-                    borderWidth: 0,
-                  }}
-                  isTransition={false}
-                >
-                  +
-                </ShopButtonPrimary>
-                <Text
-                  width={80}
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  textAlign={'center'}
-                  height={'100%'}
-                  alignSelf={'center'}
-                  display={'flex'}
-                >
-                  22
-                </Text>
-                <ShopButtonPrimary
-                  style={{
-                    width: 50,
-
-                    padding: 2,
-                    minWidth: 0,
-                    borderRadius: 0,
-                    borderTopRightRadius: 100,
-                    borderBottomRightRadius: 100,
-                    borderWidth: 0,
-                  }}
-                  isTransition={false}
-                >
-                  -
-                </ShopButtonPrimary>
-              </ShadowedFlex>
+            
             </Flex>
             <Flex flexDirection={'row'} sx={{ gap: 2, mt: 4 }}>
               <ShopButtonSecondary>

@@ -2,19 +2,86 @@ import { Main } from 'components/main'
 import { Flex, Text, Image } from 'rebass'
 import { Checkbox, FormControl, FormControlLabel } from '@mui/material'
 import { ShopButtonPrimary } from 'components/button'
+import { AiOutlineDelete } from 'react-icons/ai'
 
 const Item = () => {
   return (
     <Flex flexDirection={'row'} alignItems={'start'}>
       <Checkbox />
-      <Flex flexDirection={'row'} sx={{ gap: 2 }} flex={1}>
-        <Image size={80} />
+      <Flex
+        flexDirection={'row'}
+        sx={{ gap: 2, alignItems: 'center' }}
+        flex={1}
+      >
+        <Image size={[80, 100]} />
         <Flex flexDirection={'column'} sx={{ gap: 2 }} flex={1}>
           <Text as={'h4'}>Cat food</Text>
-          <Text sx={{ color: 'gray', fontSize: 11 }}>Stock: 10</Text>
-          <Text as={'h3'}>Php 1000</Text>
+          <Text style={{ fontSize: 11 }}>Stock: 10</Text>
+
+          <Flex
+            flexDirection={'column'}
+            alignItems={'flex-start'}
+            sx={{ gap: 2 }}
+          >
+            <Flex
+              sx={{
+                borderRadius: 150,
+                overflow: 'hidden',
+                border: '0.5px solid black',
+                textAlign: 'center',
+                boxShadow: '0px 2px 6px 2px rgba(0, 0, 0, 0.25)',
+                height: 20,
+              }}
+              justifyContent={'center'}
+            >
+              <ShopButtonPrimary
+                style={{
+                  width: 25,
+                  height: '100%',
+                  padding: 2,
+                  minWidth: 0,
+                  borderRadius: 0,
+                  borderTopLeftRadius: 100,
+                  borderBottomLeftRadius: 100,
+                  borderWidth: 0,
+                }}
+                isTransition={false}
+              >
+                +
+              </ShopButtonPrimary>
+              <Text
+                pl={2}
+                pr={2}
+                justifyContent={'center'}
+                alignItems={'center'}
+                textAlign={'center'}
+                height={'100%'}
+                alignSelf={'center'}
+                display={'flex'}
+                fontSize={11}
+              >
+                22
+              </Text>
+              <ShopButtonPrimary
+                style={{
+                  width: 25,
+                  padding: 2,
+                  minWidth: 0,
+                  borderRadius: 0,
+                  borderTopRightRadius: 100,
+                  borderBottomRightRadius: 100,
+                  borderWidth: 0,
+                }}
+                isTransition={false}
+              >
+                -
+              </ShopButtonPrimary>
+            </Flex>
+          </Flex>
+          <Text as={'h5'}>Php 1000</Text>
         </Flex>
-        <Text>x1</Text>
+
+        <AiOutlineDelete color="red" style={{ cursor: 'pointer' }} />
       </Flex>
     </Flex>
   )
