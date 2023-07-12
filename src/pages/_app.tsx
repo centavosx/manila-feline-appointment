@@ -8,6 +8,9 @@ import { Router } from 'next/router'
 import NProgress from 'nprogress'
 
 const theme = createTheme()
+
+NProgress.configure({ showSpinner: false })
+
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     Router.events.on('routeChangeStart', (url) => {
