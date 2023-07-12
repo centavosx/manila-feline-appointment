@@ -245,9 +245,6 @@ const ShowMoreContainer = () => {
   )
 }
 
-
-
-
 export default function ProductInfo() {
   return (
     <Main isLink={true}>
@@ -303,8 +300,6 @@ export default function ProductInfo() {
               Descriptiondawdwadawdawd Descriptiondawdwadawdawddawdawdawd
               Descriptiondawdwadawdawddaw dawd
             </Text>
-            
-            </Flex>
             <Flex flexDirection={'row'} sx={{ gap: 2, mt: 4 }}>
               <ShopButtonSecondary>
                 <AiOutlineShoppingCart size={18} style={{ marginRight: 6 }} />{' '}
