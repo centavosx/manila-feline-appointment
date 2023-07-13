@@ -28,3 +28,7 @@ line {
 #__next {
   height: 100vh;
 }
+
+#nprogress .bar {
+  background: #ff00ae !important;
+}

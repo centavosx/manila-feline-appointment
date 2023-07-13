@@ -7,7 +7,7 @@ import { CustomTable } from 'components/table'
 
 import { useRouter } from 'next/router'
 
-export default function PurchaseHistory() {
+export default function History() {
   const { replace, query, pathname, push } = useRouter()
   const [
     { limit: limitParams, page: pageParams, search: searchParams },

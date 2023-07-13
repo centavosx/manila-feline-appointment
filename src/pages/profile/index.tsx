@@ -3,7 +3,7 @@ import { Main } from 'components/main'
 import { useUser } from 'hooks'
 import { Flex, Text } from 'rebass'
 import { theme } from 'utils/theme'
-import PurchaseHistory from './page-components/purchase_history'
+import History from './page-components/history'
 
 export default function Profile() {
   const { user } = useUser()
@@ -120,7 +120,7 @@ export default function Profile() {
           </Flex>
         </Flex>
         <Flex flex={1}>
-          <PurchaseHistory />
+          <History />
         </Flex>
       </Flex>
     </Main>
