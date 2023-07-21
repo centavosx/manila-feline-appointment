@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from '@emotion/styled'
 import { ShopButtonPrimary } from 'components/button'
 import { SearchableInput } from 'components/input'
@@ -8,6 +8,8 @@ import { theme } from 'utils/theme'
 import { Section } from 'components/sections'
 import { Main } from 'components/main'
 import { ShopItem, ShopItemContainer } from 'components/shop'
+import { useApi } from 'hooks'
+import { getAllProduct, getRecommended } from 'api'
 
 const RecommendedWrapper = styled(Flex)({
   width: '100%',
@@ -36,7 +38,6 @@ const ShopContainer = styled(Flex)`
     &--small {
       width: 192px;
       height: 118px;
-      border: 3px solid #000;
     }
   }
 
@@ -71,36 +72,57 @@ const ShopContainer = styled(Flex)`
   }
 `
 
-const UpperItem = () => {
+type ProductType = {
+  id: string
+  name: string
+
+  shortdescription: string
+
+  description: string
+
+  category: string
+
+  items: number
+  price: string
+  rating: string
+}
+
+type RawProduct = ProductType & {
+  images?: { pos: string; link: string }[]
+}
+
+type Product = ProductType & {
+  first: string
+  second: string
+  third: string
+}
+
+const UpperItem = ({
+  first,
+  second,
+  third,
+  name,
+  shortdescription,
+
+  price,
+}: Product) => {
   return (
     <RecommendedWrapper>
       <ShopContainer>
         <Flex flexDirection={['column', 'column', 'row']} sx={{ gap: '25px' }}>
           <div className="item-slider">
-            <img src="" alt="" className="item-img" />
+            <img src={first} alt="" className="item-img" />
             <div className="item-sub-img">
-              <img src="" alt="" className="item-img item-img--small" />
-              <img src="" alt="" className="item-img item-img--small" />
+              <img src={second} alt="" className="item-img item-img--small" />
+              <img src={third} alt="" className="item-img item-img--small" />
             </div>
           </div>
           <Flex width={'100%'} flexDirection={'column'}>
             <h3 className="item-title">RECOMMENDED ITEM</h3>
             <h4 className="item-subtitle">
-              Kit Cat Soya Clump Baby Powder 7L Cat Litter{' '}
-              <span>PHP 460.00</span>
+              {name} <span>PHP {price}</span>
             </h4>
-            <ul className="item-desc">
-              <li>
-                100% natural eco-friendly biodegradable soybean cat litter
-              </li>
-              <li>Quick clumping and with odor control</li>
-              <li>
-                More gentle on the paws, ideal for kittens but still suitable
-                for all life stages
-              </li>
-              <li>Flushable and virtually 99.9% dust-free</li>
-              <li>Soft and gentle on paw</li>
-            </ul>
+            <ul className="item-desc">{shortdescription}</ul>
             <Flex sx={{ width: '100%', justifyContent: 'flex-end' }}>
               <ShopButtonPrimary>
                 <AiOutlineSearch size={30} style={{ marginRight: 10 }} /> View
@@ -115,6 +137,36 @@ const UpperItem = () => {
 }
 
 export default function Shop() {
+  const { data } = useApi(async () => await getRecommended())
+  const { data: allProducts } = useApi(
+    async () =>
+      await getAllProduct(0, 6, {
+        sort: 'DESC',
+      })
+  )
+  const recommended = useMemo(() => {
+    if (!!data) {
+      const d: RawProduct = structuredClone(data)
+
+      const arr: string[] = []
+
+      if (!!d?.images) {
+        for (const val of d.images) {
+          if (val.pos === 'first') arr[0] = val.link
+          if (val.pos === 'second') arr[1] = val.link
+          if (val.pos === 'third') arr[2] = val.link
+        }
+        delete d.images
+      }
+
+      return { images: arr, ...d }
+    }
+    return undefined
+  }, [data])
+
+  const products: (RawProduct & { image: string })[] | undefined =
+    allProducts?.data
+
   return (
     <Main isLink={true}>
       <Flex
@@ -131,8 +183,14 @@ export default function Shop() {
           }
         />
       </Flex>
-
-      <UpperItem />
+      {!!recommended && (
+        <UpperItem
+          {...recommended}
+          first={recommended.images[0] as string}
+          second={recommended.images[1] as string}
+          third={recommended.images[2] as string}
+        />
+      )}
 
       <Section
         title="Recent Viewed Items"
@@ -150,11 +208,11 @@ export default function Shop() {
           </ShopButtonPrimary>
         }
       >
-        <ShopItemContainer>
+        {/* <ShopItemContainer>
           <ShopItem />
           <ShopItem />
           <ShopItem />
-        </ShopItemContainer>
+        </ShopItemContainer> */}
       </Section>
 
       <Section
@@ -173,14 +231,22 @@ export default function Shop() {
           </ShopButtonPrimary>
         }
       >
-        <ShopItemContainer>
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-        </ShopItemContainer>
+        {!!products && (
+          <ShopItemContainer>
+            {products.map((v, i) => (
+              <ShopItem
+                id={v.id}
+                key={i}
+                name={v.name}
+                rating={v.rating}
+                price={v.price}
+                stock={v.items}
+                image={v.image}
+                category={v.category}
+              />
+            ))}
+          </ShopItemContainer>
+        )}
       </Section>
     </Main>
   )

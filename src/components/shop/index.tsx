@@ -4,6 +4,7 @@ import { AiFillStar, AiOutlineShoppingCart } from 'react-icons/ai'
 import { Flex } from 'rebass'
 import { theme } from 'utils/theme'
 import { ShopButtonPrimary, ShopButtonSecondary } from 'components/button'
+import Router from 'next/router'
 
 const CardContainer = styled(Flex)`
   position: relative;
@@ -84,8 +85,22 @@ export const ShopItemContainer = ({
 
 export const ShopItem = ({
   size = 'large',
+  image,
+  name,
+  rating,
+  price,
+  stock,
+  category,
+  id,
 }: {
   size?: 'small' | 'medium' | 'large'
+  image: string
+  name: string
+  rating: string
+  price: string
+  stock: number
+  id: string
+  category: string
 }) => {
   return (
     <CardContainer
@@ -100,12 +115,12 @@ export const ShopItem = ({
               size === 'large' ? undefined : size === 'medium' ? 12 : 10,
           }}
         >
-          STOCK 150
+          STOCK {stock}
         </span>
       </div>
       <div className="card-img">
         <img
-          src=""
+          src={image}
           alt=""
           style={{
             backgroundColor: 'white',
@@ -120,11 +135,10 @@ export const ShopItem = ({
           fontSize: size === 'large' ? undefined : size === 'medium' ? 18 : 16,
         }}
       >
-        Whiskas Tasty Mix Chicken and Tuna with Carrots in Gravy 70g Cat Wet
-        Food
+        {name}
         <br />
         <br />
-        PHP 40.00
+        PHP {price}
       </h4>
       <Flex sx={{ gap: 2, flexDirection: 'row', justifyContent: 'center' }}>
         <ShopButtonSecondary
@@ -132,6 +146,7 @@ export const ShopItem = ({
             fontSize:
               size === 'large' ? undefined : size === 'medium' ? 14 : 12,
           }}
+          onClick={() => Router.push('/shop/' + id + '?category=' + category)}
         >
           View More
         </ShopButtonSecondary>
@@ -156,7 +171,7 @@ export const ShopItem = ({
           size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
           style={{ marginRight: 8 }}
         />
-        (5.0)
+        ({Number(rating).toFixed(2)})
       </span>
     </CardContainer>
   )
