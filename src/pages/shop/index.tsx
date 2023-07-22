@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import styled from '@emotion/styled'
 import { ShopButtonPrimary } from 'components/button'
 import { SearchableInput } from 'components/input'
@@ -8,7 +8,7 @@ import { theme } from 'utils/theme'
 import { Section } from 'components/sections'
 import { Main } from 'components/main'
 import { ShopItem, ShopItemContainer } from 'components/shop'
-import { useApi } from 'hooks'
+import { useApi, useRecentView } from 'hooks'
 import { getAllProduct, getRecommended } from 'api'
 
 const RecommendedWrapper = styled(Flex)({
@@ -164,8 +164,37 @@ export default function Shop() {
     return undefined
   }, [data])
 
+  const recent = useRecentView()
+  let r = useRef(false)
+  const {
+    data: recentViewed,
+    refetch,
+    isFetching,
+  } = useApi(async ({ inArr }) => {
+    return await getAllProduct(0, 100, {
+      inArr,
+    })
+  }, false)
+
+  useEffect(() => {
+    if (!!recent && !r.current) {
+      setTimeout(() => {
+        refetch({
+          inArr:
+            recent.length === 0
+              ? ['00000000-0000-0000-0000-000000000000']
+              : recent,
+        })
+      }, 250)
+      r.current = true
+    }
+  }, [recent])
+
   const products: (RawProduct & { image: string })[] | undefined =
     allProducts?.data
+
+  const recentData: (RawProduct & { image: string })[] | undefined =
+    recentViewed?.data
 
   return (
     <Main isLink={true}>
@@ -191,29 +220,40 @@ export default function Shop() {
           third={recommended.images[2] as string}
         />
       )}
-
-      <Section
-        title="Recent Viewed Items"
-        textProps={{
-          width: '100%',
-          padding: 3,
-          textAlign: 'left',
-          color: 'black',
-          fontSize: '40px',
-        }}
-        contentProps={{ pl: '6px', pr: '6px', width: '100%' }}
-        rightChild={
-          <ShopButtonPrimary>
-            <AiOutlineSearch size={30} style={{ marginRight: 10 }} /> View More
-          </ShopButtonPrimary>
-        }
-      >
-        {/* <ShopItemContainer>
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-        </ShopItemContainer> */}
-      </Section>
+      {!!recentData && (
+        <Section
+          title="Recent Viewed Items"
+          textProps={{
+            width: '100%',
+            padding: 3,
+            textAlign: 'left',
+            color: 'black',
+            fontSize: '40px',
+          }}
+          contentProps={{ pl: '6px', pr: '6px', width: '100%' }}
+          rightChild={
+            <ShopButtonPrimary>
+              <AiOutlineSearch size={30} style={{ marginRight: 10 }} /> View
+              More
+            </ShopButtonPrimary>
+          }
+        >
+          <ShopItemContainer>
+            {recentData.map((v, i) => (
+              <ShopItem
+                id={v.id}
+                key={i}
+                name={v.name}
+                rating={v.rating}
+                price={v.price}
+                stock={v.items}
+                image={v.image}
+                category={v.category}
+              />
+            ))}
+          </ShopItemContainer>
+        </Section>
+      )}
 
       <Section
         title="New Items"

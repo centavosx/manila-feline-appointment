@@ -3,8 +3,30 @@ import { Flex, Text, Image } from 'rebass'
 import { Checkbox, FormControl, FormControlLabel } from '@mui/material'
 import { ShopButtonPrimary } from 'components/button'
 import { AiOutlineDelete } from 'react-icons/ai'
+import { useApi, useCart } from 'hooks'
+import { getAllProduct } from 'api'
+import { useEffect, useRef } from 'react'
+import { Loading } from 'components/loading'
 
-const Item = () => {
+const Item = ({
+  image,
+  name,
+  price,
+  stock,
+  onAdd,
+  onSub,
+  onDel,
+  item,
+}: {
+  image: string
+  name: string
+  price: string
+  stock: number
+  onAdd: () => void
+  onSub: () => void
+  onDel: () => void
+  item: number
+}) => {
   return (
     <Flex flexDirection={'row'} alignItems={'start'}>
       <Checkbox />
@@ -13,10 +35,10 @@ const Item = () => {
         sx={{ gap: 2, alignItems: 'center' }}
         flex={1}
       >
-        <Image size={[80, 100]} />
+        <Image src={image} size={[80, 100]} />
         <Flex flexDirection={'column'} sx={{ gap: 2 }} flex={1}>
-          <Text as={'h4'}>Cat food</Text>
-          <Text style={{ fontSize: 11 }}>Stock: 10</Text>
+          <Text as={'h4'}>{name}</Text>
+          <Text style={{ fontSize: 11 }}>Stock: {stock}</Text>
 
           <Flex
             flexDirection={'column'}
@@ -46,6 +68,7 @@ const Item = () => {
                   borderWidth: 0,
                 }}
                 isTransition={false}
+                onClick={() => onAdd()}
               >
                 +
               </ShopButtonPrimary>
@@ -60,7 +83,7 @@ const Item = () => {
                 display={'flex'}
                 fontSize={11}
               >
-                22
+                {item}
               </Text>
               <ShopButtonPrimary
                 style={{
@@ -73,23 +96,56 @@ const Item = () => {
                   borderWidth: 0,
                 }}
                 isTransition={false}
+                onClick={() => onSub()}
               >
                 -
               </ShopButtonPrimary>
             </Flex>
           </Flex>
-          <Text as={'h5'}>Php 1000</Text>
+          <Text as={'h5'}>Php {price}</Text>
         </Flex>
 
-        <AiOutlineDelete color="red" style={{ cursor: 'pointer' }} />
+        <AiOutlineDelete
+          color="red"
+          style={{ cursor: 'pointer' }}
+          onClick={() => onDel()}
+        />
       </Flex>
     </Flex>
   )
 }
 
 export default function Cart() {
+  const { cart, save, addValue, subtractValue, checkIfInCart } = useCart()
+  let r = useRef(false)
+  const {
+    data: allProducts,
+    refetch,
+    isFetching,
+  } = useApi(async ({ inArr }) => {
+    return await getAllProduct(0, 100, {
+      inArr,
+    })
+  }, false)
+
+  useEffect(() => {
+    if (!!cart && !r.current) {
+      setTimeout(() => {
+        const cartTemp = cart.map((v) => v.id)
+        refetch({
+          inArr:
+            cartTemp.length === 0
+              ? ['00000000-0000-0000-0000-000000000000']
+              : cartTemp,
+        })
+      }, 200)
+      r.current = true
+    }
+  }, [cart])
+
   return (
     <Main isLink={true}>
+      {isFetching && <Loading />}
       <Flex
         height={'100%'}
         width={'100%'}
@@ -105,10 +161,20 @@ export default function Cart() {
           width={'100%'}
         >
           <Flex flex={1} flexDirection={'column'} sx={{ gap: 2 }}>
-            {Array(10)
-              .fill(null)
-              .map((_, i) => (
-                <Item key={i} />
+            {!!allProducts?.data &&
+              !!cart &&
+              allProducts.data.map((v: any, i: number) => (
+                <Item
+                  key={i}
+                  name={v.name}
+                  price={v.price}
+                  stock={v.items}
+                  image={v.image}
+                  onAdd={() => addValue(v.id)}
+                  onSub={() => subtractValue(v.id)}
+                  item={cart?.find((v) => v.id)?.qty ?? 1}
+                  onDel={() => {}}
+                />
               ))}
           </Flex>
           <Flex

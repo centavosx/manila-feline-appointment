@@ -12,7 +12,7 @@ import {
   ListItemButton,
   ListItemText,
 } from '@mui/material'
-import { Button } from '../button'
+import { Button, CustomDropdown } from '../button'
 import { useRouter } from 'next/router'
 
 import { TextModal } from '../modal'
@@ -176,25 +176,88 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
       >
         Contact Us
       </TextModal>
-      <TextModal
-        width={'auto'}
-        style={{ cursor: 'pointer' }}
-        fontWeight={'bold'}
-        onMouseOver={(e) => (e.currentTarget.style.opacity = '0.7')}
-        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-        sx={{
-          fontSize: [14, 16],
-          fontFamily: 'Castego',
-          padding: 0,
-          zIndex: 99,
-        }}
-        color={theme.colors.black}
-        onClick={() => {
-          logout()
-        }}
+      <CustomDropdown
+        display={(close) => (
+          <Flex
+            sx={{
+              width: 220,
+              flexDirection: 'column',
+              gap: 2,
+              border: '1px solid gray',
+              borderRadius: 6,
+              marginTop: 1,
+              paddingTop: 2,
+              paddingBottom: 2,
+              zIndex: 9999,
+              backgroundColor: theme.colors.white,
+            }}
+          >
+            {/* <Text padding={2} as={'h4'}>
+              Hi! {user.lname}, {user.fname} {user.mname}
+            </Text> */}
+
+            <Text
+              sx={{
+                ':hover': {
+                  backgroundColor: theme.colors.lightpink,
+                  color: theme.colors.black,
+                },
+                color: theme.colors.black,
+                width: '100%',
+                padding: '4px',
+                textAlign: 'center',
+                cursor: 'pointer',
+              }}
+              onClick={async () => {
+                push('/profile')
+                close()
+              }}
+            >
+              Settings
+            </Text>
+
+            <Text
+              sx={{
+                ':hover': {
+                  backgroundColor: theme.colors.lightpink,
+                  color: theme.colors.black,
+                },
+                color: theme.colors.black,
+                padding: '4px',
+                width: '100%',
+                textAlign: 'center',
+                cursor: 'pointer',
+              }}
+              onClick={async () => {
+                logout()
+                close()
+              }}
+            >
+              Logout
+            </Text>
+          </Flex>
+        )}
       >
-        Logout
-      </TextModal>
+        {(open) => (
+          <TextModal
+            width={'auto'}
+            fontWeight={'bold'}
+            style={{ cursor: 'pointer', alignSelf: 'center' }}
+            onMouseOver={(e) => (e.currentTarget.style.opacity = '0.7')}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+            sx={{
+              fontSize: [14, 16],
+              fontFamily: 'Castego',
+              padding: 0,
+            }}
+            color={theme.colors.black}
+            onClick={() => open()}
+            isNotClickable={true}
+          >
+            Profile
+          </TextModal>
+        )}
+      </CustomDropdown>
     </>
   )
 }
@@ -228,7 +291,7 @@ export const MobileNavigation = ({ isLink }: { isLink?: boolean }) => {
       role="presentation"
     >
       <List>
-        {['Home', 'Contact Us', 'Logout'].map((data: string, i) => (
+        {['Home', 'Contact Us', 'Settings', 'Logout'].map((data: string, i) => (
           <Fragment key={i}>
             <ListItem disablePadding={true}>
               <ListItemButton

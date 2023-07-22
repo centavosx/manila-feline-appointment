@@ -18,7 +18,7 @@ import { Formik } from 'formik'
 import { FormContainer } from 'components/forms'
 import { format } from 'date-fns'
 import { ShopItem, ShopItemContainer } from 'components/shop'
-import { useApi } from 'hooks'
+import { useApi, useCart, useRecentView } from 'hooks'
 import { getAllProduct, getProduct, getProductReview } from 'api'
 import { useRouter } from 'next/router'
 import { Loading } from 'components/loading'
@@ -149,6 +149,8 @@ export default function ProductInfo({
     error,
   } = useApi(async () => await getProduct(id))
 
+  const { cart, save, addValue, subtractValue, checkIfInCart } = useCart(false)
+
   const { data: productReview, isFetching: isReviewFetching } = useApi(
     async () => await getProductReview(id)
   )
@@ -187,6 +189,8 @@ export default function ProductInfo({
 
   const products = allProducts?.data
 
+  useRecentView(id, !!product)
+
   return (
     <Main isLink={true}>
       {isFetching && <Loading />}
@@ -212,16 +216,23 @@ export default function ProductInfo({
             </Flex>
           </Flex>
           <Flex flex={1} flexDirection={'column'} sx={{ gap: 3 }}>
-            <Flex>
-              <ShadowedFlex
-                p={2}
-                sx={{
-                  border: '1px solid black',
-                  backgroundColor: theme.colors.pink,
-                }}
-              >
-                <Text>{data?.category}</Text>
-              </ShadowedFlex>
+            <Flex sx={{ gap: 1, flewWrap: 'wrap' }}>
+              <Flex flex={1}>
+                <ShadowedFlex
+                  p={2}
+                  sx={{
+                    border: '1px solid black',
+                    backgroundColor: theme.colors.pink,
+                  }}
+                >
+                  <Text>{data?.category}</Text>
+                </ShadowedFlex>
+              </Flex>
+              {!!checkIfInCart(id) && (
+                <Text as={'h3'} color={'gray'}>
+                  In Cart
+                </Text>
+              )}
             </Flex>
             <Text as={'h2'} alignItems={'left'}>
               {data?.name}
@@ -241,8 +252,75 @@ export default function ProductInfo({
             </Flex>
             <Text as={'h4'}>Stock: {data?.items}</Text>
             <Text>{data?.shortDescription}</Text>
+            <Flex
+              flexDirection={'column'}
+              alignItems={'flex-start'}
+              sx={{ gap: 2 }}
+            >
+              <Flex
+                sx={{
+                  borderRadius: 150,
+                  overflow: 'hidden',
+                  border: '0.5px solid black',
+                  textAlign: 'center',
+                  boxShadow: '0px 2px 6px 2px rgba(0, 0, 0, 0.25)',
+                  height: 35,
+                }}
+                justifyContent={'center'}
+              >
+                <ShopButtonPrimary
+                  style={{
+                    width: 45,
+                    height: '100%',
+                    padding: 2,
+                    minWidth: 0,
+                    borderRadius: 0,
+                    borderTopLeftRadius: 100,
+                    borderBottomLeftRadius: 100,
+                    borderWidth: 0,
+                  }}
+                  isTransition={false}
+                  onClick={() => addValue(id)}
+                >
+                  +
+                </ShopButtonPrimary>
+                <Text
+                  pl={4}
+                  pr={4}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  textAlign={'center'}
+                  height={'100%'}
+                  alignSelf={'center'}
+                  display={'flex'}
+                  fontSize={18}
+                >
+                  {cart?.find((v) => v.id === id)?.qty ?? 1}
+                </Text>
+                <ShopButtonPrimary
+                  style={{
+                    width: 45,
+                    height: '100%',
+                    padding: 2,
+                    minWidth: 0,
+                    borderRadius: 0,
+                    borderTopRightRadius: 100,
+                    borderBottomRightRadius: 100,
+                    borderWidth: 0,
+                  }}
+                  isTransition={false}
+                  onClick={() => subtractValue(id)}
+                >
+                  -
+                </ShopButtonPrimary>
+              </Flex>
+            </Flex>
             <Flex flexDirection={'row'} sx={{ gap: 2, mt: 4 }}>
-              <ShopButtonSecondary>
+              <ShopButtonSecondary
+                onClick={() => {
+                  save()
+                }}
+              >
                 <AiOutlineShoppingCart size={18} style={{ marginRight: 6 }} />{' '}
                 Add to Cart
               </ShopButtonSecondary>
