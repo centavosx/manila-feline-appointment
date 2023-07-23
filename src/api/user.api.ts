@@ -18,7 +18,7 @@ export const registerUser = async ({
   })
 
   const { accessToken, refreshToken }: TokenDTO = response.data
-  localStorage.setItem('accessToken', accessToken)
+  Cookies.set('accessToken', accessToken)
   Cookies.set('refreshToken', refreshToken)
 }
 
@@ -55,7 +55,7 @@ export const loginUser = async ({
     const response = await API.post('/user/regularLogin', { email, password })
 
     const { accessToken, refreshToken }: TokenDTO = response.data
-    localStorage.setItem('accessToken', accessToken)
+    Cookies.set('accessToken', accessToken)
     Cookies.set('refreshToken', refreshToken)
   } catch (e) {
     throw e
@@ -66,7 +66,7 @@ export const verifyUser = async ({ code }: { code: string }) => {
   try {
     const response = await apiAuth.post('/user/verify', { code })
     const { accessToken, refreshToken }: TokenDTO = response.data
-    localStorage.setItem('accessToken', accessToken)
+    Cookies.set('accessToken', accessToken)
     Cookies.set('refreshToken', refreshToken)
   } catch (e) {
     throw e

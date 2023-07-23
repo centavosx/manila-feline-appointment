@@ -19,10 +19,11 @@ import { FormContainer } from 'components/forms'
 import { format } from 'date-fns'
 import { ShopItem, ShopItemContainer } from 'components/shop'
 import { useApi, useCart, useRecentView } from 'hooks'
-import { getAllProduct, getProduct, getProductReview } from 'api'
+import { getAllProduct, getProduct, getProductReview, sendReview } from 'api'
 import { useRouter } from 'next/router'
 import { Loading } from 'components/loading'
 import Router from 'next/router'
+import { FormikValidation } from 'helpers'
 
 const ShadowedImage = styled(Image)`
   box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.25);
@@ -147,15 +148,18 @@ export default function ProductInfo({
   const {
     data: product,
     isFetching,
+    refetch,
     error,
   } = useApi(async () => await getProduct(id))
 
   const { cart, save, addValue, subtractValue, checkIfInCart, removeLocal } =
     useCart(false)
 
-  const { data: productReview, isFetching: isReviewFetching } = useApi(
-    async () => await getProductReview(id)
-  )
+  const {
+    data: productReview,
+    isFetching: isReviewFetching,
+    refetch: refetchReview,
+  } = useApi(async () => await getProductReview(id))
 
   const { data: allProducts, isFetching: isProductFetching } = useApi(
     async () =>
@@ -341,11 +345,29 @@ export default function ProductInfo({
           sx={{ gap: 4, borderBottom: '1px solid black' }}
         >
           <Formik
+            validationSchema={FormikValidation.reviewProduct}
             initialValues={{ message: '', review: 0 }}
-            onSubmit={() => {}}
+            onSubmit={(values, { setSubmitting }) => {
+              setSubmitting(true)
+              sendReview(id, {
+                comment: values.message,
+                rate: values.review,
+              })
+                .then(() => {
+                  refetch()
+                  refetchReview()
+                })
+                .catch((v) => alert(v.response.data.message || 'Invalid'))
+                .finally(() => {
+                  values.message = ''
+                  values.review = 0
+                  setSubmitting(false)
+                })
+            }}
           >
-            {({ values, setFieldValue }) => (
+            {({ values, setFieldValue, isValid, isSubmitting }) => (
               <FormContainer label="Reviews">
+                {isSubmitting && <Loading />}
                 <FormInput
                   name="message"
                   label={'Message'}
@@ -368,12 +390,14 @@ export default function ProductInfo({
                   alignItems={['left', 'center', 'center']}
                   flexDirection={['column', 'row', 'row']}
                 >
-                  <SelectStar
-                    selected={values.review}
-                    onClick={(v) => setFieldValue('review', v)}
-                  />
+                  <Flex flexDirection={'column'}>
+                    <SelectStar
+                      selected={values.review}
+                      onClick={(v) => setFieldValue('review', v)}
+                    />
+                  </Flex>
                   <Flex flex={1} justifyContent={'flex-end'}>
-                    <ShopButtonPrimary>
+                    <ShopButtonPrimary type="submit" disabled={!isValid}>
                       <AiOutlineEdit style={{ marginRight: 10 }} /> Submit
                     </ShopButtonPrimary>
                   </Flex>

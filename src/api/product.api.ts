@@ -43,3 +43,11 @@ export const searchService = async (search: string) => {
   })
   return response
 }
+
+export const sendReview = async (
+  id: string,
+  data: { comment: string; rate: number }
+) => {
+  const response = await apiAuth.put('/product/review/' + id, data)
+  return response
+}

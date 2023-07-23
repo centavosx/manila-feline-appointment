@@ -75,4 +75,11 @@ export const FormikValidation = {
       .email('Please enter a valid email')
       .required('Required'),
   }),
+  reviewProduct: Yup.object().shape({
+    message: Yup.string().required('Required'),
+    review: Yup.number()
+      .min(1, 'Minimum is 1')
+      .max(5, 'Max is 5')
+      .required('Required'),
+  }),
 }

@@ -48,7 +48,7 @@ const ValidateEmail = () => {
         setSubmitting(true)
         if (time > 0)
           return verifyUser(values)
-            .then(async () => await refetch())
+            .then(async () => await refetch(true))
             .catch((v) => alert(v.response.data.message || 'Invalid code'))
             .finally(() => {
               setSubmitting(false)
@@ -323,7 +323,7 @@ export default function Login() {
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(true)
                 loginUser(values)
-                  .then(async () => await refetch())
+                  .then(async () => await refetch(true))
                   .catch((v) =>
                     alert(v.response.data.message || 'Invalid user')
                   )
