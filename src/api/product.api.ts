@@ -51,3 +51,13 @@ export const sendReview = async (
   const response = await apiAuth.put('/product/review/' + id, data)
   return response
 }
+
+export const buyProduct = async (
+  data: { id: string; price: string; qty: number }[]
+) => {
+  const response = await apiAuth.post('/product/buy', {
+    data: data,
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  })
+  return response
+}

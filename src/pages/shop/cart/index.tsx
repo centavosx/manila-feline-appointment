@@ -4,9 +4,10 @@ import { Checkbox, FormControl, FormControlLabel } from '@mui/material'
 import { ShopButtonPrimary } from 'components/button'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { useApi, useCart } from 'hooks'
-import { getAllProduct } from 'api'
+import { buyProduct, getAllProduct } from 'api'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Loading } from 'components/loading'
+import { useRouter } from 'next/router'
 
 const Item = ({
   image,
@@ -120,6 +121,7 @@ const Item = ({
 }
 
 export default function Cart() {
+  const { push } = useRouter()
   const [selected, setSelec] = useState<string[]>([])
   const { cart, save, addValue, subtractValue, remove } = useCart()
   let r = useRef(false)
@@ -132,6 +134,7 @@ export default function Cart() {
       inArr,
     })
   }, false)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (!!cart && !r.current) {
@@ -176,6 +179,27 @@ export default function Cart() {
 
     return undefined
   }, [cart, allProducts, selected])
+
+  useEffect(() => {
+    if (isLoading && !!completeDetails && completeDetails.item > 0) {
+      buyProduct(
+        completeDetails.selectedProducts.map((v) => ({
+          id: v.id,
+          qty: v.qty,
+          price: v.price,
+        }))
+      )
+        .then((v) => {
+          push(v.data)
+        })
+        .catch((d) => {
+          alert(
+            d?.request?.status === 400 ? 'Invalid Code' : 'An error has occured'
+          )
+        })
+        .finally(() => setIsLoading(false))
+    }
+  }, [isLoading, completeDetails])
 
   return (
     <Main isLink={true}>
@@ -272,7 +296,12 @@ export default function Cart() {
                   </Text>
                 </Flex>
                 <Flex mt={2} justifyContent={'flex-end'}>
-                  <ShopButtonPrimary>Checkout</ShopButtonPrimary>
+                  <ShopButtonPrimary
+                    onClick={() => setIsLoading(true)}
+                    disabled={isLoading}
+                  >
+                    Checkout
+                  </ShopButtonPrimary>
                 </Flex>
               </>
             )}
