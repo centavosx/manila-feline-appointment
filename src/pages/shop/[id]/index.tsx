@@ -326,7 +326,11 @@ export default function ProductInfo({
             </Flex>
             <Flex flexDirection={'row'} sx={{ gap: 2, mt: 4 }}>
               <ShopButtonSecondary
-                onClick={() => (!!checkIfInCart(id) ? removeLocal(id) : save())}
+                onClick={() =>
+                  !!checkIfInCart(id)
+                    ? removeLocal(id)
+                    : save(id, cart?.find((v) => v.id === id)?.qty ?? 1)
+                }
               >
                 <AiOutlineShoppingCart size={18} style={{ marginRight: 6 }} />
                 {!!checkIfInCart(id) ? 'Remove from Cart' : 'Add to Cart'}

@@ -82,9 +82,16 @@ export function useCart(isDebounce = true) {
     setToRefresh((v) => v + 1)
   }
 
-  const save = () => {
+  const save = (id: string, qty: number) => {
     if (!state) return
-    localStorage.setItem('cart', JSON.stringify(state))
+    const value = !!localStorage.getItem('cart')
+      ? (JSON.parse(localStorage.getItem('cart')!) as unknown as {
+          id: string
+          qty: number
+        }[])
+      : []
+
+    localStorage.setItem('cart', JSON.stringify([...value, { id, qty }]))
     setToRefresh((v) => v + 1)
   }
   return {
