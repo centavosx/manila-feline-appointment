@@ -1,10 +1,15 @@
 import React, { ReactNode } from 'react'
 import styled from '@emotion/styled'
-import { AiFillStar, AiOutlineShoppingCart } from 'react-icons/ai'
+import {
+  AiFillStar,
+  AiOutlineDelete,
+  AiOutlineShoppingCart,
+} from 'react-icons/ai'
 import { Flex } from 'rebass'
 import { theme } from 'utils/theme'
 import { ShopButtonPrimary, ShopButtonSecondary } from 'components/button'
 import Router from 'next/router'
+import { useCart } from 'hooks'
 
 const CardContainer = styled(Flex)`
   position: relative;
@@ -102,6 +107,8 @@ export const ShopItem = ({
   id: string
   category: string
 }) => {
+  const { cart, addValue, remove } = useCart(true)
+
   return (
     <CardContainer
       style={{
@@ -155,10 +162,19 @@ export const ShopItem = ({
             fontSize:
               size === 'large' ? undefined : size === 'medium' ? 14 : 12,
           }}
+          onClick={() =>
+            cart?.some((v) => v.id === id) ? remove(id) : addValue(id, 1)
+          }
         >
-          <AiOutlineShoppingCart
-            size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
-          />
+          {cart?.some((v) => v.id === id) ? (
+            <AiOutlineDelete
+              size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
+            />
+          ) : (
+            <AiOutlineShoppingCart
+              size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
+            />
+          )}
         </ShopButtonPrimary>
       </Flex>
       <span

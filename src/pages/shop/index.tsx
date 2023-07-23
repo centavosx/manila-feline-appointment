@@ -10,6 +10,7 @@ import { Main } from 'components/main'
 import { ShopItem, ShopItemContainer } from 'components/shop'
 import { useApi, useRecentView } from 'hooks'
 import { getAllProduct, getRecommended } from 'api'
+import Router from 'next/router'
 
 const RecommendedWrapper = styled(Flex)({
   width: '100%',
@@ -103,7 +104,7 @@ const UpperItem = ({
   third,
   name,
   shortdescription,
-
+  id,
   price,
 }: Product) => {
   return (
@@ -124,7 +125,7 @@ const UpperItem = ({
             </h4>
             <ul className="item-desc">{shortdescription}</ul>
             <Flex sx={{ width: '100%', justifyContent: 'flex-end' }}>
-              <ShopButtonPrimary>
+              <ShopButtonPrimary onClick={() => Router.push('/shop/' + id)}>
                 <AiOutlineSearch size={30} style={{ marginRight: 10 }} /> View
                 More
               </ShopButtonPrimary>
@@ -171,7 +172,7 @@ export default function Shop() {
     refetch,
     isFetching,
   } = useApi(async ({ inArr }) => {
-    return await getAllProduct(0, 100, {
+    return await getAllProduct(0, 3, {
       inArr,
     })
   }, false)
@@ -198,20 +199,6 @@ export default function Shop() {
 
   return (
     <Main isLink={true}>
-      <Flex
-        p={12}
-        width={[200, 700]}
-        justifyContent={'flex-end'}
-        alignSelf={'flex-end'}
-      >
-        <SearchableInput
-          label="Search"
-          placeHolder="Search"
-          startAdornment={
-            <AiOutlineSearch size={30} style={{ marginRight: 10 }} />
-          }
-        />
-      </Flex>
       {!!recommended && (
         <UpperItem
           {...recommended}
@@ -231,12 +218,6 @@ export default function Shop() {
             fontSize: '40px',
           }}
           contentProps={{ pl: '6px', pr: '6px', width: '100%' }}
-          rightChild={
-            <ShopButtonPrimary>
-              <AiOutlineSearch size={30} style={{ marginRight: 10 }} /> View
-              More
-            </ShopButtonPrimary>
-          }
         >
           <ShopItemContainer>
             {recentData.map((v, i) => (
@@ -266,7 +247,7 @@ export default function Shop() {
         }}
         contentProps={{ pl: '6px', pr: '6px', width: '100%' }}
         rightChild={
-          <ShopButtonPrimary>
+          <ShopButtonPrimary onClick={() => Router.push('/shop/list')}>
             <AiOutlineSearch size={30} style={{ marginRight: 10 }} /> View More
           </ShopButtonPrimary>
         }

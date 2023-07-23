@@ -5,7 +5,7 @@ import { ShopButtonPrimary } from 'components/button'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { useApi, useCart } from 'hooks'
 import { getAllProduct } from 'api'
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Loading } from 'components/loading'
 
 const Item = ({
@@ -17,6 +17,8 @@ const Item = ({
   onSub,
   onDel,
   item,
+  selected,
+  onSelect,
 }: {
   image: string
   name: string
@@ -26,13 +28,15 @@ const Item = ({
   onSub: () => void
   onDel: () => void
   item: number
+  selected: boolean
+  onSelect: () => void
 }) => {
   return (
     <Flex flexDirection={'row'} alignItems={'start'}>
-      <Checkbox />
+      <Checkbox checked={selected} onClick={() => onSelect()} />
       <Flex
         flexDirection={'row'}
-        sx={{ gap: 2, alignItems: 'center' }}
+        sx={{ gap: 3, alignItems: 'center' }}
         flex={1}
       >
         <Image src={image} size={[80, 100]} />
@@ -116,7 +120,8 @@ const Item = ({
 }
 
 export default function Cart() {
-  const { cart, save, addValue, subtractValue, checkIfInCart } = useCart()
+  const [selected, setSelec] = useState<string[]>([])
+  const { cart, save, addValue, subtractValue, remove } = useCart()
   let r = useRef(false)
   const {
     data: allProducts,
@@ -143,6 +148,35 @@ export default function Cart() {
     }
   }, [cart])
 
+  const completeDetails = useMemo(() => {
+    if (!!allProducts?.data && !!cart) {
+      const selectedObj: Record<string, any> = {}
+      let total = 0
+      const products = allProducts.data.map((v: any) => {
+        const isSelected = selected.includes(v.id)
+        const qty = cart?.find((v) => v.id)?.qty ?? 1
+        if (isSelected) {
+          selectedObj[v.id] = { ...v, qty }
+          const price = Number(v.price)
+          total += price * qty
+        }
+        return {
+          ...v,
+          qty,
+          selected: isSelected,
+        }
+      })
+      return {
+        selectedProducts: Object.keys(selectedObj).map((v) => selectedObj[v]),
+        products,
+        item: Object.keys(selectedObj).length,
+        total,
+      }
+    }
+
+    return undefined
+  }, [cart, allProducts, selected])
+
   return (
     <Main isLink={true}>
       {isFetching && <Loading />}
@@ -161,19 +195,33 @@ export default function Cart() {
           width={'100%'}
         >
           <Flex flex={1} flexDirection={'column'} sx={{ gap: 2 }}>
-            {!!allProducts?.data &&
-              !!cart &&
-              allProducts.data.map((v: any, i: number) => (
+            {!!completeDetails &&
+              completeDetails.products.map((v: any) => (
                 <Item
-                  key={i}
+                  key={v.id}
                   name={v.name}
                   price={v.price}
                   stock={v.items}
                   image={v.image}
-                  onAdd={() => addValue(v.id)}
+                  onAdd={() => v.qty < v.items && addValue(v.id)}
                   onSub={() => subtractValue(v.id)}
-                  item={cart?.find((v) => v.id)?.qty ?? 1}
-                  onDel={() => {}}
+                  item={v.qty}
+                  onDel={() => {
+                    r.current = false
+                    remove(v.id)
+                    setSelec((sel) => {
+                      return sel.filter((rem) => rem !== v.id)
+                    })
+                  }}
+                  selected={v.selected}
+                  onSelect={() => {
+                    setSelec((sel) => {
+                      if (!!sel.some((s) => s === v.id)) {
+                        return sel.filter((rem) => rem !== v.id)
+                      }
+                      return [...sel, v.id]
+                    })
+                  }}
                 />
               ))}
           </Flex>
@@ -192,28 +240,42 @@ export default function Cart() {
               flexDirection={'column'}
               p={2}
             >
-              <Text>Item 1</Text>
-              <Text>Item 1</Text>
-
-              <Text>Item 1</Text>
-              <Text>Item 1</Text>
-              <Text>Item 1</Text>
-              <Text>Item 1</Text>
-              <Text>Item 1</Text>
+              {!!completeDetails &&
+                completeDetails.selectedProducts.map((v, i) => {
+                  return (
+                    <Flex flexDirection={'row'} sx={{ gap: 2 }} key={v}>
+                      <Text flex={1}>
+                        {i + 1}. {v?.name}
+                      </Text>
+                      <Text flex={1} textAlign={'center'}>
+                        x{v?.qty ?? 0}
+                      </Text>
+                      <Text flex={1} textAlign={'end'}>
+                        Php {v?.price}
+                      </Text>
+                    </Flex>
+                  )
+                })}
             </Flex>
-            <Flex flexDirection={'row'}>
-              <Text flex={1}>Selected Item</Text>
-              <Text>x1</Text>
-            </Flex>
-            <Flex flexDirection={'row'}>
-              <Text flex={1} as={'h3'}>
-                Total
-              </Text>
-              <Text as={'h3'}>Php 10000</Text>
-            </Flex>
-            <Flex mt={2} justifyContent={'flex-end'}>
-              <ShopButtonPrimary>Checkout</ShopButtonPrimary>
-            </Flex>
+            {!!completeDetails && completeDetails.item > 0 && (
+              <>
+                <Flex flexDirection={'row'}>
+                  <Text flex={1}>Selected Items</Text>
+                  <Text>x{completeDetails.item}</Text>
+                </Flex>
+                <Flex flexDirection={'row'}>
+                  <Text flex={1} as={'h3'}>
+                    Total
+                  </Text>
+                  <Text as={'h3'}>
+                    Php {Number(completeDetails.total).toFixed(2)}
+                  </Text>
+                </Flex>
+                <Flex mt={2} justifyContent={'flex-end'}>
+                  <ShopButtonPrimary>Checkout</ShopButtonPrimary>
+                </Flex>
+              </>
+            )}
           </Flex>
         </Flex>
       </Flex>

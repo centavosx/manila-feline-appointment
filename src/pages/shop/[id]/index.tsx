@@ -22,6 +22,7 @@ import { useApi, useCart, useRecentView } from 'hooks'
 import { getAllProduct, getProduct, getProductReview } from 'api'
 import { useRouter } from 'next/router'
 import { Loading } from 'components/loading'
+import Router from 'next/router'
 
 const ShadowedImage = styled(Image)`
   box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.25);
@@ -149,16 +150,17 @@ export default function ProductInfo({
     error,
   } = useApi(async () => await getProduct(id))
 
-  const { cart, save, addValue, subtractValue, checkIfInCart } = useCart(false)
+  const { cart, save, addValue, subtractValue, checkIfInCart, removeLocal } =
+    useCart(false)
 
   const { data: productReview, isFetching: isReviewFetching } = useApi(
     async () => await getProductReview(id)
   )
 
-  const { data: allProducts } = useApi(
+  const { data: allProducts, isFetching: isProductFetching } = useApi(
     async () =>
       await getAllProduct(0, 3, {
-        category,
+        category: [category],
         notIn: [id],
       })
   )
@@ -193,7 +195,7 @@ export default function ProductInfo({
 
   return (
     <Main isLink={true}>
-      {isFetching && <Loading />}
+      {(isFetching || isReviewFetching || isProductFetching) && <Loading />}
       <Flex
         p={[24, 28, 32, 36]}
         width={'100%'}
@@ -280,7 +282,10 @@ export default function ProductInfo({
                     borderWidth: 0,
                   }}
                   isTransition={false}
-                  onClick={() => addValue(id)}
+                  onClick={() =>
+                    (cart?.find((v) => v.id === id)?.qty ?? 1) <
+                      (data?.items ?? 0) && addValue(id)
+                  }
                 >
                   +
                 </ShopButtonPrimary>
@@ -317,12 +322,10 @@ export default function ProductInfo({
             </Flex>
             <Flex flexDirection={'row'} sx={{ gap: 2, mt: 4 }}>
               <ShopButtonSecondary
-                onClick={() => {
-                  save()
-                }}
+                onClick={() => (!!checkIfInCart(id) ? removeLocal(id) : save())}
               >
-                <AiOutlineShoppingCart size={18} style={{ marginRight: 6 }} />{' '}
-                Add to Cart
+                <AiOutlineShoppingCart size={18} style={{ marginRight: 6 }} />
+                {!!checkIfInCart(id) ? 'Remove from Cart' : 'Add to Cart'}
               </ShopButtonSecondary>
               <ShopButtonPrimary>
                 <AiOutlineShopping size={18} style={{ marginRight: 6 }} />
@@ -411,7 +414,10 @@ export default function ProductInfo({
               width: '100%',
             }}
             rightChild={
-              <ShopButtonPrimary style={{ alignSelf: 'left' }}>
+              <ShopButtonPrimary
+                style={{ alignSelf: 'left' }}
+                onClick={() => Router.push('/shop/list')}
+              >
                 <AiOutlineSearch size={30} style={{ marginRight: 10 }} /> View
                 More
               </ShopButtonPrimary>

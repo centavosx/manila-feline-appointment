@@ -18,7 +18,7 @@ export function useCart(isDebounce = true) {
     if (!!isDebounce && !!state) {
       const deb = setTimeout(() => {
         localStorage.setItem('cart', JSON.stringify(state))
-      }, 1000)
+      }, 300)
 
       return () => {
         clearTimeout(deb)
@@ -26,7 +26,7 @@ export function useCart(isDebounce = true) {
     }
   }, [state])
 
-  const addValue = (id: string) => {
+  const addValue = (id: string, qty = 2) => {
     setState((v) => {
       if (!v) return
       const isExist = v.some((ch) => ch.id === id)
@@ -35,7 +35,7 @@ export function useCart(isDebounce = true) {
           if (value.id === id) return { ...value, qty: value.qty + 1 }
           return value
         })
-      return [...v, { id, qty: 2 }]
+      return [...v, { id, qty }]
     })
   }
 
@@ -51,7 +51,7 @@ export function useCart(isDebounce = true) {
     return value.some((v) => v.id === id)
   }
 
-  const subtractValue = (id: string) => {
+  const subtractValue = (id: string, qty = 1) => {
     setState((v) => {
       if (!v) return
       const isExist = v.some((ch) => ch.id === id)
@@ -61,8 +61,25 @@ export function useCart(isDebounce = true) {
             return { ...value, qty: value.qty - 1 === 0 ? 1 : value.qty - 1 }
           return value
         })
-      return [...v, { id, qty: 1 }]
+      return [...v, { id, qty }]
     })
+  }
+
+  const remove = (id: string) => {
+    setState((v) => {
+      const value = v?.filter((arr) => arr.id !== id)
+      return value
+    })
+  }
+
+  const removeLocal = (id: string) => {
+    if (!state) return
+    const value = structuredClone(state)
+    localStorage.setItem(
+      'cart',
+      JSON.stringify(value.filter((arr) => arr.id !== id))
+    )
+    setToRefresh((v) => v + 1)
   }
 
   const save = () => {
@@ -70,7 +87,15 @@ export function useCart(isDebounce = true) {
     localStorage.setItem('cart', JSON.stringify(state))
     setToRefresh((v) => v + 1)
   }
-  return { cart: state, addValue, subtractValue, save, checkIfInCart }
+  return {
+    cart: state,
+    addValue,
+    subtractValue,
+    save,
+    checkIfInCart,
+    remove,
+    removeLocal,
+  }
 }
 
 export function useRecentView(id?: string | undefined, isView = false) {

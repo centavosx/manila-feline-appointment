@@ -156,6 +156,7 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
         }}
         color={theme.colors.black}
         isNotClickable={true}
+        onClick={() => push('/shop')}
       >
         Shop
       </TextModal>
@@ -195,6 +196,26 @@ export const WebNavigation = ({ isLink }: { isLink?: boolean }) => {
             {/* <Text padding={2} as={'h4'}>
               Hi! {user.lname}, {user.fname} {user.mname}
             </Text> */}
+
+            <Text
+              sx={{
+                ':hover': {
+                  backgroundColor: theme.colors.lightpink,
+                  color: theme.colors.black,
+                },
+                color: theme.colors.black,
+                width: '100%',
+                padding: '4px',
+                textAlign: 'center',
+                cursor: 'pointer',
+              }}
+              onClick={async () => {
+                push('/shop/cart')
+                close()
+              }}
+            >
+              Cart
+            </Text>
 
             <Text
               sx={{
