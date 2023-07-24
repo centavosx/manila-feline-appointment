@@ -157,7 +157,7 @@ export default function Cart() {
       let total = 0
       const products = allProducts.data.map((v: any) => {
         const isSelected = selected.includes(v.id)
-        const qty = cart?.find((v) => v.id)?.qty ?? 1
+        const qty = cart?.find((c) => c.id === v.id)?.qty ?? 1
         if (isSelected) {
           selectedObj[v.id] = { ...v, qty }
           const price = Number(v.price)

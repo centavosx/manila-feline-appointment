@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function useCart(isDebounce = true) {
+export function useCart(isDebounce = true, debounceValue = 300) {
   const [state, setState] = useState<{ id: string; qty: number }[]>()
   const [toRefresh, setToRefresh] = useState(0)
   useEffect(() => {
@@ -18,7 +18,7 @@ export function useCart(isDebounce = true) {
     if (!!isDebounce && !!state) {
       const deb = setTimeout(() => {
         localStorage.setItem('cart', JSON.stringify(state))
-      }, 300)
+      }, debounceValue)
 
       return () => {
         clearTimeout(deb)

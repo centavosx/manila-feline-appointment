@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, memo } from 'react'
 import styled from '@emotion/styled'
 import {
   AiFillStar,
@@ -88,107 +88,116 @@ export const ShopItemContainer = ({
   )
 }
 
-export const ShopItem = ({
-  size = 'large',
-  image,
-  name,
-  rating,
-  price,
-  stock,
-  category,
-  id,
-}: {
-  size?: 'small' | 'medium' | 'large'
-  image: string
-  name: string
-  rating: string
-  price: string
-  stock: number
-  id: string
-  category: string
-}) => {
-  const { cart, addValue, remove } = useCart(true)
-
-  return (
-    <CardContainer
-      style={{
-        width: size === 'large' ? undefined : size === 'medium' ? 284 : 254,
-      }}
-    >
-      <div className="card-upper">
+export const ShopItem = memo(
+  ({
+    size = 'large',
+    image,
+    name,
+    rating,
+    price,
+    stock,
+    category,
+    id,
+    cart,
+    onAdd,
+    onRemove,
+  }: {
+    size?: 'small' | 'medium' | 'large'
+    image: string
+    name: string
+    rating: string
+    price: string
+    stock: number
+    id: string
+    category: string
+    cart: { id: string; qty: number }[]
+    onAdd: () => void
+    onRemove: () => void
+  }) => {
+    return (
+      <CardContainer
+        style={{
+          width: size === 'large' ? undefined : size === 'medium' ? 284 : 254,
+        }}
+      >
+        <div className="card-upper">
+          <span
+            style={{
+              fontSize:
+                size === 'large' ? undefined : size === 'medium' ? 12 : 10,
+            }}
+          >
+            STOCK {stock}
+          </span>
+        </div>
+        <div className="card-img">
+          <img
+            src={image}
+            alt=""
+            style={{
+              backgroundColor: 'white',
+              height: '100%',
+              width: '100%',
+            }}
+          />
+        </div>
+        <h4
+          className="card-title"
+          style={{
+            fontSize:
+              size === 'large' ? undefined : size === 'medium' ? 18 : 16,
+          }}
+        >
+          {name}
+          <br />
+          <br />
+          PHP {price}
+        </h4>
+        <Flex sx={{ gap: 2, flexDirection: 'row', justifyContent: 'center' }}>
+          <ShopButtonSecondary
+            style={{
+              fontSize:
+                size === 'large' ? undefined : size === 'medium' ? 14 : 12,
+            }}
+            onClick={() => Router.push('/shop/' + id + '?category=' + category)}
+          >
+            View More
+          </ShopButtonSecondary>
+          <ShopButtonPrimary
+            style={{
+              fontSize:
+                size === 'large' ? undefined : size === 'medium' ? 14 : 12,
+            }}
+            onClick={() =>
+              cart?.some((v) => v.id === id) ? onRemove() : onAdd()
+            }
+          >
+            {cart?.some((v) => v.id === id) ? (
+              <AiOutlineDelete
+                size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
+              />
+            ) : (
+              <AiOutlineShoppingCart
+                size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
+              />
+            )}
+          </ShopButtonPrimary>
+        </Flex>
         <span
+          className="card-rating"
           style={{
             fontSize:
-              size === 'large' ? undefined : size === 'medium' ? 12 : 10,
+              size === 'large' ? undefined : size === 'medium' ? 18 : 16,
           }}
         >
-          STOCK {stock}
+          <AiFillStar
+            size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
+            style={{ marginRight: 8 }}
+          />
+          ({Number(rating).toFixed(2)})
         </span>
-      </div>
-      <div className="card-img">
-        <img
-          src={image}
-          alt=""
-          style={{
-            backgroundColor: 'white',
-            height: '100%',
-            width: '100%',
-          }}
-        />
-      </div>
-      <h4
-        className="card-title"
-        style={{
-          fontSize: size === 'large' ? undefined : size === 'medium' ? 18 : 16,
-        }}
-      >
-        {name}
-        <br />
-        <br />
-        PHP {price}
-      </h4>
-      <Flex sx={{ gap: 2, flexDirection: 'row', justifyContent: 'center' }}>
-        <ShopButtonSecondary
-          style={{
-            fontSize:
-              size === 'large' ? undefined : size === 'medium' ? 14 : 12,
-          }}
-          onClick={() => Router.push('/shop/' + id + '?category=' + category)}
-        >
-          View More
-        </ShopButtonSecondary>
-        <ShopButtonPrimary
-          style={{
-            fontSize:
-              size === 'large' ? undefined : size === 'medium' ? 14 : 12,
-          }}
-          onClick={() =>
-            cart?.some((v) => v.id === id) ? remove(id) : addValue(id, 1)
-          }
-        >
-          {cart?.some((v) => v.id === id) ? (
-            <AiOutlineDelete
-              size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
-            />
-          ) : (
-            <AiOutlineShoppingCart
-              size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
-            />
-          )}
-        </ShopButtonPrimary>
-      </Flex>
-      <span
-        className="card-rating"
-        style={{
-          fontSize: size === 'large' ? undefined : size === 'medium' ? 18 : 16,
-        }}
-      >
-        <AiFillStar
-          size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
-          style={{ marginRight: 8 }}
-        />
-        ({Number(rating).toFixed(2)})
-      </span>
-    </CardContainer>
-  )
-}
+      </CardContainer>
+    )
+  }
+)
+ShopItem.displayName = 'Shop'

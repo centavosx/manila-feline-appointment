@@ -8,7 +8,7 @@ import { theme } from 'utils/theme'
 import { Section } from 'components/sections'
 import { Main } from 'components/main'
 import { ShopItem, ShopItemContainer } from 'components/shop'
-import { useApi, useRecentView } from 'hooks'
+import { useApi, useCart, useRecentView } from 'hooks'
 import { getAllProduct, getRecommended } from 'api'
 import Router from 'next/router'
 
@@ -139,6 +139,8 @@ const UpperItem = ({
 
 export default function Shop() {
   const { data } = useApi(async () => await getRecommended())
+  const { cart, addValue, remove } = useCart(true, 0)
+
   const { data: allProducts } = useApi(
     async () =>
       await getAllProduct(0, 6, {
@@ -220,18 +222,22 @@ export default function Shop() {
           contentProps={{ pl: '6px', pr: '6px', width: '100%' }}
         >
           <ShopItemContainer>
-            {recentData.map((v, i) => (
-              <ShopItem
-                id={v.id}
-                key={i}
-                name={v.name}
-                rating={v.rating}
-                price={v.price}
-                stock={v.items}
-                image={v.image}
-                category={v.category}
-              />
-            ))}
+            {!!cart &&
+              recentData.map((v, i) => (
+                <ShopItem
+                  id={v.id}
+                  key={i}
+                  name={v.name}
+                  rating={v.rating}
+                  price={v.price}
+                  stock={v.items}
+                  image={v.image}
+                  category={v.category}
+                  cart={cart}
+                  onAdd={() => addValue(v.id, 1)}
+                  onRemove={() => remove(v.id)}
+                />
+              ))}
           </ShopItemContainer>
         </Section>
       )}
@@ -252,7 +258,7 @@ export default function Shop() {
           </ShopButtonPrimary>
         }
       >
-        {!!products && (
+        {!!products && !!cart && (
           <ShopItemContainer>
             {products.map((v, i) => (
               <ShopItem
@@ -264,6 +270,9 @@ export default function Shop() {
                 stock={v.items}
                 image={v.image}
                 category={v.category}
+                cart={cart}
+                onAdd={() => addValue(v.id, 1)}
+                onRemove={() => remove(v.id)}
               />
             ))}
           </ShopItemContainer>
