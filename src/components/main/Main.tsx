@@ -8,7 +8,6 @@ import { Header } from '../header'
 import { Text } from '../text'
 import { MobileView, WebView } from '../views'
 import { BaseHead } from '../basehead'
-import { useRouter } from 'next/router'
 
 export const Main = ({
   pageTitle,
@@ -24,48 +23,58 @@ export const Main = ({
       />
       <Flex
         width={'100%'}
-        sx={{ position: 'unset', height: '100%' }}
+        sx={{ height: '100%', flexDirection: 'column' }}
         justifyContent="center"
         backgroundColor={theme.colors.pink}
       >
         <Flex
-          flexDirection={'column'}
           sx={{
-            flex: 1,
-            position: 'unset',
-            height: '100%',
-            overflow: 'auto',
+            height: 'auto',
             width: '100%',
+            flexDirection: 'column',
+            backgroundColor: theme.colors.pink,
           }}
-          maxWidth={2250}
-          alignSelf="center"
-          backgroundColor={theme.colors.pink}
         >
           <Header
             justifyContent={'start'}
             sx={{
               gap: 2,
-              padding: 20,
-              position: 'relative',
-              backgroundColor: theme.colors.black,
+              paddingLeft: 20,
+              paddingRight: 20,
+              paddingTop: '8px',
+              paddingBottom: '8px',
+              width: '100%',
+              zIndex: 99,
             }}
+            maxWidth={2250}
+            alignSelf="center"
           >
             <Flex flex={1} sx={{ justifyContent: 'start' }}>
               <Anchor href="/" sx={{ mr: [null, 4] }}>
                 <Flex alignItems={'center'} sx={{ gap: 2 }}>
-                  <Image
-                    src={'/assets/logo.png'}
-                    width={60}
-                    height={60}
-                    minWidth={'auto'}
-                    alt="image"
-                  />
+                  <Flex
+                    sx={{
+                      borderRadius: '100%',
+                      height: 60,
+                      width: 60,
+                      backgroundColor: theme.colors.pink,
+                      padding: 0,
+                    }}
+                  >
+                    <Image
+                      src={'/assets/logo.png'}
+                      width={'101%'}
+                      height={'101%'}
+                      minWidth={'auto'}
+                      alt="image"
+                    />
+                  </Flex>
                   <Text
                     sx={{
                       fontSize: [14, 18],
                       fontWeight: 600,
                       fontFamily: 'Castego',
-                      color: theme.colors.pink,
+                      color: theme.colors.black,
                     }}
                   >
                     Manila Feline Center
@@ -82,11 +91,30 @@ export const Main = ({
               <Navigation.MobileNavigation isLink={isLink} />
             </MobileView>
           </Header>
-          {children}
+        </Flex>
+        <Flex
+          sx={{
+            gap: 2,
+            backgroundColor: theme.colors.white,
+            height: '100%',
+            overflow: 'auto',
+            width: '100%',
+            flexDirection: 'column',
+          }}
+          alignSelf="center"
+        >
+          <Flex flex={1} maxWidth={2250} alignSelf="center" width={'100%'}>
+            <Flex
+              flexDirection={'column'}
+              sx={{ height: '100%', width: '100%' }}
+            >
+              {children}
+            </Flex>
+          </Flex>
           <WebView
             style={{
               position: 'relative',
-              bottom: -10,
+              bottom: -20,
             }}
           >
             <Wave
@@ -122,9 +150,13 @@ export const Main = ({
           <Header
             id={'footer'}
             backgroundColor={theme.colors.blackgray}
-            padding={20}
-            flexDirection={['column', 'row']}
-            sx={{ alignItems: ['center', 'start'], gap: [3, 1] }}
+            sx={{
+              gap: 2,
+              padding: 20,
+              width: '100%',
+              position: 'relative',
+            }}
+            alignSelf="center"
           >
             <Flex
               flex={1}
@@ -133,6 +165,7 @@ export const Main = ({
                 gap: 1,
                 textAlign: 'center',
               }}
+              maxWidth={2250}
             >
               <Text
                 sx={{

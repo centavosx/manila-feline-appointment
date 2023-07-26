@@ -1,34 +1,46 @@
-import { useState, useCallback, useEffect } from 'react'
+import { AxiosResponse } from 'axios'
+import { useState, useEffect } from 'react'
 
-export const useApi = (api: () => any) => {
-  const [data, setData] = useState<any>()
+export function useApi<T extends any = any, O extends any = any>(
+  api: (options?: O) => Promise<AxiosResponse>,
+  noRefetchOnMount?: boolean,
+  initialOptionData?: O
+) {
+  const [data, setData] = useState<T>()
 
   const [{ loading, isFetching }, setFetching] = useState<{
     loading: boolean
     isFetching: boolean
-  }>({ loading: true, isFetching: true })
+    options?: O
+  }>({
+    loading: !noRefetchOnMount,
+    isFetching: !noRefetchOnMount,
+    options: initialOptionData,
+  })
   const [error, setError] = useState<any | undefined>(undefined)
 
-  const call = useCallback(async () => {
+  const call = async (options?: O) => {
     try {
-      const response = await api()
+      const response = await api(options)
       setData(response?.data)
     } catch (e) {
       setError(e)
     } finally {
       setFetching((d) => ({ ...d, isFetching: false }))
     }
-  }, [setData, api, setFetching])
+  }
 
-  const refetch = useCallback(() => {
-    setFetching(() => ({ loading: true, isFetching: true }))
-  }, [setFetching])
+  const refetch = (options?: O) => {
+    setFetching(() => ({ loading: true, isFetching: true, options }))
+  }
 
   useEffect(() => {
     if (isFetching && loading) {
-      setFetching((d) => ({ ...d, loading: false }))
-      setError(undefined)
-      call()
+      setFetching((d) => {
+        setError(undefined)
+        call(d.options)
+        return { ...d, loading: false }
+      })
     }
   }, [isFetching, loading])
 

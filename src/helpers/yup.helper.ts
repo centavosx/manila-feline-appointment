@@ -61,6 +61,24 @@ export const FormikValidation = {
       .oneOf([Yup.ref('password')], 'Passwords must match')
       .required('Required'),
   }),
+  updateInfo: Yup.object().shape({
+    name: Yup.string().required('Required'),
+    password: Yup.string().trim().password(),
+    newP: Yup.string()
+      .trim()
+      .ensure()
+      .when('password', {
+        is: (value: any) => !!value,
+        then: Yup.string().password().required('Type password'),
+      }),
+    confirm: Yup.string()
+      .oneOf([Yup.ref('newP')], 'Passwords must match')
+      .ensure()
+      .when('password', {
+        is: (value: any) => !!value,
+        then: Yup.string().required('Type password'),
+      }),
+  }),
   code: Yup.object().shape({
     code: Yup.string().required('Required'),
   }),
@@ -73,6 +91,13 @@ export const FormikValidation = {
   forgot: Yup.object().shape({
     email: Yup.string()
       .email('Please enter a valid email')
+      .required('Required'),
+  }),
+  reviewProduct: Yup.object().shape({
+    message: Yup.string().required('Required'),
+    review: Yup.number()
+      .min(1, 'Minimum is 1')
+      .max(5, 'Max is 5')
       .required('Required'),
   }),
 }

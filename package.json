@@ -14,10 +14,13 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.10.15",
     "@mui/types": "^7.2.1",
+    "@mui/x-data-grid": "^5.17.26",
+    "@mui/x-date-pickers": "^5.0.20",
     "@rebass/forms": "^4.0.6",
     "@rebass/layout": "^4.0.6",
     "axios": "^1.2.0",
     "date-fns": "^2.29.3",
+    "dayjs": "^1.11.9",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
     "formik": "^2.2.9",
@@ -25,6 +28,7 @@
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "next": "13.0.5",
+    "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-calendar": "^4.0.0",
     "react-dom": "18.2.0",
@@ -42,6 +46,7 @@
     "@types/js-cookie": "^3.0.3",
     "@types/next": "^9.0.0",
     "@types/node": "^18.11.11",
+    "@types/nprogress": "^0.2.0",
     "@types/react": "18.0.25",
     "@types/react-calendar": "^3.9.0",
     "@types/react-dom": "18.0.9",
@@ -49,6 +54,7 @@
     "@types/rebass": "^4.0.10",
     "@types/rebass__forms": "^4.0.6",
     "@types/rebass__layout": "^4.0.1",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "sass": "^1.63.6"
   }
 }

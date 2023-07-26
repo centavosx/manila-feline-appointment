@@ -13,9 +13,22 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+div,
+span,
+font {
   color: black;
 }
 
 line {
   color: unset;
+}
+
+#__next {
+  height: 100vh;
+}
+
+#nprogress .bar {
+  background: #ff00ae !important;
 }

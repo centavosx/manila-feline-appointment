@@ -1,4 +1,4 @@
-import { API } from '../utils'
+import { API, apiAuth } from '../utils'
 
 export type CreateEmailDto = {
   from: string
@@ -67,7 +67,7 @@ export enum Gender {
   female = 'FEMALE',
 }
 
-export type CreateAppointmentDto = {
+export type CreateAppointmentDto<T extends any = number> = {
   serviceId: string
 
   email: string
@@ -76,15 +76,13 @@ export type CreateAppointmentDto = {
 
   name: string
 
-  time?: AmOrPm
+  time?: T
 
   message: string
 
   petName?: string
 
   birthDate?: string
-
-  age?: number
 
   gender?: Gender
 }
@@ -93,20 +91,36 @@ export type VerifyAppointmentDto = {
   verification: string
 }
 
-export const saveAppoinment = async (
-  id: string,
-  data: CreateAppointmentDto
-) => {
-  return await API.post('/other/doctor/' + id + '/set-an-appoinment', data)
+export const saveAppoinment = async (data: CreateAppointmentDto<string>) => {
+  return await apiAuth.post('/other/set-an-appoinment', data, {
+    params: {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    },
+  })
 }
 
 export const verifyAppointment = async (
   id: string,
   data: VerifyAppointmentDto
 ) => {
-  return await API.patch('/other/verify/' + id, data)
+  return await apiAuth.patch('/other/verify/' + id, {
+    ...data,
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  })
 }
 
 export const refreshAppointment = async (id: string) => {
-  return await API.patch('/other/refresh/' + id)
+  return await apiAuth.patch('/other/refresh/' + id)
+}
+
+export const getUnavailableAppointment = async (options?: {
+  month: number
+  year: number
+}) => {
+  return await apiAuth.get('/other/unavailable', {
+    params: {
+      ...options,
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    },
+  })
 }
