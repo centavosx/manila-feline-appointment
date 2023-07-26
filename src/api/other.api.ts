@@ -84,8 +84,6 @@ export type CreateAppointmentDto<T extends any = number> = {
 
   birthDate?: string
 
-  age?: number
-
   gender?: Gender
 }
 

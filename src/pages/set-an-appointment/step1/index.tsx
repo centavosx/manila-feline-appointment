@@ -37,6 +37,10 @@ import { FormInput, InputError } from 'components/input'
 import { Label } from '@rebass/forms'
 import { FormikValidation } from 'helpers'
 import { Button } from 'components/button'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import dayjs from 'dayjs'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { TextField } from '@mui/material'
 
 const Services = ({
   onChange,
@@ -353,7 +357,6 @@ export default function Step1() {
                     copy.birthDate = copy.birthDate
                       ? new Date(copy?.birthDate).toDateString()
                       : undefined
-                    copy.age = Number(copy.age)
                     if (values.time) copy.date.setHours(values.time)
 
                     saveAppoinment(copy)
@@ -474,36 +477,31 @@ export default function Step1() {
                         sx={{ color: 'black', width: '100%' }}
                         placeholder="Please type your pet name"
                       />
-                      <FormInput
-                        name="age"
-                        label={'Age'}
-                        type="number"
-                        variant="outlined"
-                        inputcolor={{
-                          labelColor: 'gray',
-                          backgroundColor: 'white',
-                          borderBottomColor: colorTheme.mainColors.first,
-                          color: 'black',
-                        }}
-                        sx={{ color: 'black', width: '100%' }}
-                        placeholder="Please type your pet age"
-                      />
                       <Flex flexDirection={'column'} sx={{ gap: 1 }}>
-                        <Label sx={{ fontWeight: 500 }}>Birthday</Label>
-                        <FormInput
-                          name="birthDate"
-                          label={''}
-                          variant="outlined"
-                          type={'date'}
-                          inputcolor={{
-                            labelColor: 'gray',
-                            backgroundColor: 'white',
-                            borderBottomColor: colorTheme.mainColors.first,
-                            color: 'black',
-                          }}
-                          sx={{ color: 'black', width: '100%' }}
-                          placeholder="Please type your pet birthday"
-                        />
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            label={'Select BirthDate'}
+                            value={
+                              !!values.birthDate
+                                ? new Date(values.birthDate)
+                                : undefined
+                            }
+                            onChange={(newValue: any) => {
+                              if (!newValue) return
+                              const newDate = new Date(newValue as any)
+
+                              if (isNaN(newDate as unknown as number)) return
+
+                              setFieldValue('birthDate', newDate.toISOString())
+                              return
+                            }}
+                            renderInput={(params: any) => (
+                              <TextField {...params} />
+                            )}
+                            maxDate={dayjs(new Date())}
+                          />
+                        </LocalizationProvider>
+                        <InputError error={errors.birthDate} />
                       </Flex>
                       <Flex flexDirection={'column'} sx={{ gap: 2 }}>
                         <Select

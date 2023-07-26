@@ -179,7 +179,7 @@ export default function Home() {
                   width: 'auto',
                 },
               }}
-              onClick={() => replace('/set-an-appointment')}
+              onClick={() => replace('/set-an-appointment/step1')}
             >
               BOOK AN APPOINTMENT
             </Button>
