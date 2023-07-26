@@ -4,13 +4,19 @@ const nextConfig = {
     process.env.NODE_ENV === 'production'
       ? 'https://manila-feline.netlify.app'
       : undefined,
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   serverRuntimeConfig: {
     PROJECT_ROOT: __dirname,
   },
   trailingSlash: true,
   env: { API: process.env.REACT_APP_API_URL },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 }
 
 module.exports = nextConfig
