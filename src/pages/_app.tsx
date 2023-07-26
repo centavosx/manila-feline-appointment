@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import { createTheme } from '@mui/material'
 import { DataProvider, PageProvider } from '../contexts'
 import { useEffect } from 'react'
-import { Router } from 'next/router'
+import { Router, useRouter } from 'next/router'
 import NProgress from 'nprogress'
 
 const theme = createTheme()
@@ -12,6 +12,8 @@ const theme = createTheme()
 NProgress.configure({ showSpinner: false })
 
 export default function App({ Component, pageProps }: AppProps) {
+  const { query } = useRouter()
+
   useEffect(() => {
     Router.events.on('routeChangeStart', (url) => {
       NProgress.start()
@@ -30,6 +32,22 @@ export default function App({ Component, pageProps }: AppProps) {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (!!query.remove) {
+      let v = !!localStorage.getItem('cart')
+        ? (JSON.parse(localStorage.getItem('cart')!) as unknown as {
+            id: string
+            qty: number
+          }[])
+        : []
+      const splitted = (query.remove as string).split(',')
+
+      v = v.filter((toR) => !splitted.includes(toR.id))
+
+      localStorage.setItem('cart', JSON.stringify(v))
+    }
+  }, [query])
 
   return (
     <ThemeProvider theme={theme}>

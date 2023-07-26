@@ -152,8 +152,15 @@ export default function ProductInfo({
     error,
   } = useApi(async () => await getProduct(id))
 
-  const { cart, save, addValue, subtractValue, checkIfInCart, removeLocal } =
-    useCart(false)
+  const {
+    cart,
+    save,
+    addValue,
+    subtractValue,
+    checkIfInCart,
+    removeLocal,
+    remove,
+  } = useCart(false)
 
   const {
     data: productReview,
@@ -452,18 +459,22 @@ export default function ProductInfo({
             }
           >
             <ShopItemContainer>
-              {products.map((v: any, i: any) => (
-                <ShopItem
-                  id={v.id}
-                  key={i}
-                  name={v.name}
-                  rating={v.rating}
-                  price={v.price}
-                  stock={v.items}
-                  image={v.image}
-                  category={v.category}
-                />
-              ))}
+              {!!cart &&
+                products.map((v: any, i: any) => (
+                  <ShopItem
+                    id={v.id}
+                    key={i}
+                    name={v.name}
+                    rating={v.rating}
+                    price={v.price}
+                    stock={v.items}
+                    image={v.image}
+                    category={v.category}
+                    cart={cart}
+                    onAdd={() => addValue(v.id, 1)}
+                    onRemove={() => remove(v.id)}
+                  />
+                ))}
             </ShopItemContainer>
           </Section>
         )}

@@ -4,12 +4,11 @@ import { useUser } from 'hooks'
 import { Flex, Text } from 'rebass'
 import { theme } from 'utils/theme'
 import History from './page-components/history'
+import PersonalInformation from './page-components/user-information'
 
 export default function Profile() {
   const { user } = useUser()
-  const [selected, setSelected] = useState<'profile' | 'purchase' | 'booking'>(
-    'profile'
-  )
+  const [selected, setSelected] = useState<'profile' | 'history'>('profile')
   return (
     <Main isLink={true}>
       <Flex
@@ -20,6 +19,7 @@ export default function Profile() {
       >
         <Flex
           flexDirection={'column'}
+          height={'245px'}
           sx={{
             border: '1px solid black',
             borderRadius: 8,
@@ -72,11 +72,11 @@ export default function Profile() {
                 padding: 14,
                 cursor: 'pointer',
                 color:
-                  selected === 'purchase'
+                  selected === 'history'
                     ? theme.backgroundColors.verylight
                     : undefined,
                 backgroundColor:
-                  selected === 'purchase' ? theme.colors.blackgray : undefined,
+                  selected === 'history' ? theme.colors.blackgray : undefined,
                 ':hover': {
                   backgroundColor: '#7A7A7A',
                   color: 'pink',
@@ -86,41 +86,14 @@ export default function Profile() {
                   color: 'pink',
                 },
               }}
-              onClick={() => setSelected('purchase')}
+              onClick={() => setSelected('history')}
             >
-              PURCHASE HISTORY
-            </Text>
-            <Text
-              width={'auto'}
-              fontWeight={'bold'}
-              sx={{
-                fontSize: [14, 16],
-                borderRadius: 8,
-                padding: 14,
-                cursor: 'pointer',
-                color:
-                  selected === 'booking'
-                    ? theme.backgroundColors.verylight
-                    : undefined,
-                backgroundColor:
-                  selected === 'booking' ? theme.colors.blackgray : undefined,
-                ':hover': {
-                  backgroundColor: '#7A7A7A',
-                  color: 'pink',
-                },
-                '&&:active': {
-                  backgroundColor: '#707070',
-                  color: 'pink',
-                },
-              }}
-              onClick={() => setSelected('booking')}
-            >
-              BOOKING HISTORY
+              HISTORY
             </Text>
           </Flex>
         </Flex>
         <Flex flex={1}>
-          <History />
+          {selected !== 'history' ? <PersonalInformation /> : <History />}
         </Flex>
       </Flex>
     </Main>
