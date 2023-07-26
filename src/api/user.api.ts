@@ -85,3 +85,12 @@ export const resetPass = async (email: string) => {
   })
   return response
 }
+
+export const updateUser = async (data: {
+  name?: string
+  password?: string
+  old?: string
+}) => {
+  const response = await apiAuth.patch(`/user`, data)
+  return response
+}

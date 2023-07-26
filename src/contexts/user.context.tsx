@@ -10,6 +10,7 @@ type DataType = {
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>
   refetch: (refresh?: boolean) => Promise<unknown>
   logout: () => void
+  isFetching: boolean
 }
 
 export const DataContext = createContext<DataType>({} as DataType)
@@ -24,9 +25,13 @@ export const DataProvider = ({
   const [user, setUser] = useState<User | undefined>(
     !!token ? jwt_decode(token) : undefined
   )
+  const [isFetching, setIsFetching] = useState(true)
 
   const getMe = async (reload?: boolean) => {
-    setUser(await me())
+    setIsFetching(true)
+    const data = await me()
+    setUser(data)
+    setIsFetching(false)
     if (reload) refresh()
   }
 
@@ -47,6 +52,7 @@ export const DataProvider = ({
     setUser,
     refetch: getMe,
     logout,
+    isFetching,
   }
 
   return (

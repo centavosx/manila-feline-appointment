@@ -8,14 +8,15 @@ import { useUser } from 'hooks'
 import { Button } from 'components/button'
 import { FormikValidation } from 'helpers'
 import { Loading } from 'components/loading'
+import { updateUser } from 'api'
 
 export default function PersonalInformation() {
-  const { user } = useUser()
+  const { user, refetch, isFetching } = useUser()
 
   return (
     <Flex flexDirection={'column'} width={'100%'} sx={{ gap: 2 }}>
       <Text as={'h1'}>Profile Information</Text>
-      {!!user && (
+      {!!user && !isFetching && (
         <Formik
           validationSchema={FormikValidation.updateInfo}
           initialValues={{
@@ -26,15 +27,20 @@ export default function PersonalInformation() {
             password: '',
           }}
           onSubmit={(values: any, { setSubmitting }) => {
-            const copy = structuredClone(values)
             setSubmitting(true)
-            delete copy.id
-            // updateProduct(id, copy).finally(() => {
-            //   setSubmitting(false)
-            // })
+            updateUser({
+              name: values.name,
+              password: values.newP,
+              old: values.password,
+            })
+              .then(() => refetch(true))
+              .catch((v) => alert(v.response.data.message || 'Invalid'))
+              .finally(() => {
+                setSubmitting(false)
+              })
           }}
         >
-          {({ values, errors, setFieldValue, isSubmitting }) => (
+          {({ values, isSubmitting }) => (
             <FormContainer>
               {!!isSubmitting && <Loading />}
 
@@ -79,6 +85,7 @@ export default function PersonalInformation() {
               />
               <FormInput
                 name="password"
+                type="password"
                 label="Old Password"
                 placeholder="Type old password"
                 variant="filled"
@@ -94,6 +101,7 @@ export default function PersonalInformation() {
                 <>
                   <FormInput
                     name="newP"
+                    type="password"
                     label="New password"
                     placeholder="Type new password"
                     variant="filled"
@@ -107,6 +115,7 @@ export default function PersonalInformation() {
                   />
                   <FormInput
                     name="confirm"
+                    type="password"
                     label="Confirm password"
                     placeholder="Type new password"
                     variant="filled"

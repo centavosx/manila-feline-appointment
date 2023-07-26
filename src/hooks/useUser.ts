@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { DataContext } from '../contexts'
 
 export const useUser = () => {
-  const { user, logout, refetch } = useContext(DataContext)
+  const { user, logout, refetch, isFetching } = useContext(DataContext)
 
-  return { user, logout, refetch }
+  return { user, logout, refetch, isFetching }
 }
