@@ -291,12 +291,12 @@ export default function Step1() {
               )
             }
             value={date}
-            onChange={setDate}
+            onChange={(v) => setDate(new Date(v as unknown as string))}
             onViewChange={({ activeStartDate }) =>
-              setCurrentViewDate(activeStartDate)
+              !!activeStartDate && setCurrentViewDate(activeStartDate)
             }
             onActiveStartDateChange={({ activeStartDate }) =>
-              setCurrentViewDate(activeStartDate)
+              !!activeStartDate && setCurrentViewDate(activeStartDate)
             }
             tileDisabled={(p) => {
               return availableDates[p.date.getDate() - 1]?.length === 0

@@ -3,8 +3,8 @@ import { Main } from 'components/main'
 import { useUser } from 'hooks'
 import { Flex, Text } from 'rebass'
 import { theme } from 'utils/theme'
-import History from './page-components/history'
-import PersonalInformation from './page-components/user-information'
+import History from 'components/page-components/history'
+import PersonalInformation from 'components/page-components/user-information'
 
 export default function Profile() {
   const { user } = useUser()
