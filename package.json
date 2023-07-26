@@ -54,7 +54,6 @@
     "@types/rebass": "^4.0.10",
     "@types/rebass__forms": "^4.0.6",
     "@types/rebass__layout": "^4.0.1",
-    "@types/styled-components": "^5.1.26",
-    "sass": "^1.63.6"
+    "@types/styled-components": "^5.1.26"
   }
 }
