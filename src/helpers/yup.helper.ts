@@ -34,8 +34,6 @@ export const FormikValidation = {
 
     birthDate: Yup.string().required('Required'),
 
-    age: Yup.number().min(0).required('Required'),
-
     gender: Yup.string().required('Required'),
   }),
 

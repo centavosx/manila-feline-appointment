@@ -364,6 +364,7 @@ export default function Step1() {
                       .finally(() => setSubmitting(false))
                   }}
                   validationSchema={FormikValidation.createAppointment}
+                  validateOnMount={true}
                 >
                   {({
                     handleChange,
