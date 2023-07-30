@@ -92,11 +92,7 @@ export type VerifyAppointmentDto = {
 }
 
 export const saveAppoinment = async (data: CreateAppointmentDto<string>) => {
-  return await apiAuth.post('/other/set-an-appoinment', data, {
-    params: {
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    },
-  })
+  return await apiAuth.post('/other/set-an-appoinment', { ...data, timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
 }
 
 export const verifyAppointment = async (
