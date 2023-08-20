@@ -237,7 +237,10 @@ export default function ProductInfo({
 
   return (
     <Main isLink={true}>
-      {(isFetching || isReviewFetching || isProductFetching) && <Loading />}
+      {(isFetching ||
+        isReviewFetching ||
+        isProductFetching ||
+        isBuyLoading) && <Loading />}
       <Flex
         p={[24, 28, 32, 36]}
         width={'100%'}
