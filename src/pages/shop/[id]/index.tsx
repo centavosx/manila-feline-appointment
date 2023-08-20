@@ -19,7 +19,13 @@ import { FormContainer } from 'components/forms'
 import { format } from 'date-fns'
 import { ShopItem, ShopItemContainer } from 'components/shop'
 import { useApi, useCart, useRecentView } from 'hooks'
-import { getAllProduct, getProduct, getProductReview, sendReview } from 'api'
+import {
+  buyProduct,
+  getAllProduct,
+  getProduct,
+  getProductReview,
+  sendReview,
+} from 'api'
 import { useRouter } from 'next/router'
 import { Loading } from 'components/loading'
 import Router from 'next/router'
@@ -168,6 +174,8 @@ export default function ProductInfo({
     refetch: refetchReview,
   } = useApi(async () => await getProductReview(id))
 
+  const { push } = useRouter()
+
   const { data: allProducts, isFetching: isProductFetching } = useApi(
     async () =>
       await getAllProduct(0, 3, {
@@ -175,6 +183,8 @@ export default function ProductInfo({
         notIn: [id],
       })
   )
+
+  const [isBuyLoading, setIsBuyLoading] = useState(false)
 
   const data = useMemo(() => {
     if (!product) return undefined
@@ -204,9 +214,33 @@ export default function ProductInfo({
 
   useRecentView(id, !!product)
 
+  useEffect(() => {
+    if (isBuyLoading && !!data?.price) {
+      buyProduct([
+        {
+          id,
+          price: data.price,
+          qty: cart?.find((v) => v.id === id)?.qty ?? 1,
+        },
+      ])
+        .then((v) => {
+          push(v.data)
+        })
+        .catch((d) => {
+          alert(
+            d?.request?.status === 400 ? 'Invalid Code' : 'An error has occured'
+          )
+        })
+        .finally(() => setIsBuyLoading(false))
+    }
+  }, [isBuyLoading, id, data, cart])
+
   return (
     <Main isLink={true}>
-      {(isFetching || isReviewFetching || isProductFetching) && <Loading />}
+      {(isFetching ||
+        isReviewFetching ||
+        isProductFetching ||
+        isBuyLoading) && <Loading />}
       <Flex
         p={[24, 28, 32, 36]}
         width={'100%'}
@@ -342,7 +376,7 @@ export default function ProductInfo({
                 <AiOutlineShoppingCart size={18} style={{ marginRight: 6 }} />
                 {!!checkIfInCart(id) ? 'Remove from Cart' : 'Add to Cart'}
               </ShopButtonSecondary>
-              <ShopButtonPrimary>
+              <ShopButtonPrimary onClick={() => setIsBuyLoading(true)}>
                 <AiOutlineShopping size={18} style={{ marginRight: 6 }} />
                 Buy Now
               </ShopButtonPrimary>
