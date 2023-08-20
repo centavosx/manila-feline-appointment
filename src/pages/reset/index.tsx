@@ -10,9 +10,12 @@ import { Button } from 'components/button'
 import { FormikValidation } from 'helpers'
 import { reset } from 'api'
 import { Loading } from 'components/loading'
+import { useRouter } from 'next/router'
 
 export default function Reset({ token }: { token: string }) {
   const { width, height } = useWindowSize()
+
+  const { replace } = useRouter()
 
   let rotatedWidth = 0,
     rotatedHeight = 0,
@@ -153,6 +156,7 @@ export default function Reset({ token }: { token: string }) {
             setSubmitting(true)
             try {
               await reset(token, values.password)
+              replace('/')
             } finally {
               setSubmitting(false)
             }
