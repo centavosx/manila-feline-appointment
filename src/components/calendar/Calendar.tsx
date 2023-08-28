@@ -29,15 +29,25 @@ export const Calendar = styled(CalendarComponent)`
     }
     .react-calendar__tile--now {
       background-color: #e75480;
+      color: white;
+      abbr {
+        color: white;
+      }
     }
     .react-calendar__tile--active:enabled:hover,
     .react-calendar__tile--active:enabled:focus {
       background-color: ${theme.colors.pink};
       color: white;
+      abbr {
+        color: white;
+      }
     }
     .react-calendar__tile--active {
       background-color: ${theme.colors.pink};
       color: white;
+      abbr {
+        color: white;
+      }
     }
     .react-calendar__tile {
       padding: 25px;
