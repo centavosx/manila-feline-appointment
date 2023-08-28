@@ -69,6 +69,14 @@ export const Calendar = styled(CalendarComponent)`
       background-color: black;
       color: white;
     }
+
+    button.react-calendar__tile.empty-time {
+      background-color: red;
+      abbr {
+        color: white;
+      }
+    }
+
     @media screen and (max-width: 900px) {
       .react-calendar__tile {
         padding: 15px;

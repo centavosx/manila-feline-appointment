@@ -14,6 +14,7 @@ import {
   format,
   startOfDay,
   startOfMonth,
+  addHours,
 } from 'date-fns'
 import { Option, Select } from '../../../components/select'
 import { useState } from 'react'
@@ -240,8 +241,8 @@ export default function Step1() {
     const dates: string[][] = []
 
     while (start < end) {
-      const startDay = startOfDay(start)
-      const endDay = endOfDay(start)
+      const startDay = addHours(startOfDay(start), 9)
+      const endDay = addHours(startDay, 11)
       const time: string[] = []
       while (startDay < endDay) {
         const timeFormat = format(startDay, 'yyyy-MM-dd HH')
@@ -283,6 +284,7 @@ export default function Step1() {
           isFetching={isFetching}
         >
           <Calendar
+            locale="en-US"
             minDate={
               new Date(
                 today.getFullYear(),
@@ -300,6 +302,11 @@ export default function Step1() {
             }
             tileDisabled={(p) => {
               return availableDates[p.date.getDate() - 1]?.length === 0
+            }}
+            tileClassName={(v) => {
+              if (availableDates[v.date.getDate() - 1]?.length === 0)
+                return 'empty-time'
+              return null
             }}
           />
           <Flex
