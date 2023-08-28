@@ -306,7 +306,10 @@ export default function Step1() {
               !!activeStartDate && setCurrentViewDate(activeStartDate)
             }
             tileDisabled={(p) => {
-              return availableDates[p.date.getDate() - 1]?.length === 0
+              return (
+                availableDates[p.date.getDate() - 1]?.length === 0 ||
+                p.date.getDay() === 1
+              )
             }}
             tileClassName={(v) => {
               if (availableDates[v.date.getDate() - 1]?.length === 0)
