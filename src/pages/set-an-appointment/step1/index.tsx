@@ -361,6 +361,8 @@ export default function Step1() {
                           : AmOrPm.AM
                         : '',
                     })
+
+                    copy.date = new Date(date)
                     copy.birthDate = copy.birthDate
                       ? new Date(copy?.birthDate).toDateString()
                       : undefined
