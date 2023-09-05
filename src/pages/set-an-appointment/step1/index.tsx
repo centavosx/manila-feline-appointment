@@ -288,35 +288,63 @@ export default function Step1() {
           }}
           isFetching={isFetching}
         >
-          <Calendar
-            locale="en-US"
-            minDate={
-              new Date(
-                today.getFullYear(),
-                today.getMonth(),
-                today.getDate() + 1
-              )
-            }
-            value={date}
-            onChange={(v) => setDate(new Date(v as unknown as string))}
-            onViewChange={({ activeStartDate }) =>
-              !!activeStartDate && setCurrentViewDate(activeStartDate)
-            }
-            onActiveStartDateChange={({ activeStartDate }) =>
-              !!activeStartDate && setCurrentViewDate(activeStartDate)
-            }
-            tileDisabled={(p) => {
-              return (
-                availableDates[p.date.getDate() - 1]?.length === 0 ||
-                p.date.getDay() === 1
-              )
-            }}
-            tileClassName={(v) => {
-              if (availableDates[v.date.getDate() - 1]?.length === 0)
-                return 'empty-time'
-              return null
-            }}
-          />
+          <Flex flexDirection={'column'} width={'100%'} sx={{ gap: 2 }}>
+            <Calendar
+              locale="en-US"
+              minDate={
+                new Date(
+                  today.getFullYear(),
+                  today.getMonth(),
+                  today.getDate() + 1
+                )
+              }
+              value={date}
+              onChange={(v) => setDate(new Date(v as unknown as string))}
+              onViewChange={({ activeStartDate }) =>
+                !!activeStartDate && setCurrentViewDate(activeStartDate)
+              }
+              onActiveStartDateChange={({ activeStartDate }) =>
+                !!activeStartDate && setCurrentViewDate(activeStartDate)
+              }
+              tileDisabled={(p) => {
+                const currDate = p.date
+                if (currDate.getMonth() === currentViewDate.getMonth())
+                  return (
+                    availableDates[currDate.getDate() - 1]?.length === 0 ||
+                    currDate.getDay() === 1
+                  )
+
+                return false
+              }}
+              tileClassName={(v) => {
+                const currDate = v.date
+                if (currDate.getMonth() === currentViewDate.getMonth())
+                  if (availableDates[currDate.getDate() - 1]?.length === 0)
+                    return 'empty-time'
+                return null
+              }}
+            />
+            <Flex flexDirection={'column'} sx={{ gap: 2 }}>
+              <Text as={'h1'} color={'black'} style={{ fontSize: 18 }}>
+                Color code
+              </Text>
+              {[
+                { text: 'Selected date', color: 'pink' },
+                { text: 'Current date', color: '#e75480' },
+                { text: 'Fully booked', color: 'red' },
+                { text: 'Not available', color: 'grey' },
+              ].map(({ text, color }, index) => (
+                <Flex sx={{ gap: 2, alignItems: 'center' }} key={index}>
+                  <Flex
+                    sx={{ padding: 2, backgroundColor: color, borderRadius: 2 }}
+                  />
+                  <Text as={'h1'} color={'black'}>
+                    {text}
+                  </Text>
+                </Flex>
+              ))}
+            </Flex>
+          </Flex>
           <Flex
             width={'100%'}
             sx={{
@@ -599,7 +627,9 @@ export default function Step1() {
                   )}
                 </Formik>
               ) : (
-                <Text>Not available</Text>
+                <Text as={'h1'} color={'black'}>
+                  Not available
+                </Text>
               )}
               {!!appointmentId && (
                 <ValidateEmail appointmentId={appointmentId} />
