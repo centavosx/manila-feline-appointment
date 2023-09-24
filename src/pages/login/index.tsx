@@ -206,7 +206,7 @@ export default function Login() {
         width: '100vw',
         backgroundColor:
           !!width && !!height && width >= height
-            ? theme.colors.white
+            ? '#2e489f'
             : theme.colors.pink,
       }}
     >
@@ -336,7 +336,10 @@ export default function Login() {
                 <FormContainer
                   flex={1}
                   label="Login to your Account"
-                  labelProps={{ sx: { justifyContent: 'center' } }}
+                  labelProps={{
+                    sx: { justifyContent: 'center' },
+                    color: theme.colors.lightpink,
+                  }}
                   flexProps={{ sx: { gap: 20 } }}
                 >
                   {isSubmitting && <Loading />}
@@ -345,15 +348,31 @@ export default function Login() {
                     type={'email'}
                     placeholder="Email"
                     value={values.email}
+                    inputcolor={{
+                      labelColor: 'gray',
+                      backgroundColor: 'white',
+                      borderBottomColor: theme.mainColors.first,
+                      color: 'black',
+                    }}
                   />
                   <FormInput
                     name="password"
                     type={'password'}
                     placeholder="Password"
+                    inputcolor={{
+                      labelColor: 'gray',
+                      backgroundColor: 'white',
+                      borderBottomColor: theme.mainColors.first,
+                      color: 'black',
+                    }}
                     value={values.password}
                   />
                   <Link
-                    sx={{ textAlign: 'right', cursor: 'pointer' }}
+                    sx={{
+                      textAlign: 'right',
+                      cursor: 'pointer',
+                      color: theme.colors.lightpink,
+                    }}
                     onClick={() => setIsReset(true)}
                   >
                     Forgot Password?
@@ -372,6 +391,7 @@ export default function Login() {
                       mt: 45,
                       display: 'flex',
                       justifyContent: 'center',
+                      color: theme.colors.lightpink,
                       gap: 2,
                     }}
                   >
@@ -379,7 +399,7 @@ export default function Login() {
                     <Text
                       sx={{
                         textDecoration: 'underline',
-                        color: 'blue',
+                        color: theme.colors.lightpink,
                         cursor: 'pointer',
                       }}
                       onClick={() => setIsLogin(false)}
@@ -421,7 +441,13 @@ export default function Login() {
               <FormContainer
                 flex={1}
                 label="Create an Account"
-                labelProps={{ sx: { justifyContent: 'center' } }}
+                labelProps={{
+                  color: theme.colors.lightpink,
+                  sx: {
+                    justifyContent: 'center',
+                    color: theme.colors.lightpink,
+                  },
+                }}
                 flexProps={{ sx: { gap: 20 } }}
               >
                 {isSubmitting && <Loading />}
@@ -429,24 +455,48 @@ export default function Login() {
                   name="name"
                   type={'text'}
                   placeholder="Name"
+                  inputcolor={{
+                    labelColor: 'gray',
+                    backgroundColor: 'white',
+                    borderBottomColor: theme.mainColors.first,
+                    color: 'black',
+                  }}
                   value={values.email}
                 />
                 <FormInput
                   name="email"
                   type={'email'}
                   placeholder="Email"
+                  inputcolor={{
+                    labelColor: 'gray',
+                    backgroundColor: 'white',
+                    borderBottomColor: theme.mainColors.first,
+                    color: 'black',
+                  }}
                   value={values.email}
                 />
                 <FormInput
                   name="password"
                   type={'password'}
                   placeholder="Password"
+                  inputcolor={{
+                    labelColor: 'gray',
+                    backgroundColor: 'white',
+                    borderBottomColor: theme.mainColors.first,
+                    color: 'black',
+                  }}
                   value={values.password}
                 />
                 <FormInput
                   name="confirm"
                   type={'password'}
                   placeholder="Confirm Password"
+                  inputcolor={{
+                    labelColor: 'gray',
+                    backgroundColor: 'white',
+                    borderBottomColor: theme.mainColors.first,
+                    color: 'black',
+                  }}
                   value={values.confirm}
                 />
                 <Button
@@ -464,13 +514,14 @@ export default function Login() {
                     display: 'flex',
                     justifyContent: 'center',
                     gap: 2,
+                    color: theme.colors.lightpink,
                   }}
                 >
                   Already have an account?{' '}
                   <Text
                     sx={{
                       textDecoration: 'underline',
-                      color: 'blue',
+                      color: theme.colors.lightpink,
                       cursor: 'pointer',
                     }}
                     onClick={() => setIsLogin(true)}

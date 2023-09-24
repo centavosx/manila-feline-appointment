@@ -26,13 +26,13 @@ export function middleware(request: NextRequest) {
     ? jwtDecode(token?.value) || undefined
     : undefined
 
-  // const redirectString = checkPath(
-  //   !!user && user.verified,
-  //   request.nextUrl.pathname
-  // )
+  const redirectString = checkPath(
+    !!user && user.verified,
+    request.nextUrl.pathname
+  )
 
-  // if (redirectString !== null)
-  //   return NextResponse.redirect(new URL(redirectString, request.url))
+  if (redirectString !== null)
+    return NextResponse.redirect(new URL(redirectString, request.url))
 }
 
 export const config = {
