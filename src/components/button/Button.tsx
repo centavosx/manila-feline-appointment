@@ -22,20 +22,19 @@ const StyledButton = ({ className, sx, ...props }: ButtonProps) => {
 export const Button = styled(StyledButton)`
   && {
     font-weight: bold;
-    background-color: ${({ backgroundcolor }) =>
-      backgroundcolor ?? theme.colors.blackgray};
-    color: ${({ textcolor }) => textcolor ?? theme.colors.pink};
+    background-color: ${({ backgroundcolor }) => backgroundcolor ?? '#56b7ea'};
+    color: ${({ textcolor }) => textcolor ?? 'black'};
     :disabled {
       background-color: gray;
       color: white;
     }
     :hover {
-      background-color: ${({ hovercolor }) => hovercolor ?? '#7A7A7A'};
-      color: ${({ hovertextcolor }) => hovertextcolor ?? 'pink'};
+      background-color: ${({ hovercolor }) => hovercolor ?? '#56b7eaCA'};
+      color: ${({ hovertextcolor }) => hovertextcolor ?? 'black'};
     }
     :active {
-      background-color: ${({ activecolor }) => activecolor ?? '#707070'};
-      color: ${({ activetextcolor }) => activetextcolor ?? 'pink'};
+      background-color: ${({ activecolor }) => activecolor ?? '#56b7eaBA'};
+      color: ${({ activetextcolor }) => activetextcolor ?? 'black'};
     }
 
     ${({ custom }) => custom}

@@ -8,6 +8,7 @@ import { buyProduct, getAllProduct } from 'api'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Loading } from 'components/loading'
 import { useRouter } from 'next/router'
+import { theme } from 'utils/theme'
 
 const Item = ({
   image,
@@ -34,7 +35,11 @@ const Item = ({
 }) => {
   return (
     <Flex flexDirection={'row'} alignItems={'start'}>
-      <Checkbox checked={selected} onClick={() => onSelect()} />
+      <Checkbox
+        checked={selected}
+        color="secondary"
+        onClick={() => onSelect()}
+      />
       <Flex
         flexDirection={'row'}
         sx={{ gap: 3, alignItems: 'center' }}
@@ -42,8 +47,12 @@ const Item = ({
       >
         <Image src={image} size={[80, 100]} />
         <Flex flexDirection={'column'} sx={{ gap: 2 }} flex={1}>
-          <Text as={'h4'}>{name}</Text>
-          <Text style={{ fontSize: 11 }}>Stock: {stock}</Text>
+          <Text as={'h4'} color={theme.colors.lightpink}>
+            {name}
+          </Text>
+          <Text style={{ fontSize: 11, color: theme.colors.lightpink }}>
+            Stock: {stock}
+          </Text>
 
           <Flex
             flexDirection={'column'}
@@ -86,6 +95,7 @@ const Item = ({
                 height={'100%'}
                 alignSelf={'center'}
                 display={'flex'}
+                color={theme.colors.lightpink}
                 fontSize={11}
               >
                 {item}
@@ -107,7 +117,9 @@ const Item = ({
               </ShopButtonPrimary>
             </Flex>
           </Flex>
-          <Text as={'h5'}>Php {price}</Text>
+          <Text as={'h5'} color={theme.colors.lightpink}>
+            Php {price}
+          </Text>
         </Flex>
 
         <AiOutlineDelete
@@ -211,7 +223,9 @@ export default function Cart() {
         flexDirection={'column'}
         sx={{ gap: 4 }}
       >
-        <Text as={'h2'}>My Cart</Text>
+        <Text as={'h2'} color={theme.colors.lightpink}>
+          My Cart
+        </Text>
         <Flex
           height={'100%'}
           flexDirection={['column', 'column', 'column', 'row']}
@@ -254,11 +268,13 @@ export default function Cart() {
             width={['100%', '100%', '100%', 450]}
             sx={{ gap: 2 }}
           >
-            <Text as={'h2'}>Summary</Text>
+            <Text as={'h2'} color={theme.colors.lightpink}>
+              Summary
+            </Text>
             <Flex
               sx={{
-                borderTop: '1px solid black',
-                borderBottom: '1px solid black',
+                borderTop: `1px solid ${theme.colors.lightpink}`,
+                borderBottom: `1px solid ${theme.colors.lightpink}`,
                 gap: 2,
               }}
               flexDirection={'column'}
@@ -268,13 +284,21 @@ export default function Cart() {
                 completeDetails.selectedProducts.map((v, i) => {
                   return (
                     <Flex flexDirection={'row'} sx={{ gap: 2 }} key={v}>
-                      <Text flex={1}>
+                      <Text flex={1} color={theme.colors.lightpink}>
                         {i + 1}. {v?.name}
                       </Text>
-                      <Text flex={1} textAlign={'center'}>
+                      <Text
+                        flex={1}
+                        textAlign={'center'}
+                        color={theme.colors.lightpink}
+                      >
                         x{v?.qty ?? 0}
                       </Text>
-                      <Text flex={1} textAlign={'end'}>
+                      <Text
+                        flex={1}
+                        textAlign={'end'}
+                        color={theme.colors.lightpink}
+                      >
                         Php {v?.price}
                       </Text>
                     </Flex>
@@ -284,14 +308,18 @@ export default function Cart() {
             {!!completeDetails && completeDetails.item > 0 && (
               <>
                 <Flex flexDirection={'row'}>
-                  <Text flex={1}>Selected Items</Text>
-                  <Text>x{completeDetails.item}</Text>
+                  <Text flex={1} color={theme.colors.lightpink}>
+                    Selected Items
+                  </Text>
+                  <Text color={theme.colors.lightpink}>
+                    x{completeDetails.item}
+                  </Text>
                 </Flex>
                 <Flex flexDirection={'row'}>
-                  <Text flex={1} as={'h3'}>
+                  <Text flex={1} as={'h3'} color={theme.colors.lightpink}>
                     Total
                   </Text>
-                  <Text as={'h3'}>
+                  <Text as={'h3'} color={theme.colors.lightpink}>
                     Php {Number(completeDetails.total).toFixed(2)}
                   </Text>
                 </Flex>

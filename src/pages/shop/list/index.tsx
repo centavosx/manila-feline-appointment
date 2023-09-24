@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react'
 import { useApi } from 'hooks'
 import { getAllProduct } from 'api'
 import { Loading } from 'components/loading'
+import { theme } from 'utils/theme'
 
 const CATEGORIES = ['Food', 'Toys', 'Litter', 'Accessories', 'Others']
 
@@ -54,22 +55,30 @@ export default function List() {
         p={[24, 28, 32, 36]}
       >
         <Flex flexDirection={'column'} sx={{ gap: 2 }}>
-          <Text as={'h3'}>Categories</Text>
+          <Text as={'h3'} color={theme.colors.lightpink}>
+            Categories
+          </Text>
           <Flex
             flexDirection={'column'}
             p={2}
-            sx={{ borderBottom: '1px solid black' }}
+            sx={{ borderBottom: '1px solid ' + theme.colors.lightpink }}
           >
             <FormControlLabel
-              control={<Checkbox checked={selectedCategories.length === 0} />}
+              control={
+                <Checkbox
+                  color="secondary"
+                  checked={selectedCategories.length === 0}
+                />
+              }
               onClick={() => setSelectedCategories([])}
-              label="All"
+              label={<Text color={theme.colors.lightpink}>All</Text>}
             />
             {CATEGORIES.map((cat, i) => (
               <FormControlLabel
                 key={i}
                 control={
                   <Checkbox
+                    color="secondary"
                     checked={selectedCategories.includes(cat)}
                     onClick={() =>
                       setSelectedCategories((v) =>
@@ -80,25 +89,41 @@ export default function List() {
                     }
                   />
                 }
-                label={cat}
+                label={<Text color={theme.colors.lightpink}>{cat}</Text>}
               />
             ))}
           </Flex>
           <Flex flexDirection={'column'} mt={2} sx={{ gap: 2 }}>
-            <Text as={'h3'}>Price Range</Text>
+            <Text as={'h3'} color={theme.colors.lightpink}>
+              Price Range
+            </Text>
             <Flex sx={{ gap: 3, alignItems: 'center' }}>
               <Input
                 type={'number'}
-                value={min}
+                placeholder="Enter number"
+                inputcolor={{
+                  labelColor: 'gray',
+                  backgroundColor: 'white',
+                  borderBottomColor: theme.mainColors.first,
+                  color: 'black',
+                }}
                 onChange={(e: any) =>
                   !isNaN(e.target.value as unknown as number) &&
                   setParams((v) => ({ ...v, min: Number(e.target.value) }))
                 }
               />
-              <Text ml={-2}>To</Text>
+              <Text ml={-2} color={theme.colors.lightpink}>
+                To
+              </Text>
               <Input
                 type={'number'}
-                value={max}
+                placeholder="Enter number"
+                inputcolor={{
+                  labelColor: 'gray',
+                  backgroundColor: 'white',
+                  borderBottomColor: theme.mainColors.first,
+                  color: 'black',
+                }}
                 onChange={(e: any) =>
                   !isNaN(e.target.value as unknown as number) &&
                   setParams((v) => ({ ...v, max: Number(e.target.value) }))
@@ -153,11 +178,11 @@ export default function List() {
                   onClick={() => setParams((v) => ({ ...v, page: v.page - 1 }))}
                 >
                   <AiOutlineArrowLeft />
-                  <Text>Prev</Text>
+                  <Text color={theme.colors.lightpink}>Prev</Text>
                 </Flex>
               )}
             </Flex>
-            <Text flex={1} textAlign={'center'}>
+            <Text flex={1} textAlign={'center'} color={theme.colors.lightpink}>
               {page + 1}
             </Text>
             <Flex
@@ -171,7 +196,7 @@ export default function List() {
                   sx={{ gap: 2, cursor: 'pointer', alignItems: 'center' }}
                   onClick={() => setParams((v) => ({ ...v, page: v.page + 1 }))}
                 >
-                  <Text>Next</Text>
+                  <Text color={theme.colors.lightpink}>Next</Text>
                   <AiOutlineArrowRight />
                 </Flex>
               )}

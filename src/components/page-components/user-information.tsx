@@ -15,7 +15,9 @@ export default function PersonalInformation() {
 
   return (
     <Flex flexDirection={'column'} width={'100%'} sx={{ gap: 2 }}>
-      <Text as={'h1'}>Profile Information</Text>
+      <Text as={'h1'} color={theme.colors.lightpink}>
+        Profile Information
+      </Text>
       {!!user && !isFetching && (
         <Formik
           validationSchema={FormikValidation.updateInfo}

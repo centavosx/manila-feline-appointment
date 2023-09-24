@@ -13,6 +13,7 @@ import { Response } from 'dto/'
 import { User } from 'entities'
 import { BackButton } from 'components/back'
 import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material'
+import { theme } from 'utils/theme'
 
 type Props = {
   title: string
@@ -56,7 +57,7 @@ function TransactionsComponent({ title, isBooking, onClick }: Props) {
     <Flex flexDirection={'column'} alignItems="center" width={'100%'}>
       <Section
         title={title}
-        textProps={{ textAlign: 'start' }}
+        textProps={{ textAlign: 'start', color: theme.colors.lightpink }}
         contentProps={{ width: '100%' }}
         isFetching={isFetching}
         padding={0}
@@ -166,7 +167,7 @@ function TransactionInformation({
           ) as JSX.Element & string
         }
         isFetching={isFetching}
-        textProps={{ textAlign: 'start' }}
+        textProps={{ textAlign: 'start', color: theme.colors.lightpink }}
         contentProps={{
           alignItems: 'start',
           sx: { gap: [20, 40] },
@@ -174,9 +175,13 @@ function TransactionInformation({
         padding={0}
       >
         <Flex flexDirection={'column'} sx={{ gap: 2 }} width={'100%'}>
-          <Text as={'h3'}>TransactionId: {refId}</Text>
-          <Text as={'h3'}>Total: Php {total?.toFixed(2)}</Text>
-          <Text as={'h5'}>
+          <Text as={'h3'} color={theme.colors.lightpink}>
+            TransactionId: {refId}
+          </Text>
+          <Text as={'h3'} color={theme.colors.lightpink}>
+            Total: Php {total?.toFixed(2)}
+          </Text>
+          <Text as={'h5'} color={theme.colors.lightpink}>
             Created:{' '}
             {!!created
               ? format(new Date(created), `yyyy-MM-dd hh:mm aaaaa'm'`)
@@ -348,7 +353,7 @@ export default function History() {
   return (
     <Section
       title={'History' as JSX.Element & string}
-      textProps={{ textAlign: 'start' }}
+      textProps={{ textAlign: 'start', color: theme.colors.lightpink }}
       contentProps={{
         alignItems: 'start',
         sx: { gap: [20, 40] },

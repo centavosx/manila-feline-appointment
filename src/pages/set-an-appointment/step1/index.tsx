@@ -280,7 +280,7 @@ export default function Step1() {
             alignItems: 'start',
           }}
           textProps={{
-            backgroundColor: colorTheme.colors.blackgray,
+            backgroundColor: 'transparent',
             width: '100%',
             padding: 3,
             textAlign: 'center',
@@ -325,7 +325,7 @@ export default function Step1() {
               }}
             />
             <Flex flexDirection={'column'} sx={{ gap: 2 }}>
-              <Text as={'h1'} color={'black'} style={{ fontSize: 18 }}>
+              <Text as={'h1'} color={'white'} style={{ fontSize: 18 }}>
                 Color code
               </Text>
               {[
@@ -338,7 +338,7 @@ export default function Step1() {
                   <Flex
                     sx={{ padding: 2, backgroundColor: color, borderRadius: 2 }}
                   />
-                  <Text as={'h1'} color={'black'}>
+                  <Text as={'h1'} color={'white'}>
                     {text}
                   </Text>
                 </Flex>
@@ -348,9 +348,9 @@ export default function Step1() {
           <Flex
             width={'100%'}
             sx={{
-              backgroundColor: colorTheme.colors.black,
+              backgroundColor: '#2e489f',
               borderRadius: 5,
-              border: '0.5px solid gray',
+              border: '5px solid white',
             }}
             flexDirection={'column'}
           >

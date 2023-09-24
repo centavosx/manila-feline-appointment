@@ -147,26 +147,33 @@ export default function Home() {
           <Flex flexDirection={'column'} width="100%" flex={1} sx={{ gap: 10 }}>
             <Text
               textAlign={'center'}
-              fontFamily="Castego"
+              fontFamily="AlexBrush !important"
               width={'100%'}
-              sx={{ fontSize: [24, 45, 55], width: '100%' }}
+              sx={{
+                fontSize: [34, 65, 75],
+                width: '100%',
+                color: theme.colors.pink,
+                textShadow: `0 0 20px #2e489f`,
+              }}
             >
               Manila Feline Center
             </Text>
             <Button
               type="submit"
-              backgroundcolor="rgba(188, 143, 143,0.8)"
-              textcolor={theme.colors.black}
-              hovercolor={'rgba(188, 143, 143,0.4)'}
-              hovertextcolor={theme.colors.pink}
-              activetextcolor={theme.colors.pink}
+              backgroundcolor={theme.colors.pink}
+              textcolor={'black'}
+              hovercolor={theme.colors.lightpink}
+              hovertextcolor={'black'}
+              activetextcolor={'black'}
+              activecolor={theme.colors.lightpink}
               variant="outlined"
               style={{
-                borderColor: theme.colors.verylight,
+                borderColor: theme.colors.black,
                 fontFamily: 'Castego',
                 fontWeight: 600,
                 borderRadius: 50,
                 alignSelf: 'center',
+                opacity: 0.7,
               }}
               size={'large'}
               custom={{
@@ -185,18 +192,20 @@ export default function Home() {
             </Button>
             <Button
               type="submit"
-              backgroundcolor="rgba(188, 143, 143,0.8)"
-              textcolor={theme.colors.black}
-              hovercolor={'rgba(188, 143, 143,0.4)'}
-              hovertextcolor={theme.colors.pink}
-              activetextcolor={theme.colors.pink}
+              backgroundcolor={theme.colors.pink}
+              textcolor={'black'}
+              hovercolor={theme.colors.lightpink}
+              hovertextcolor={'black'}
+              activetextcolor={'black'}
+              activecolor={theme.colors.lightpink}
               variant="outlined"
               style={{
-                borderColor: theme.colors.verylight,
+                borderColor: theme.colors.black,
                 fontFamily: 'Castego',
                 fontWeight: 600,
                 borderRadius: 50,
                 alignSelf: 'center',
+                opacity: 0.7,
               }}
               size={'large'}
               custom={{
@@ -227,13 +236,7 @@ export default function Home() {
         >
           <ButtonModal
             style={{ fontSize: 18, padding: 12, width: 280 }}
-            backgroundcolor={theme.colors.blackgray}
-            textcolor={theme.colors.pink}
-            hovercolor={'#7A7A7A'}
-            hovertextcolor={theme.colors.pink}
-            activetextcolor={theme.colors.pink}
             maxHeight={'80%'}
-            activecolor={'#707070'}
             modalChild={
               <Flex flexDirection={'column'}>
                 <Text as={'h1'} sx={{ fontSize: 24, color: 'black' }}>

@@ -59,7 +59,7 @@ export const Calendar = styled(CalendarComponent)`
     }
 
     .react-calendar__navigation {
-      background-color: black;
+      background-color: #2e489f;
       button,
       span {
         color: white;
@@ -68,15 +68,17 @@ export const Calendar = styled(CalendarComponent)`
       button:active,
       button:checked,
       button:hover {
-        color: black;
+        opacity: 0.8 !important;
+        background-color: #2e489f;
+        color: white;
         span {
-          color: black;
+          color: white;
         }
       }
     }
 
     .react-calendar__navigation button:disabled {
-      background-color: black;
+      background-color: #2e489f;
       color: white;
     }
 

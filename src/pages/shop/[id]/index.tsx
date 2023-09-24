@@ -33,6 +33,8 @@ import { FormikValidation } from 'helpers'
 
 const ShadowedImage = styled(Image)`
   box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border: 5px solid black;
 `
 
 const ShadowedFlex = styled(Flex)`
@@ -82,6 +84,7 @@ const SelectStar = ({
             <AiOutlineStar
               key={index}
               size={38}
+              color={theme.colors.lightpink}
               onMouseOver={() => setNum(index + 1)}
               style={{ cursor: 'pointer' }}
             />
@@ -115,8 +118,10 @@ const ShowMoreContainer = ({ description }: { description?: string }) => {
         flexDirection={'column'}
         overflow={'hidden'}
       >
-        <Text as={'h2'}>More Information</Text>
-        <Text>{description}</Text>
+        <Text as={'h2'} color={theme.colors.lightpink}>
+          More Information
+        </Text>
+        <Text color={theme.colors.lightpink}>{description}</Text>
       </Flex>
       <Flex
         sx={{
@@ -276,29 +281,34 @@ export default function ProductInfo({
                 </ShadowedFlex>
               </Flex>
               {!!checkIfInCart(id) && (
-                <Text as={'h3'} color={'gray'}>
+                <Text as={'h3'} color={theme.colors.lightpink}>
                   In Cart
                 </Text>
               )}
             </Flex>
-            <Text as={'h2'} alignItems={'left'}>
+            <Text as={'h2'} alignItems={'left'} color={theme.colors.lightpink}>
               {data?.name}
             </Text>
             <Flex flexDirection={'row'} alignItems={'center'}>
-              <Text as={'h3'} flex={1}>
+              <Text as={'h3'} flex={1} color={theme.colors.lightpink}>
                 Php{data?.price}
               </Text>
-              <Text as={'h4'}>Rating</Text>
+              <Text as={'h4'} color={theme.colors.lightpink}>
+                Rating
+              </Text>
               <AiFillStar
                 size={16}
+                color={theme.colors.lightpink}
                 style={{ marginLeft: '4px', marginRight: '4px' }}
               />
-              <Text>
+              <Text color={theme.colors.lightpink}>
                 ({!!data?.rating ? Number(data.rating).toFixed(2) : '0.00'})
               </Text>
             </Flex>
-            <Text as={'h4'}>Stock: {data?.items}</Text>
-            <Text>{data?.shortDescription}</Text>
+            <Text as={'h4'} color={theme.colors.lightpink}>
+              Stock: {data?.items}
+            </Text>
+            <Text color={theme.colors.lightpink}>{data?.shortDescription}</Text>
             <Flex
               flexDirection={'column'}
               alignItems={'flex-start'}
@@ -344,6 +354,7 @@ export default function ProductInfo({
                   alignSelf={'center'}
                   display={'flex'}
                   fontSize={18}
+                  color={theme.colors.lightpink}
                 >
                   {cart?.find((v) => v.id === id)?.qty ?? 1}
                 </Text>
@@ -411,13 +422,16 @@ export default function ProductInfo({
             }}
           >
             {({ values, setFieldValue, isValid, isSubmitting }) => (
-              <FormContainer label="Reviews">
+              <FormContainer
+                label="Reviews"
+                labelProps={{ color: theme.colors.lightpink }}
+              >
                 {isSubmitting && <Loading />}
                 <FormInput
                   name="message"
                   label={'Message'}
                   multiline={true}
-                  variant="outlined"
+                  variant="filled"
                   inputcolor={{
                     labelColor: 'gray',
                     backgroundColor: 'white',
@@ -454,10 +468,12 @@ export default function ProductInfo({
             <Flex flexDirection={'column'} sx={{ gap: 4 }}>
               {productReview.map((v: any, i: number) => (
                 <Flex flexDirection={'column'} sx={{ gap: 2 }} key={i}>
-                  <Text as={'h3'}>{v.user?.name}</Text>
+                  <Text as={'h3'} color={theme.colors.lightpink}>
+                    {v.user?.name}
+                  </Text>
 
                   <DisplayStar selected={v.rating} />
-                  <Text>{v.comment}</Text>
+                  <Text color={theme.colors.lightpink}>{v.comment}</Text>
                   <Text sx={{ fontSize: 11, color: 'gray' }}>
                     {format(new Date(v.created), `yyyy-MM-dd hh:mm aaaaa'm'`)}
                   </Text>
@@ -473,7 +489,7 @@ export default function ProductInfo({
               width: '100%',
               padding: [0, 3, 3],
               textAlign: 'left',
-              color: 'black',
+              color: theme.colors.lightpink,
               fontSize: ['24px', '32px'],
               fontWeight: 'bold',
             }}

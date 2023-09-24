@@ -15,9 +15,12 @@ import Router from 'next/router'
 const RecommendedWrapper = styled(Flex)({
   width: '100%',
   padding: '70px 0 40px',
-  border: '3px solid #000',
-  borderRadius: '50px',
-  backgroundColor: theme.colors.lightpink,
+  borderTop: '3px solid black',
+  borderBottom: '3px solid #000',
+  borderBottomRadius: '50px',
+  borderBottomLeftRadius: '50px',
+  borderBottomRightRadius: '50px',
+  backgroundColor: theme.colors.pink,
 })
 
 const ShopContainer = styled(Flex)`
@@ -127,7 +130,7 @@ const UpperItem = ({
             <Flex sx={{ width: '100%', justifyContent: 'flex-end' }}>
               <ShopButtonPrimary onClick={() => Router.push('/shop/' + id)}>
                 <AiOutlineSearch size={30} style={{ marginRight: 10 }} /> View
-                More
+                Product
               </ShopButtonPrimary>
             </Flex>
           </Flex>
@@ -216,7 +219,7 @@ export default function Shop() {
             width: '100%',
             padding: 3,
             textAlign: 'left',
-            color: 'black',
+            color: theme.colors.lightpink,
             fontSize: '40px',
           }}
           contentProps={{ pl: '6px', pr: '6px', width: '100%' }}
@@ -248,7 +251,7 @@ export default function Shop() {
           width: '100%',
           padding: 3,
           textAlign: 'left',
-          color: 'black',
+          color: theme.colors.lightpink,
           fontSize: '40px',
         }}
         contentProps={{ pl: '6px', pr: '6px', width: '100%' }}

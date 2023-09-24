@@ -71,7 +71,7 @@ export const Main = ({
                   </Flex>
                   <Text
                     sx={{
-                      fontSize: [14, 18],
+                      fontSize: [16, 20],
                       fontWeight: 600,
                       fontFamily: 'Castego',
                       color: theme.colors.black,
@@ -95,7 +95,7 @@ export const Main = ({
         <Flex
           sx={{
             gap: 2,
-            backgroundColor: theme.colors.white,
+            backgroundColor: '#2e489f',
             height: '100%',
             overflow: 'auto',
             width: '100%',
@@ -118,7 +118,7 @@ export const Main = ({
             }}
           >
             <Wave
-              fill={theme.colors.blackgray}
+              fill={theme.colors.pink}
               paused={false}
               options={{
                 height: 90,
@@ -136,7 +136,7 @@ export const Main = ({
             }}
           >
             <Wave
-              fill={theme.colors.blackgray}
+              fill={theme.colors.pink}
               paused={false}
               options={{
                 height: 45,
@@ -149,7 +149,7 @@ export const Main = ({
           </MobileView>
           <Header
             id={'footer'}
-            backgroundColor={theme.colors.blackgray}
+            backgroundColor={theme.colors.pink}
             sx={{
               gap: 2,
               padding: 20,
@@ -169,7 +169,7 @@ export const Main = ({
             >
               <Text
                 sx={{
-                  color: theme.colors.pink,
+                  color: 'black',
                   fontWeight: 'bold',
                 }}
               >
@@ -177,7 +177,7 @@ export const Main = ({
               </Text>
               <Text
                 sx={{
-                  color: theme.colors.white,
+                  color: 'black',
                   fontWeight: 'bold',
                 }}
               >

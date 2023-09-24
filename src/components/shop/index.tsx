@@ -12,10 +12,15 @@ import Router from 'next/router'
 import { useCart } from 'hooks'
 
 const CardContainer = styled(Flex)`
+  &:hover {
+    cursor: pointer;
+    transform: scale(0.9);
+  }
+  transition: 0.3s ease-in-out;
   position: relative;
   width: 308px;
   padding: 10px 15px 95px 8px;
-  background-color: ${theme.colors.lightpink};
+  background-color: ${theme.colors.pink};
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -46,13 +51,18 @@ const CardContainer = styled(Flex)`
     text-align: center;
   }
 
-  .card-rating {
+  .card-bottom {
     position: absolute;
     display: flex;
-    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 20px;
     bottom: 15px;
+  }
+  .card-rating {
     font-size: 20px;
-
+    display: flex;
+    align-items: center;
     &::before {
       content: '';
       display: inline-flex;
@@ -118,7 +128,9 @@ export const ShopItem = memo(
       <CardContainer
         style={{
           width: size === 'large' ? undefined : size === 'medium' ? 284 : 254,
+          pointerEvents: 'auto',
         }}
+        onClick={() => Router.push('/shop/' + id + '?category=' + category)}
       >
         <div className="card-upper">
           <span
@@ -153,49 +165,46 @@ export const ShopItem = memo(
           <br />
           PHP {price}
         </h4>
-        <Flex sx={{ gap: 2, flexDirection: 'row', justifyContent: 'center' }}>
-          <ShopButtonSecondary
+
+        <div className="card-bottom">
+          <span
+            className="card-rating"
             style={{
               fontSize:
-                size === 'large' ? undefined : size === 'medium' ? 14 : 12,
+                size === 'large' ? undefined : size === 'medium' ? 18 : 16,
             }}
-            onClick={() => Router.push('/shop/' + id + '?category=' + category)}
           >
-            View More
-          </ShopButtonSecondary>
-          <ShopButtonPrimary
-            style={{
-              fontSize:
-                size === 'large' ? undefined : size === 'medium' ? 14 : 12,
-            }}
-            onClick={() =>
-              cart?.some((v) => v.id === id) ? onRemove() : onAdd()
-            }
-          >
-            {cart?.some((v) => v.id === id) ? (
-              <AiOutlineDelete
-                size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
-              />
-            ) : (
-              <AiOutlineShoppingCart
-                size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
-              />
-            )}
-          </ShopButtonPrimary>
-        </Flex>
-        <span
-          className="card-rating"
-          style={{
-            fontSize:
-              size === 'large' ? undefined : size === 'medium' ? 18 : 16,
-          }}
-        >
-          <AiFillStar
-            size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
-            style={{ marginRight: 8 }}
-          />
-          ({Number(rating).toFixed(2)})
-        </span>
+            <AiFillStar
+              size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
+              style={{ marginRight: 8 }}
+            />
+            ({Number(rating).toFixed(2)})
+          </span>
+          <Flex sx={{ gap: 2, flexDirection: 'row' }}>
+            <ShopButtonPrimary
+              style={{
+                fontSize:
+                  size === 'large' ? undefined : size === 'medium' ? 14 : 12,
+                pointerEvents: 'auto',
+              }}
+              onClick={(e) => {
+                e.stopPropagation()
+                e.preventDefault()
+                cart?.some((v) => v.id === id) ? onRemove() : onAdd()
+              }}
+            >
+              {cart?.some((v) => v.id === id) ? (
+                <AiOutlineDelete
+                  size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
+                />
+              ) : (
+                <AiOutlineShoppingCart
+                  size={size === 'large' ? 24 : size === 'medium' ? 20 : 18}
+                />
+              )}
+            </ShopButtonPrimary>
+          </Flex>
+        </div>
       </CardContainer>
     )
   }
