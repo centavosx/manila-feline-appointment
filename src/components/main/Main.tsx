@@ -1,6 +1,7 @@
 import { Flex, Image, Link as Anchor, FlexProps } from 'rebass'
 import Wave from 'react-wavify'
 import Navigation from '../navigation'
+import { Chat } from '../chat'
 
 import { theme } from '../../utils/theme'
 
@@ -111,6 +112,7 @@ export const Main = ({
               {children}
             </Flex>
           </Flex>
+          <Chat />
           <WebView
             style={{
               position: 'relative',
@@ -129,6 +131,7 @@ export const Main = ({
               style={{ height: 210 }}
             />
           </WebView>
+
           <MobileView
             style={{
               position: 'relative',

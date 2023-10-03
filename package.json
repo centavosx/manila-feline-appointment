@@ -23,6 +23,7 @@
     "dayjs": "^1.11.9",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
+    "firebase": "^9.23.0",
     "formik": "^2.2.9",
     "framer-motion": "^7.6.12",
     "js-cookie": "^3.0.1",
