@@ -29,7 +29,7 @@ export const Chat = () => {
         >
           <Text as={'h4'}>Chat</Text>
           <ChatMessages id={user.id} />
-          <ChatInput id={user.id} />
+          <ChatInput id={user.id} name={user.name} />
         </Flex>
       )}
       <Flex
@@ -180,16 +180,21 @@ export const UserMessage = ({
   )
 }
 
-const ChatInput = ({ id }: { id: string }) => {
+const ChatInput = ({ id, name }: { id: string; name: string }) => {
   const [message, setMessage] = useState('')
   let fb = useRef(
-    new FirebaseRealtimeMessaging<{ message: string; isUser: boolean }>(id)
+    new FirebaseRealtimeMessaging<{
+      message: string
+      isUser: boolean
+      name: string
+    }>(id)
   )
 
   useEffect(() => {
     fb.current = new FirebaseRealtimeMessaging<{
       message: string
       isUser: boolean
+      name: string
     }>(id)
   }, [id])
 
@@ -217,7 +222,7 @@ const ChatInput = ({ id }: { id: string }) => {
         style={{ width: 50, height: 40 }}
         onClick={() => {
           if (!!id) {
-            fb.current.sendData({ message, isUser: true })
+            fb.current.sendData({ message, isUser: true, name })
             setMessage('')
           }
         }}

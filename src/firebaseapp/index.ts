@@ -141,6 +141,10 @@ export class FirebaseRealtimeMessaging<
 
   public async sendData(data: T): Promise<void> {
     try {
+      const name = data?.name
+
+      delete data.name
+
       await runTransaction(db, async (transaction) => {
         const newDoc = doc(collection(db, this.db))
         transaction.set(doc(db, this.db, newDoc.id), {
@@ -163,6 +167,7 @@ export class FirebaseRealtimeMessaging<
             this.refId = newUser.id
             transaction.set(doc(db, 'users', newUser.id), {
               id: this.id,
+              name,
               lastMessage: data.message,
               chatModified: Timestamp.now().toMillis(),
             })
@@ -176,6 +181,7 @@ export class FirebaseRealtimeMessaging<
 
         const ref = doc(db, 'users', this.refId!)
         transaction.update(ref, {
+          name,
           lastMessage: data.message,
           chatModified: Timestamp.now().toMillis(),
         })
