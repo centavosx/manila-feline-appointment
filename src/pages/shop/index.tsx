@@ -204,14 +204,14 @@ export default function Shop() {
 
   return (
     <Main isLink={true}>
-      {!!recommended && (
+      {/* {!!recommended && (
         <UpperItem
           {...recommended}
           first={recommended.images[0] as string}
           second={recommended.images[1] as string}
           third={recommended.images[2] as string}
         />
-      )}
+      )} */}
       {!!recentData && (
         <Section
           title="Recent Viewed Items"
